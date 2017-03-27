@@ -1,0 +1,201 @@
+@import 'utils/nibui.js';
+
+var COSCRIPT;
+
+var onRun = function(context) {
+  var app = NSApplication.sharedApplication();
+
+  // Prepare the NIB so we can do stuff with the UI
+  COSCRIPT = [COScript currentCOScript];
+  [COSCRIPT setShouldKeepAround:true];
+  var defaults = [NSUserDefaults standardUserDefaults];
+  var nibui = new NibUI(context, 'UIBundle', 'a11yNibUITemplate', [
+    'mainWindow', 'webMainView',
+    'btnProtanopia', 'btnProtanomaly', 'btnDeuteranopia', 'btnDeuteranomaly',
+    'btnTritanopia', 'btnTritanomaly',
+    'btnAchromatopsia', 'btnAchromatomaly',
+    'btnNormalColor'
+  ]);
+
+  nibui.mainWindow.setOpaque(false);
+
+  var transparent = [NSColor colorWithDeviceRed:0.0 green:0.0 blue:0.0 alpha:0.25];
+  nibui.mainWindow.setBackgroundColor(transparent);
+
+  var localWebURL = context.plugin.urlForResourceNamed('Web/index.html');
+
+  var request = [NSURLRequest requestWithURL:localWebURL
+    cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+    timeoutInterval:60];
+  nibui.webMainView.mainFrame().loadRequest(request);
+  nibui.webMainView.wantsLayer = true;
+  nibui.webMainView.setDrawsBackground(false);
+  var webViewLayer = nibui.webMainView.layer();
+  
+  saveSimulationType(context, "Normal");
+
+  nibui.attachTargetAndAction(nibui.btnProtanopia, function() {
+    buttonSelected("Protanopia", context, nibui);
+  });
+
+  nibui.attachTargetAndAction(nibui.btnProtanomaly, function() {
+    buttonSelected("Protanomaly", context, nibui);
+  });
+
+  nibui.attachTargetAndAction(nibui.btnDeuteranopia, function() {
+    buttonSelected("Deuteranopia", context, nibui);
+  });
+
+  nibui.attachTargetAndAction(nibui.btnDeuteranomaly, function() {
+    buttonSelected("Deuteranomaly", context, nibui);
+  });
+
+  nibui.attachTargetAndAction(nibui.btnTritanopia, function() {
+    buttonSelected("Tritanopia", context, nibui);
+  });
+
+  nibui.attachTargetAndAction(nibui.btnTritanomaly, function() {
+    buttonSelected("Tritanomaly", context, nibui);
+  });
+
+  nibui.attachTargetAndAction(nibui.btnAchromatopsia, function() {
+    buttonSelected("Achromatopsia", context, nibui);
+  });
+
+  nibui.attachTargetAndAction(nibui.btnAchromatomaly, function() {
+    buttonSelected("Achromatomaly", context, nibui);
+  });
+
+  nibui.attachTargetAndAction(nibui.btnNormalColor, function() {
+    nibui.webMainView.hidden = true;
+
+    toggleRadioButtons(nibui, "Normal");
+    saveSimulationType(context, "Normal");
+  });
+
+  var webUIDelegate = createCocoaObject({
+    'webView:setStatusText:': function(webView, statusText) {
+      if (!statusText || statusText == '') {
+        return;
+      } else if (statusText == 'simulated') {
+        var animation = [CATransition animation];
+        animation.type = "kCATransitionFade";
+        animation.duration = 0.25;
+
+        [webViewLayer addAnimation:animation forKey:null];
+        nibui.webMainView.hidden = false;
+      } else if (statusText == 'hideWebView') {
+        nibui.webMainView.hidden = true;
+      }
+    }
+  });
+  nibui.webMainView.setUIDelegate(webUIDelegate);
+
+  var windowUIDelegate = createCocoaObject({
+    'windowWillStartLiveResize:': function(notification) {
+      nibui.webMainView.hidden = true;
+    },
+    'windowDidEndLiveResize:': function(notification) {
+      runSimulation(context, nibui);
+    },
+    'windowWillMove:': function(notification) {
+      nibui.webMainView.hidden = true;
+    },
+    'windowDidMove:': function(notification) {
+      runSimulation(context, nibui);
+    },
+  });
+  nibui.mainWindow.setDelegate(windowUIDelegate);
+
+  // Make the window on top and keep it there
+  nibui.mainWindow.makeKeyAndOrderFront(null);
+  nibui.mainWindow.setLevel(NSFloatingWindowLevel);
+
+  nibui.destroy();
+
+  takeSnapshot(context, nibui);
+}
+
+function createCocoaObject(methods, superclass) {
+  var uniqueClassName = "Stark_dynamic_class_" + NSUUID.UUID().UUIDString();
+  var classDesc = MOClassDescription.allocateDescriptionForClassWithName_superclass_(uniqueClassName, superclass || NSObject);
+  classDesc.registerClass();
+  for (var selectorString in methods) {
+    var selector = NSSelectorFromString(selectorString);
+    [classDesc addInstanceMethodWithSelector:selector function:(methods[selectorString])];
+  }
+  return NSClassFromString(uniqueClassName).new();
+}
+
+function buttonSelected(type, context, nibui) {
+  toggleRadioButtons(nibui, type);
+  saveSimulationType(context, type);
+  runSimulation(context, nibui);
+}
+
+function toggleRadioButtons(nibui, selectedSimulationType) {
+  selectedSimulationType == "Protanopia"
+    ? nibui.btnProtanopia.setState(NSOnState) : nibui.btnProtanopia.setState(NSOffState);
+  selectedSimulationType == "Protanomaly"
+    ? nibui.btnProtanomaly.setState(NSOnState) : nibui.btnProtanomaly.setState(NSOffState);
+  selectedSimulationType == "Deuteranopia"
+    ? nibui.btnDeuteranopia.setState(NSOnState) : nibui.btnDeuteranopia.setState(NSOffState);
+  selectedSimulationType == "Deuteranomaly"
+    ? nibui.btnDeuteranomaly.setState(NSOnState) : nibui.btnDeuteranomaly.setState(NSOffState);
+  selectedSimulationType == "Tritanopia"
+    ? nibui.btnTritanopia.setState(NSOnState) : nibui.btnTritanopia.setState(NSOffState);
+  selectedSimulationType == "Tritanomaly"
+    ? nibui.btnTritanomaly.setState(NSOnState) : nibui.btnTritanomaly.setState(NSOffState);
+  selectedSimulationType == "Achromatopsia"
+    ? nibui.btnAchromatopsia.setState(NSOnState) : nibui.btnAchromatopsia.setState(NSOffState);
+  selectedSimulationType == "Achromatomaly"
+    ? nibui.btnAchromatomaly.setState(NSOnState) : nibui.btnAchromatomaly.setState(NSOffState);
+}
+
+function saveSimulationType(context, simulationType) {
+  var data = [NSString stringWithFormat:@"%@", "var colorBlindId = \"" + simulationType + "\";"];
+
+  saveFile(context, '/Resources/Web/color-blind-type.js', data);
+}
+
+function runSimulation(context, nibui) {
+  takeSnapshot(context, nibui);
+  nibui.webMainView.mainFrame().reload();
+}
+
+function takeSnapshot(context, nibui) {
+  var webViewFrame = nibui.webMainView.frame();
+  var webViewWindow = nibui.webMainView.window();
+
+  var screenHeight = [[NSScreen mainScreen] frame].size.height;
+
+  var frameRelativeToScreen = [webViewWindow convertRectToScreen:webViewFrame];
+  frameRelativeToScreen.origin.y = screenHeight - webViewFrame.size.height - frameRelativeToScreen.origin.y;
+
+  var quartzSnapshot = CGWindowListCreateImage(
+      frameRelativeToScreen,
+      kCGWindowListOptionOnScreenBelowWindow,
+      webViewWindow.windowNumber(),
+      kCGWindowImageBestResolution);
+
+  var snapshot = [[NSBitmapImageRep alloc] initWithCGImage:quartzSnapshot];
+  var data = [snapshot representationUsingType:NSPNGFileType properties:nil];
+
+  saveFile(context, '/Resources/Web/snapshot.png', data);
+
+  // release previous screen capture, first the NSBitmapImageRep then the CGImage
+  if (snapshot != null) {
+    [snapshot release];
+  }
+  if (quartzSnapshot != null) {
+    CGImageRelease(quartzSnapshot);
+  }
+}
+
+function saveFile(context, filePath, data) {
+  var scriptPath = context.scriptPath.stringByDeletingLastPathComponent();
+  scriptPath = scriptPath.stringByDeletingLastPathComponent() + filePath;
+
+  var file = [NSString stringWithFormat:@"%@", scriptPath];
+  var fileSuccess = [data writeToFile:file atomically:true];
+}
