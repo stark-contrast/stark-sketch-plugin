@@ -1,0 +1,116 @@
+body {
+  display: flex;
+  margin: 0;
+  font-family: -apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;
+}
+
+canvas {
+  width: 100%;
+  height: 100%;
+}
+
+select {
+  color: black;
+  font-size: 14px;
+  font-weight: 600;
+  border: 2px solid black;
+  padding: 0 0.5rem;
+  width: 100%;
+  height: 29px;
+  -webkit-appearance: none;
+}
+
+select:focus {
+  outline: none;
+}
+
+
+.sidebar {
+  width: 220px;
+  height: 100%;
+  background-color: #F5F5F5;
+  border-left: 2px solid #ECECEC;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.sidebar-top {
+  max-height: 624px;
+}
+
+.nav {
+  display: flex;
+  height: 56px;
+  background-color: #E5E5E5;
+}
+
+.nav__item {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.nav__item--selected {
+  background-color: #F5F5F5;
+  border-bottom: 6px solid black;
+}
+
+.step {
+  margin-top: 36px;
+  margin-bottom: 36px;
+  margin-right: 36px;
+  margin-left: 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.step__number {
+  color: white;
+  background-color: black;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.step__instructions {
+  font-size: 12px;
+  color: black;
+  text-align: center;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.button__export {
+  background-color: white;
+  color: black;
+  border-radius: 4px;
+  border: 2px solid black;
+  width: 100%;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.button__export:focus {
+  outline: none;
+}
+
+.info__version {
+  text-align: center;
+  font-size: 12px;
+  color: #C9C9C9;
+  font-weight: 600;
+  margin-bottom: 16px;
+}

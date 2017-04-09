@@ -1,15 +1,7 @@
 var oldRgb = [];
 var oldFilteredRGB;
 
-document.addEventListener("DOMContentLoaded", function(event) {
-  window.status = "simulated";
-  // setTimeout(function(){  }, 3000);
-});
-
-
-if (colorBlindId === 'Normal') {
-  window.status = 'hideWebView';
-} else {
+function runSimulation(simType) {
   var canvas = document.getElementById('mainCanvas');
   var ctx = canvas.getContext('2d');
 
@@ -30,7 +22,7 @@ if (colorBlindId === 'Normal') {
       if (oldRgb[0] == rgb[0] && oldRgb[1] == rgb[1] && oldRgb[2] == rgb[2]) {
         filteredRGB = oldFilteredRGB;
       } else {
-        filteredRGB = fBlind[colorBlindId](rgb);
+        filteredRGB = fBlind[simType](rgb);
         oldFilteredRGB = filteredRGB;
         oldRgb = rgb;
       }
@@ -45,3 +37,10 @@ if (colorBlindId === 'Normal') {
 
   img.src = "snapshot.png" + "?ts=" + new Date().getTime();
 }
+
+
+// if (colorBlindId === 'Normal') {
+//   window.status = 'hideWebView';
+// } else {
+
+// }

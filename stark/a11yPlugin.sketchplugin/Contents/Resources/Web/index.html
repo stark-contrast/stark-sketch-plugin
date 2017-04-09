@@ -6,13 +6,54 @@
     <meta http-equiv='cache-control' content='no-cache'>
     <meta http-equiv='expires' content='0'>
     <meta http-equiv='pragma' content='no-cache'>
+    <link rel="stylesheet" href="style.css">
     <title>a11y Plugin</title>
   </head>
-  <body style="margin: 0;">
-    <canvas id="mainCanvas" style="width: 100%; height: 100%;"></canvas>
-    <script src="color-blind-type.js"></script>
-    <script src="gamma-table.js"></script>
+  <body>
+    <canvas id="mainCanvas"></canvas>
+    <div class="sidebar">
+      <div class="sidebar__top">
+        <nav class="nav">
+          <div class="nav__item nav__item--selected">Color</div>
+          <div class="nav__item">Contrast</div>
+        </nav>
+        <div class="step">
+          <div class="step__number">1</div>
+          <div class="step__instructions">Select Artboard or drag and resize this window:</div>
+          <select class="select__artboard">
+          </select>
+        </div>
+        <div class="step">
+          <div class="step__number">2</div>
+          <div class="step__instructions">Select Colorblindness to simulate:</div>
+          <select id="SimulationSelect" class="select__simulation">
+            <option value="id_NoSim">No simulation</option>
+            <option value="id_Protanopia">Protanopia</option>
+            <option value="id_Protanomaly">Protanomaly</option>
+            <option value="id_Deuteranopia">Deuteranopia</option>
+            <option value="id_Deuteranomaly">Deuteranomaly</option>
+            <option value="id_Tritanopia">Tritanopia</option>
+            <option value="id_Tritanomaly">Tritanomaly</option>
+            <option value="id_Achromatopsia">Achromatopsia</option>
+            <option value="id_Achromatomaly">Achromatomaly</option>
+          </select>
+        </div>
+        <div class="step">
+          <div class="step__number">3</div>
+          <div class="step__instructions">Export results as image:</div>
+          <button class="button__export">Export</button>
+        </div>
+      </div>
+      <div class="sidebar__bottom">
+        <div class="info">
+          <div class="info__logo"></div>
+          <div class="info__version">Stark v1.0</div>
+        </div>
+      </div>
+    </div>
+    <script src="color-blind-id.js"></script>
     <script src="color-blind-sim-lib.js"></script>
     <script src="image-loader.js"></script>
+    <script src="main.js"></script>
   </body>
 </html>

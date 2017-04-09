@@ -10,11 +10,11 @@ var onRun = function(context) {
   [COSCRIPT setShouldKeepAround:true];
   var defaults = [NSUserDefaults standardUserDefaults];
   var nibui = new NibUI(context, 'UIBundle', 'a11yNibUITemplate', [
-    'mainWindow', 'webMainView',
-    'btnProtanopia', 'btnProtanomaly', 'btnDeuteranopia', 'btnDeuteranomaly',
-    'btnTritanopia', 'btnTritanomaly',
-    'btnAchromatopsia', 'btnAchromatomaly',
-    'btnNormalColor'
+    'mainWindow', 'webMainView'
+    // 'btnProtanopia', 'btnProtanomaly', 'btnDeuteranopia', 'btnDeuteranomaly',
+    // 'btnTritanopia', 'btnTritanomaly',
+    // 'btnAchromatopsia', 'btnAchromatomaly',
+    // 'btnNormalColor'
   ]);
 
   nibui.mainWindow.setOpaque(false);
@@ -31,62 +31,60 @@ var onRun = function(context) {
   nibui.webMainView.wantsLayer = true;
   nibui.webMainView.setDrawsBackground(false);
   var webViewLayer = nibui.webMainView.layer();
-  
-  saveSimulationType(context, "Normal");
+  nibui.webMainView.hidden = false;
 
-  nibui.attachTargetAndAction(nibui.btnProtanopia, function() {
-    buttonSelected("Protanopia", context, nibui);
-  });
 
-  nibui.attachTargetAndAction(nibui.btnProtanomaly, function() {
-    buttonSelected("Protanomaly", context, nibui);
-  });
+  // saveSimulationType(context, "Normal");
 
-  nibui.attachTargetAndAction(nibui.btnDeuteranopia, function() {
-    buttonSelected("Deuteranopia", context, nibui);
-  });
+  // nibui.attachTargetAndAction(nibui.btnProtanopia, function() {
+  //   buttonSelected("Protanopia", context, nibui);
+  // });
+  //
+  // nibui.attachTargetAndAction(nibui.btnProtanomaly, function() {
+  //   buttonSelected("Protanomaly", context, nibui);
+  // });
+  //
+  // nibui.attachTargetAndAction(nibui.btnDeuteranopia, function() {
+  //   buttonSelected("Deuteranopia", context, nibui);
+  // });
+  //
+  // nibui.attachTargetAndAction(nibui.btnDeuteranomaly, function() {
+  //   buttonSelected("Deuteranomaly", context, nibui);
+  // });
+  //
+  // nibui.attachTargetAndAction(nibui.btnTritanopia, function() {
+  //   buttonSelected("Tritanopia", context, nibui);
+  // });
+  //
+  // nibui.attachTargetAndAction(nibui.btnTritanomaly, function() {
+  //   buttonSelected("Tritanomaly", context, nibui);
+  // });
+  //
+  // nibui.attachTargetAndAction(nibui.btnAchromatopsia, function() {
+  //   buttonSelected("Achromatopsia", context, nibui);
+  // });
+  //
+  // nibui.attachTargetAndAction(nibui.btnAchromatomaly, function() {
+  //   buttonSelected("Achromatomaly", context, nibui);
+  // });
 
-  nibui.attachTargetAndAction(nibui.btnDeuteranomaly, function() {
-    buttonSelected("Deuteranomaly", context, nibui);
-  });
-
-  nibui.attachTargetAndAction(nibui.btnTritanopia, function() {
-    buttonSelected("Tritanopia", context, nibui);
-  });
-
-  nibui.attachTargetAndAction(nibui.btnTritanomaly, function() {
-    buttonSelected("Tritanomaly", context, nibui);
-  });
-
-  nibui.attachTargetAndAction(nibui.btnAchromatopsia, function() {
-    buttonSelected("Achromatopsia", context, nibui);
-  });
-
-  nibui.attachTargetAndAction(nibui.btnAchromatomaly, function() {
-    buttonSelected("Achromatomaly", context, nibui);
-  });
-
-  nibui.attachTargetAndAction(nibui.btnNormalColor, function() {
-    nibui.webMainView.hidden = true;
-
-    toggleRadioButtons(nibui, "Normal");
-    saveSimulationType(context, "Normal");
-  });
+  // nibui.attachTargetAndAction(nibui.btnNormalColor, function() {
+  //   nibui.webMainView.hidden = true;
+  //
+  //   toggleRadioButtons(nibui, "Normal");
+  //   saveSimulationType(context, "Normal");
+  // });
 
   var webUIDelegate = createCocoaObject({
     'webView:setStatusText:': function(webView, statusText) {
       if (!statusText || statusText == '') {
         return;
-      } else if (statusText == 'simulated') {
-        var animation = [CATransition animation];
-        animation.type = "kCATransitionFade";
-        animation.duration = 0.25;
-
-        [webViewLayer addAnimation:animation forKey:null];
-        nibui.webMainView.hidden = false;
-      } else if (statusText == 'hideWebView') {
-        nibui.webMainView.hidden = true;
+      } else if (statusText.startsWith("id_")) {
+        saveSimulationType(context, statusText);
       }
+      // else if (statusText == 'hideWebView') {
+      //   nibui.webMainView.hidden = true;
+      // }
     }
   });
   nibui.webMainView.setUIDelegate(webUIDelegate);
@@ -127,40 +125,41 @@ function createCocoaObject(methods, superclass) {
   return NSClassFromString(uniqueClassName).new();
 }
 
-function buttonSelected(type, context, nibui) {
-  toggleRadioButtons(nibui, type);
-  saveSimulationType(context, type);
-  runSimulation(context, nibui);
-}
+// function buttonSelected(type, context, nibui) {
+//   toggleRadioButtons(nibui, type);
+//   saveSimulationType(context, type);
+//   runSimulation(context, nibui);
+// }
 
-function toggleRadioButtons(nibui, selectedSimulationType) {
-  selectedSimulationType == "Protanopia"
-    ? nibui.btnProtanopia.setState(NSOnState) : nibui.btnProtanopia.setState(NSOffState);
-  selectedSimulationType == "Protanomaly"
-    ? nibui.btnProtanomaly.setState(NSOnState) : nibui.btnProtanomaly.setState(NSOffState);
-  selectedSimulationType == "Deuteranopia"
-    ? nibui.btnDeuteranopia.setState(NSOnState) : nibui.btnDeuteranopia.setState(NSOffState);
-  selectedSimulationType == "Deuteranomaly"
-    ? nibui.btnDeuteranomaly.setState(NSOnState) : nibui.btnDeuteranomaly.setState(NSOffState);
-  selectedSimulationType == "Tritanopia"
-    ? nibui.btnTritanopia.setState(NSOnState) : nibui.btnTritanopia.setState(NSOffState);
-  selectedSimulationType == "Tritanomaly"
-    ? nibui.btnTritanomaly.setState(NSOnState) : nibui.btnTritanomaly.setState(NSOffState);
-  selectedSimulationType == "Achromatopsia"
-    ? nibui.btnAchromatopsia.setState(NSOnState) : nibui.btnAchromatopsia.setState(NSOffState);
-  selectedSimulationType == "Achromatomaly"
-    ? nibui.btnAchromatomaly.setState(NSOnState) : nibui.btnAchromatomaly.setState(NSOffState);
-}
+// function toggleRadioButtons(nibui, selectedSimulationType) {
+//   selectedSimulationType == "Protanopia"
+//     ? nibui.btnProtanopia.setState(NSOnState) : nibui.btnProtanopia.setState(NSOffState);
+//   selectedSimulationType == "Protanomaly"
+//     ? nibui.btnProtanomaly.setState(NSOnState) : nibui.btnProtanomaly.setState(NSOffState);
+//   selectedSimulationType == "Deuteranopia"
+//     ? nibui.btnDeuteranopia.setState(NSOnState) : nibui.btnDeuteranopia.setState(NSOffState);
+//   selectedSimulationType == "Deuteranomaly"
+//     ? nibui.btnDeuteranomaly.setState(NSOnState) : nibui.btnDeuteranomaly.setState(NSOffState);
+//   selectedSimulationType == "Tritanopia"
+//     ? nibui.btnTritanopia.setState(NSOnState) : nibui.btnTritanopia.setState(NSOffState);
+//   selectedSimulationType == "Tritanomaly"
+//     ? nibui.btnTritanomaly.setState(NSOnState) : nibui.btnTritanomaly.setState(NSOffState);
+//   selectedSimulationType == "Achromatopsia"
+//     ? nibui.btnAchromatopsia.setState(NSOnState) : nibui.btnAchromatopsia.setState(NSOffState);
+//   selectedSimulationType == "Achromatomaly"
+//     ? nibui.btnAchromatomaly.setState(NSOnState) : nibui.btnAchromatomaly.setState(NSOffState);
+// }
 
 function saveSimulationType(context, simulationType) {
   var data = [NSString stringWithFormat:@"%@", "var colorBlindId = \"" + simulationType + "\";"];
 
-  saveFile(context, '/Resources/Web/color-blind-type.js', data);
+  saveFile(context, '/Resources/Web/color-blind-id.js', data);
 }
 
 function runSimulation(context, nibui) {
   takeSnapshot(context, nibui);
   nibui.webMainView.mainFrame().reload();
+  nibui.webMainView.hidden = false;
 }
 
 function takeSnapshot(context, nibui) {
