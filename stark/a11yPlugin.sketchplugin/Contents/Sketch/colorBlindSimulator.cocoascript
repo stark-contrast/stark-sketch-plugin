@@ -17,6 +17,20 @@ var onRun = function(context) {
     // 'btnNormalColor'
   ]);
 
+  var doc = context.document;
+  var page = [doc currentPage];
+  var artboards = [[doc currentPage] artboards];
+  var artboardNames = "var artboardNames = [";
+
+  for (var i = artboards.count() - 1; i >= 0; i--) {
+    artboardNames += "\"" + artboards[i].name() + "\",";
+  }
+
+  artboardNames += "];"
+
+  saveArtboardNames(context, artboardNames);
+
+
   nibui.mainWindow.setOpaque(false);
 
   var transparent = [NSColor colorWithDeviceRed:0.0 green:0.0 blue:0.0 alpha:0.25];
@@ -81,10 +95,21 @@ var onRun = function(context) {
         return;
       } else if (statusText.startsWith("id_")) {
         saveSimulationType(context, statusText);
+      } else if (statusText.startsWith("abid_")) {
+        for (var i = 0; i < artboards.count(); i++) {
+          if (artboards[i].name() == statusText.replace("abid_", "")) {
+            var filePath = "/Resources/Web/snapshot.png";
+            var scriptPath = context.scriptPath.stringByDeletingLastPathComponent();
+            scriptPath = scriptPath.stringByDeletingLastPathComponent() + filePath;
+
+            var brains = artboards[i];
+
+            log(brains);
+            [doc saveArtboardOrSlice:brains toFile:scriptPath];
+            nibui.webMainView.mainFrame().reload();
+          }
+        }
       }
-      // else if (statusText == 'hideWebView') {
-      //   nibui.webMainView.hidden = true;
-      // }
     }
   });
   nibui.webMainView.setUIDelegate(webUIDelegate);
@@ -154,6 +179,12 @@ function saveSimulationType(context, simulationType) {
   var data = [NSString stringWithFormat:@"%@", "var colorBlindId = \"" + simulationType + "\";"];
 
   saveFile(context, '/Resources/Web/color-blind-id.js', data);
+}
+
+function saveArtboardNames(context, artboards) {
+  var data = [NSString stringWithFormat:@"%@", artboards];
+
+  saveFile(context, '/Resources/Web/artboard-names.js', data);
 }
 
 function runSimulation(context, nibui) {
