@@ -23,10 +23,14 @@ simSelect.addEventListener("change", function(event) {
 });
 
 artboardSelect.addEventListener("change", function(event) {
-  if (artboardSelect.value === 'abid_UseWindow') {
-    canvas.classList.add('canvas--window');
-  } else {
-    canvas.classList.remove('canvas--window');
-  }
+  artboardId = artboardSelect.value;
   window.status = artboardSelect.value;
 });
+
+function addCanvasOpacity() {
+  canvas.classList.remove('canvas--hidden');
+}
+
+function removeCanvasOpacity() {
+  canvas.classList.add('canvas--hidden');
+}

@@ -61,10 +61,7 @@ var onRun = function(context) {
               scriptPath = scriptPath.stringByDeletingLastPathComponent() + filePath;
 
               var brains = artboards[i];
-
-
               [doc saveArtboardOrSlice:brains toFile:scriptPath];
-
             }
           }
         } else {
@@ -81,10 +78,13 @@ var onRun = function(context) {
 
   var windowUIDelegate = createCocoaObject({
     'windowWillStartLiveResize:': function(notification) {
-      // nibui.webMainView.hidden = true;
+      if (artboardId == "abid_UseWindow") {
+        var legs = nibui.webMainView;
+        var script = [legs windowScriptObject];
+        [script callWebScriptMethod:@"removeCanvasOpacity" withArguments:[@""]];
+      }
     },
     'windowDidEndLiveResize:': function(notification) {
-      log(artboardId);
       if (artboardId == "abid_UseWindow") {
         runSimulation(context, nibui);
 
@@ -94,10 +94,13 @@ var onRun = function(context) {
       }
     },
     'windowWillMove:': function(notification) {
-      // nibui.webMainView.hidden = true;
+      if (artboardId == "abid_UseWindow") {
+        var legs = nibui.webMainView;
+        var script = [legs windowScriptObject];
+        [script callWebScriptMethod:@"removeCanvasOpacity" withArguments:[@""]];
+      }
     },
     'windowDidMove:': function(notification) {
-      log(artboardId);
       if (artboardId == "abid_UseWindow") {
         runSimulation(context, nibui);
 

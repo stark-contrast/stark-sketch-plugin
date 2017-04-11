@@ -3,6 +3,7 @@ var oldFilteredRGB;
 
 function runSimulation() {
   var simType = colorBlindId.replace('cbid_', '');
+  simType = simType === 'NoSim' ? 'Normal' : simType;
   var canvas = document.getElementById('mainCanvas');
   var ctx = canvas.getContext('2d');
 
@@ -34,6 +35,15 @@ function runSimulation() {
     }
 
     ctx.putImageData(pixels, 0, 0);
+
+    addCanvasOpacity();
+    var canvasContainer = document.getElementById('canvas');
+
+    if (artboardId === 'abid_UseWindow') {
+      canvasContainer.classList.add('canvas--window');
+    } else {
+      canvasContainer.classList.remove('canvas--window');
+    }
   }
 
   img.src = "snapshot.png" + "?ts=" + new Date().getTime();

@@ -1,7 +1,8 @@
 body {
   display: flex;
   margin: 0;
-  font-family: -apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow: hidden;
 }
 
 .canvas {
@@ -9,6 +10,10 @@ body {
   width: 100%;
   overflow: auto;
   height: 100%;
+}
+
+.canvas--hidden {
+  visibility: hidden;
 }
 
 .canvas--window canvas {
@@ -21,14 +26,23 @@ select {
   font-size: 14px;
   font-weight: 600;
   border: 2px solid black;
-  padding: 0 0.5rem;
+  padding: 0 1.25rem 0 0.5rem;
   width: 100%;
   height: 29px;
   -webkit-appearance: none;
+  background: url('arrows.png') no-repeat;
+  background-position: 124px 4px;
+  background-color: white;
+  background-size: 18px
 }
 
 select:focus {
   outline: none;
+}
+
+select::after {
+  content: '';
+  position: absolute;
 }
 
 
