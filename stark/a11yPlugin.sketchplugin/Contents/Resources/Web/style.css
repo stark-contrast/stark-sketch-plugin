@@ -4,7 +4,14 @@ body {
   font-family: -apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;
 }
 
-canvas {
+.canvas {
+  background-color: white;
+  width: 100%;
+  overflow: auto;
+  height: 100%;
+}
+
+.canvas--window canvas {
   width: 100%;
   height: 100%;
 }
@@ -26,6 +33,7 @@ select:focus {
 
 
 .sidebar {
+  min-width: 220px;
   width: 220px;
   height: 100%;
   background-color: #F5F5F5;
@@ -33,9 +41,6 @@ select:focus {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  position: absolute;
-  right: 0;
-  top: 0;
 }
 
 .sidebar-top {

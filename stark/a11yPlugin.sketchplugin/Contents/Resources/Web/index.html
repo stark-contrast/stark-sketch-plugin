@@ -10,7 +10,9 @@
     <title>a11y Plugin</title>
   </head>
   <body>
-    <canvas id="mainCanvas"></canvas>
+    <div id="canvas" class="canvas canvas--window">
+      <canvas id="mainCanvas"></canvas>
+    </div>
     <div class="sidebar">
       <div class="sidebar__top">
         <nav class="nav">
@@ -27,15 +29,15 @@
           <div class="step__number">2</div>
           <div class="step__instructions">Select Colorblindness to simulate:</div>
           <select id="SimulationSelect" class="select__simulation">
-            <option value="id_NoSim">No simulation</option>
-            <option value="id_Protanopia">Protanopia</option>
-            <option value="id_Protanomaly">Protanomaly</option>
-            <option value="id_Deuteranopia">Deuteranopia</option>
-            <option value="id_Deuteranomaly">Deuteranomaly</option>
-            <option value="id_Tritanopia">Tritanopia</option>
-            <option value="id_Tritanomaly">Tritanomaly</option>
-            <option value="id_Achromatopsia">Achromatopsia</option>
-            <option value="id_Achromatomaly">Achromatomaly</option>
+            <option value="cbid_NoSim">No simulation</option>
+            <option value="cbid_Protanopia">Protanopia</option>
+            <option value="cbid_Protanomaly">Protanomaly</option>
+            <option value="cbid_Deuteranopia">Deuteranopia</option>
+            <option value="cbid_Deuteranomaly">Deuteranomaly</option>
+            <option value="cbid_Tritanopia">Tritanopia</option>
+            <option value="cbid_Tritanomaly">Tritanomaly</option>
+            <option value="cbid_Achromatopsia">Achromatopsia</option>
+            <option value="cbid_Achromatomaly">Achromatomaly</option>
           </select>
         </div>
         <div class="step">
@@ -51,7 +53,7 @@
         </div>
       </div>
     </div>
-    <script src="color-blind-id.js"></script>
+    <script src="select-ids.js"></script>
     <script src="color-blind-sim-lib.js"></script>
     <script src="image-loader.js"></script>
     <script src="artboard-names.js"></script>

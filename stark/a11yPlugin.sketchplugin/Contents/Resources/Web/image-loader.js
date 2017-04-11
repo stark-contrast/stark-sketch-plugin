@@ -1,7 +1,8 @@
 var oldRgb = [];
 var oldFilteredRGB;
 
-function runSimulation(simType) {
+function runSimulation() {
+  var simType = colorBlindId.replace('cbid_', '');
   var canvas = document.getElementById('mainCanvas');
   var ctx = canvas.getContext('2d');
 
@@ -37,10 +38,3 @@ function runSimulation(simType) {
 
   img.src = "snapshot.png" + "?ts=" + new Date().getTime();
 }
-
-
-// if (colorBlindId === 'Normal') {
-//   window.status = 'hideWebView';
-// } else {
-
-// }

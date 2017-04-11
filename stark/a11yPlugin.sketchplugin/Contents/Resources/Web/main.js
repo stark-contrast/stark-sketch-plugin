@@ -1,10 +1,12 @@
+var canvas = document.getElementById('canvas');
+
 var simSelect = document.getElementById('SimulationSelect');
 
 var artboardSelect = document.getElementById('ArtboardSelect');
 
 var opt1 = document.createElement('option');
-opt1.value = "";
-opt1.innerHTML = "";
+opt1.value = "abid_UseWindow";
+opt1.innerHTML = "Use Window";
 artboardSelect.appendChild(opt1);
 
 for (var i = 0; i < artboardNames.length; i++){
@@ -16,16 +18,15 @@ for (var i = 0; i < artboardNames.length; i++){
 
 simSelect.addEventListener("change", function(event) {
   window.status = simSelect.value;
-  var simId = simSelect.value.replace('id_', '');
-  runSimulation(simId);
+  colorBlindId = simSelect.value;
+  runSimulation();
 });
 
 artboardSelect.addEventListener("change", function(event) {
+  if (artboardSelect.value === 'abid_UseWindow') {
+    canvas.classList.add('canvas--window');
+  } else {
+    canvas.classList.remove('canvas--window');
+  }
   window.status = artboardSelect.value;
-});
-
-document.addEventListener("DOMContentLoaded", function(event) {
-  simSelect.value = colorBlindId;
-  var simId = simSelect.value.replace('id_', '');
-  runSimulation(simId);
 });
