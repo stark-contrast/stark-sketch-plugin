@@ -49,7 +49,7 @@ var onRun = function(context) {
     'webView:setStatusText:': function(webView, statusText) {
       if (!statusText || statusText == '') {
         return;
-      } else if (statusText.startsWith("sbid_")) {
+      } else if (statusText.startsWith("cbid_")) {
         simId = statusText;
       } else if (statusText.startsWith("abid_")) {
         artboardId = statusText;
@@ -71,6 +71,26 @@ var onRun = function(context) {
         var legs = nibui.webMainView;
         var script = [legs windowScriptObject];
         [script callWebScriptMethod:@"runSimulation" withArguments:[@""]];
+      } else {
+        var url = [NSURL URLWithString:statusText];
+        var imageData = [NSData dataWithContentsOfURL:url];
+        var snapshot = [[NSBitmapImageRep alloc] initWithData:imageData];
+
+        var panel = [NSSavePanel savePanel];
+        [panel setTitle:"Where?"];
+        [panel setAllowsOtherFileTypes:true];
+        [panel setExtensionHidden:true];
+        [panel setCanCreateDirectories:true];
+        [panel setNameFieldStringValue:"brains.png"];
+
+        if ([panel runModal] == NSOKButton) {
+          var message = [panel filename];
+          var data = [snapshot representationUsingType:NSPNGFileType properties:nil];
+          log(data)
+          var filepath = message + '.png';
+          var file = [NSString stringWithFormat:@"%@", filepath];
+          var fileSuccess = [data writeToFile:file atomically:true];
+        }
       }
     }
   });

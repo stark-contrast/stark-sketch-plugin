@@ -1,8 +1,11 @@
 var canvas = document.getElementById('canvas');
+var mainCanvas = document.getElementById('mainCanvas');
 
 var simSelect = document.getElementById('SimulationSelect');
 
 var artboardSelect = document.getElementById('ArtboardSelect');
+
+var exportButton = document.getElementById('ExportButton');
 
 var opt1 = document.createElement('option');
 opt1.value = "abid_UseWindow";
@@ -27,10 +30,17 @@ artboardSelect.addEventListener("change", function(event) {
   window.status = artboardSelect.value;
 });
 
+exportButton.addEventListener('click', download, false);
+
 function addCanvasOpacity() {
   canvas.classList.remove('canvas--hidden');
 }
 
 function removeCanvasOpacity() {
   canvas.classList.add('canvas--hidden');
+}
+
+function download() {
+    var dt = mainCanvas.toDataURL();
+    window.status = dt;
 }
