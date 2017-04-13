@@ -5,6 +5,10 @@ body {
   overflow: hidden;
 }
 
+.hidden {
+  display: none;
+}
+
 .canvas {
   background-color: white;
   width: 100%;
@@ -123,6 +127,22 @@ select::after {
 }
 
 .button__export:focus {
+  outline: none;
+}
+
+.button__check {
+  background-color: white;
+  color: black;
+  border-radius: 4px;
+  border: 2px solid black;
+  width: 100%;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.button__check:focus {
   outline: none;
 }
 

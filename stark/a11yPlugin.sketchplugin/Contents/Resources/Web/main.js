@@ -5,7 +5,17 @@ var simSelect = document.getElementById('SimulationSelect');
 
 var artboardSelect = document.getElementById('ArtboardSelect');
 
+var colorNav = document.getElementById('ColorNav');
+var contrastNav = document.getElementById('ContrastNav');
+
+var colorSection = document.getElementById('ColorBlindSection');
+var contrastSection = document.getElementById('ContrastCheckSection');
+
 var exportButton = document.getElementById('ExportButton');
+var contrastCheckButton = document.getElementById('ContrastCheckButton');
+
+var checkerOutput = document.getElementById('CheckerOutput');
+
 
 var opt1 = document.createElement('option');
 opt1.value = "abid_UseWindow";
@@ -30,7 +40,33 @@ artboardSelect.addEventListener("change", function(event) {
   window.status = artboardSelect.value;
 });
 
+colorNav.addEventListener("click", function(event) {
+  colorNav.classList.add('nav__item--selected');
+  contrastNav.classList.remove('nav__item--selected');
+
+  colorSection.classList.remove('hidden');
+  contrastSection.classList.add('hidden');
+
+  canvas.classList.remove('hidden');
+  checkerOutput.classList.add('hidden');
+});
+
+contrastNav.addEventListener("click", function(event) {
+  colorNav.classList.remove('nav__item--selected');
+  contrastNav.classList.add('nav__item--selected');
+
+  colorSection.classList.add('hidden');
+  contrastSection.classList.remove('hidden');
+
+  canvas.classList.add('hidden');
+  checkerOutput.classList.remove('hidden');
+});
+
 exportButton.addEventListener('click', download, false);
+
+contrastCheckButton.addEventListener('click', function(event) {
+  window.status = 'Check';
+});
 
 function addCanvasOpacity() {
   canvas.classList.remove('canvas--hidden');

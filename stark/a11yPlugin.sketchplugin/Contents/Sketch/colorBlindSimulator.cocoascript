@@ -1,4 +1,5 @@
 @import 'utils/nibui.js';
+@import 'utils/checker.js';
 
 var COSCRIPT;
 var simId = "cbid_NoSim";
@@ -71,6 +72,8 @@ var onRun = function(context) {
         var legs = nibui.webMainView;
         var script = [legs windowScriptObject];
         [script callWebScriptMethod:@"runSimulation" withArguments:[@""]];
+      } else if (statusText == 'Check') {
+        checkContrast(context);
       } else {
         var url = [NSURL URLWithString:statusText];
         var imageData = [NSData dataWithContentsOfURL:url];

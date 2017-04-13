@@ -13,37 +13,75 @@
     <div id="canvas" class="canvas canvas--window canvas--hidden">
       <canvas id="mainCanvas"></canvas>
     </div>
+    <div id="CheckerOutput" class="checker-output hidden">
+      <div class="output-left">
+        <div class="left-normal">Normal</div>
+        <div class="left-largebold">Large Bold</div>
+        <div class="left-large">Large</div>
+      </div>
+      <div class="output-right">
+        <div class="right-normal">Normal</div>
+        <div class="right-largebold">Large Bold</div>
+        <div class="right-large">Large</div>
+      </div>
+      <div class="output-contrast">Contrast: </div>
+      <div class="output-results">
+        <div class="results-normal-title">Normal Text</div>
+        <div class="results-normal">
+          <div class="results-normal-aa">AA (4.5:1)</div>
+          <div class="results-normal-aaa">AAA (7:1)</div>
+        </div>
+        <div class="results-normal-title">Large Text</div>
+        <div class="results-large">
+          <div class="results-large-aa">AA (3:1)</div>
+          <div class="results-large-aaa">AAA (4.5:1)</div>
+        </div>
+      </div>
+    </div>
     <div class="sidebar">
       <div class="sidebar__top">
         <nav class="nav">
-          <div class="nav__item nav__item--selected">Color</div>
-          <div class="nav__item">Contrast</div>
+          <div id="ColorNav" class="nav__item nav__item--selected">Color</div>
+          <div id="ContrastNav" class="nav__item">Contrast</div>
         </nav>
-        <div class="step">
-          <div class="step__number">1</div>
-          <div class="step__instructions">Select Artboard or drag and resize this window:</div>
-          <select id="ArtboardSelect" class="select__artboard">
-          </select>
+        <div id="ColorBlindSection" class="colorblind-simulation">
+          <div class="step">
+            <div class="step__number">1</div>
+            <div class="step__instructions">Select Artboard or drag and resize this window:</div>
+            <select id="ArtboardSelect" class="select__artboard">
+            </select>
+          </div>
+          <div class="step">
+            <div class="step__number">2</div>
+            <div class="step__instructions">Select Colorblindness to simulate:</div>
+            <select id="SimulationSelect" class="select__simulation">
+              <option value="cbid_NoSim">No simulation</option>
+              <option value="cbid_Protanopia">Protanopia</option>
+              <option value="cbid_Protanomaly">Protanomaly</option>
+              <option value="cbid_Deuteranopia">Deuteranopia</option>
+              <option value="cbid_Deuteranomaly">Deuteranomaly</option>
+              <option value="cbid_Tritanopia">Tritanopia</option>
+              <option value="cbid_Tritanomaly">Tritanomaly</option>
+              <option value="cbid_Achromatopsia">Achromatopsia</option>
+              <option value="cbid_Achromatomaly">Achromatomaly</option>
+            </select>
+          </div>
+          <div class="step">
+            <div class="step__number">3</div>
+            <div class="step__instructions">Export results as image:</div>
+            <button id="ExportButton" class="button__export">Export</button>
+          </div>
         </div>
-        <div class="step">
-          <div class="step__number">2</div>
-          <div class="step__instructions">Select Colorblindness to simulate:</div>
-          <select id="SimulationSelect" class="select__simulation">
-            <option value="cbid_NoSim">No simulation</option>
-            <option value="cbid_Protanopia">Protanopia</option>
-            <option value="cbid_Protanomaly">Protanomaly</option>
-            <option value="cbid_Deuteranopia">Deuteranopia</option>
-            <option value="cbid_Deuteranomaly">Deuteranomaly</option>
-            <option value="cbid_Tritanopia">Tritanopia</option>
-            <option value="cbid_Tritanomaly">Tritanomaly</option>
-            <option value="cbid_Achromatopsia">Achromatopsia</option>
-            <option value="cbid_Achromatomaly">Achromatomaly</option>
-          </select>
-        </div>
-        <div class="step">
-          <div class="step__number">3</div>
-          <div class="step__instructions">Export results as image:</div>
-          <button id="ExportButton" class="button__export">Export</button>
+        <div id="ContrastCheckSection" class="contrast-checker hidden">
+          <div class="step">
+            <div class="step__number">1</div>
+            <div class="step__instructions">Select two layers containing the colors you want to check the contrast of.</div>
+          </div>
+          <div class="step">
+            <div class="step__number">2</div>
+            <div class="step__instructions">Check the two colors against WCAG 2.0 standards:</div>
+            <button id="ContrastCheckButton" class="button__check">Check Contrast</button>
+          </div>
         </div>
       </div>
       <div class="sidebar__bottom">
