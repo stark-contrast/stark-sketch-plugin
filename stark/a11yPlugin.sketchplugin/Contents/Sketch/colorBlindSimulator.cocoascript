@@ -73,7 +73,11 @@ var onRun = function(context) {
         var script = [legs windowScriptObject];
         [script callWebScriptMethod:@"runSimulation" withArguments:[@""]];
       } else if (statusText == 'Check') {
-        checkContrast(context);
+        var returnValue = checkContrast(context);
+
+        var legs = nibui.webMainView;
+        var script = [legs windowScriptObject];
+        [script callWebScriptMethod:@"updateCheckerOutput" withArguments:[returnValue]];
       } else {
         var url = [NSURL URLWithString:statusText];
         var imageData = [NSData dataWithContentsOfURL:url];

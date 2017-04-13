@@ -14,17 +14,19 @@
       <canvas id="mainCanvas"></canvas>
     </div>
     <div id="CheckerOutput" class="checker-output hidden">
-      <div class="output-left">
-        <div class="left-normal">Normal</div>
-        <div class="left-largebold">Large Bold</div>
-        <div class="left-large">Large</div>
+      <div class="output-container">
+        <div id="OutputLeft" class="output-left">
+          <div class="left-normal">Normal</div>
+          <div class="left-largebold">Large Bold</div>
+          <div class="left-large">Large</div>
+        </div>
+        <div id="OutputRight" class="output-right">
+          <div class="right-normal">Normal</div>
+          <div class="right-largebold">Large Bold</div>
+          <div class="right-large">Large</div>
+        </div>
       </div>
-      <div class="output-right">
-        <div class="right-normal">Normal</div>
-        <div class="right-largebold">Large Bold</div>
-        <div class="right-large">Large</div>
-      </div>
-      <div class="output-contrast">Contrast: </div>
+      <div class="output-contrast">Contrast: <span id="ContrastRatio"></span></div>
       <div class="output-results">
         <div class="results-normal-title">Normal Text</div>
         <div class="results-normal">

@@ -25,6 +25,77 @@ body {
   height: 100%;
 }
 
+.checker-output {
+  padding: 2rem;
+  background-color: white;
+}
+
+.output-container {
+  display: flex;
+  margin-bottom: 2rem;
+}
+
+.output-left,
+.output-right {
+  padding: 1rem;
+  text-align: center;
+}
+
+.left-normal,
+.right-normal {
+  font-size: 14px;
+}
+
+.left-largebold,
+.right-largebold {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-size: 18.66px;
+  font-weight: 700;
+}
+
+.left-large,
+.right-large {
+  font-size: 24px;
+}
+
+.output-contrast {
+  text-align: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: #f5f5f5;
+}
+
+.output-contrast span {
+  font-weight: 700;
+}
+
+.output-results {
+  text-align: center;
+}
+
+.results-normal-title,
+.results-large-title {
+  border-bottom: 1px solid #ECECEC;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.75;
+  padding-top: 2rem;
+  padding-bottom: 0.75rem;
+  color: #b8b8b8;
+}
+
+.results-normal,
+.results-large {
+  padding: 1rem;
+}
+
+.results-normal-aa,
+.results-large-aa {
+  padding-bottom: 1rem;
+}
+
 select {
   color: black;
   font-size: 14px;

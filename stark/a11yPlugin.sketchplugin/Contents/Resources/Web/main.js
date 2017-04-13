@@ -15,7 +15,7 @@ var exportButton = document.getElementById('ExportButton');
 var contrastCheckButton = document.getElementById('ContrastCheckButton');
 
 var checkerOutput = document.getElementById('CheckerOutput');
-
+var contrastRatio = document.getElementById('ContrastRatio');
 
 var opt1 = document.createElement('option');
 opt1.value = "abid_UseWindow";
@@ -79,4 +79,31 @@ function removeCanvasOpacity() {
 function download() {
     var dt = mainCanvas.toDataURL();
     window.status = dt;
+}
+
+function updateCheckerOutput(contrastResults) {
+  var results = contrastResults.split(',');
+  contrastRatio.textContent = results[0];
+
+  var firstColor = results[1].split('|');
+  var secondColor = results[2].split('|');
+
+  firstColor[0] = firstColor[0] * 255;
+  firstColor[1] = firstColor[1] * 255;
+  firstColor[2] = firstColor[2] * 255;
+
+  secondColor[0] = secondColor[0] * 255;
+  secondColor[1] = secondColor[1] * 255;
+  secondColor[2] = secondColor[2] * 255;
+
+  var leftOutput = document.getElementById('OutputLeft');
+  leftOutput.style.backgroundColor = 'rgb(' + Math.round(firstColor[0]) + ',' + Math.round(firstColor[1]) + ',' + Math.round(firstColor[2]) + ')';
+
+  leftOutput.style.color = 'rgb(' + Math.round(secondColor[0]) + ',' + Math.round(secondColor[1]) + ',' + Math.round(secondColor[2]) + ')';
+
+
+  var rightOutput = document.getElementById('OutputRight');
+  rightOutput.style.backgroundColor = 'rgb(' + Math.round(secondColor[0]) + ',' + Math.round(secondColor[1]) + ',' + Math.round(secondColor[2]) + ')';
+
+  rightOutput.style.color = 'rgb(' + Math.round(firstColor[0]) + ',' + Math.round(firstColor[1]) + ',' + Math.round(firstColor[2]) + ')';
 }
