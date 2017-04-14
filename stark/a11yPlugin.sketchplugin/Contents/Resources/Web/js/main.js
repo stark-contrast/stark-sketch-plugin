@@ -40,6 +40,7 @@ artboardSelect.addEventListener("change", function(event) {
 // Navigation Events
 colorNav.addEventListener("click", function(event) {
   var checkerOutput = document.getElementById('CheckerOutput');
+  var canvasContainer = document.getElementById('CanvasContainer');
 
   colorNav.classList.add('nav__item--selected');
   contrastNav.classList.remove('nav__item--selected');
@@ -53,6 +54,7 @@ colorNav.addEventListener("click", function(event) {
 
 contrastNav.addEventListener("click", function(event) {
   var checkerOutput = document.getElementById('CheckerOutput');
+  var canvasContainer = document.getElementById('CanvasContainer');
 
   colorNav.classList.remove('nav__item--selected');
   contrastNav.classList.add('nav__item--selected');
@@ -62,6 +64,8 @@ contrastNav.addEventListener("click", function(event) {
 
   canvasContainer.classList.add('hidden');
   checkerOutput.classList.remove('hidden');
+
+  window.status = "nav-contrast";
 });
 
 

@@ -1,7 +1,7 @@
 {
   "commands" : [
     {
-      "script" : "colorBlindSimulator.cocoascript",
+      "script" : "colorBlindSimulator.js",
       "handler" : "onRun",
       "shortcut" : "",
       "name" : "Color Blind Simulator",

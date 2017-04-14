@@ -422,10 +422,17 @@ function runSimulation() {
 
   var img = new Image();
   img.onload = function () {
+    var artboardId = document.getElementById('ArtboardSelect').value;
     var width = img.width;
     var height = img.height;
+
     canvas.setAttribute('width', width);
     canvas.setAttribute('height', height);
+    if (artboardId === 'abid_UseWindow') {
+      canvas.removeAttribute('style');
+    } else {
+      canvas.setAttribute('style', 'width: calc(' + width + 'px / 2)')
+    }
     ctx.drawImage(img, 0, 0, width, height,
                         0, 0, canvas.width, canvas.height);
     var pixels = ctx.getImageData(0, 0, width, height);
@@ -450,10 +457,9 @@ function runSimulation() {
     ctx.putImageData(pixels, 0, 0);
 
     addCanvasOpacity();
-    var artboardSelect = document.getElementById('ArtboardSelect');
     var canvasContainer = document.getElementById('CanvasContainer');
 
-    if (artboardSelect.value === 'abid_UseWindow') {
+    if (artboardId === 'abid_UseWindow') {
       canvasContainer.classList.add('canvas--window');
     } else {
       canvasContainer.classList.remove('canvas--window');

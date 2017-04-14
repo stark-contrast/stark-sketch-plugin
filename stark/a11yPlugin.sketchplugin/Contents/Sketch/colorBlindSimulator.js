@@ -8,32 +8,25 @@ var onRun = function(context) {
   var app = NSApplication.sharedApplication();
 
   // Prepare the NIB so we can do stuff with the UI
-  COSCRIPT = [COScript currentCOScript];
-  [COSCRIPT setShouldKeepAround:true];
+  COSCRIPT = COScript.currentCOScript();
+  COSCRIPT.setShouldKeepAround(true);
   var nibui = new NibUI(context, 'UIBundle', 'a11yNibUITemplate', [
     'mainWindow', 'webMainView'
   ]);
 
-  var doc = context.document;
-  var page = [doc currentPage];
-  var artboards = [[doc currentPage] artboards];
-  var artboardNames = "var artboardNames = [";
+  // This kicks out a js file that the webview can access to show
+  // a the list of artboards in the doc
+  generateArtboardNames(context);
 
-  for (var i = artboards.count() - 1; i >= 0; i--) {
-    artboardNames += "\"" + artboards[i].name() + "\",";
-  }
-
-  artboardNames += "];"
-
-  saveArtboardNames(context, artboardNames);
-
+  //
+  // Style up the window view
   nibui.mainWindow.setOpaque(false);
-
   var transparent = [NSColor colorWithDeviceRed:0.0 green:0.0 blue:0.0 alpha:0.25];
   nibui.mainWindow.setBackgroundColor(transparent);
 
+  // Load the webview and then style it so the window part of it can be
+  // transparent for the user to see through
   var localWebURL = context.plugin.urlForResourceNamed('Web/index.html');
-
   var request = [NSURLRequest requestWithURL:localWebURL
     cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
     timeoutInterval:60];
@@ -43,57 +36,25 @@ var onRun = function(context) {
   var webViewLayer = nibui.webMainView.layer();
   nibui.webMainView.hidden = false;
 
+  //
+  // Set up the webview to handle statustext updates (events) posted
   var webUIDelegate = createCocoaObject({
     'webView:setStatusText:': function(webView, statusText) {
-      log(statusText);
-      if (!statusText || statusText == '') {
-        return;
-      } else if (statusText.startsWith("abid_")) {
-        artboardId = statusText;
-        if (artboardId != "abid_UseWindow") {
-          for (var i = 0; i < artboards.count(); i++) {
-            if (artboards[i].name() == statusText.replace("abid_", "")) {
-              var filePath = "/Resources/Web/img/snapshot.png";
-              var scriptPath = context.scriptPath.stringByDeletingLastPathComponent();
-              scriptPath = scriptPath.stringByDeletingLastPathComponent() + filePath;
-
-              var brains = artboards[i];
-              [doc saveArtboardOrSlice:brains toFile:scriptPath];
-            }
-          }
-        } else {
-          takeSnapshot(context, nibui);
-        }
-
-        postWebFunction(nibui, "runSimulation", [""]);
-      } else if (statusText == 'Check') {
-        var returnValue = checkContrast(context);
-        postWebFunction(nibui, "updateCheckerOutput", [returnValue]);
+      if (statusText.startsWith("abid_")) {
+        handleArtboardSelectChange(context, nibui, statusText);
       } else if (statusText.startsWith("data:image")){
-        var url = [NSURL URLWithString:statusText];
-        var imageData = [NSData dataWithContentsOfURL:url];
-        var snapshot = [[NSBitmapImageRep alloc] initWithData:imageData];
-
-        var panel = [NSSavePanel savePanel];
-        [panel setTitle:"Where?"];
-        [panel setAllowsOtherFileTypes:true];
-        [panel setExtensionHidden:true];
-        [panel setCanCreateDirectories:true];
-        [panel setNameFieldStringValue:"brains.png"];
-
-        if ([panel runModal] == NSOKButton) {
-          var message = [panel filename];
-          var data = [snapshot representationUsingType:NSPNGFileType properties:nil];
-          log(data)
-          var filepath = message + '.png';
-          var file = [NSString stringWithFormat:@"%@", filepath];
-          var fileSuccess = [data writeToFile:file atomically:true];
-        }
+        handleExportButtonClick(statusText);
+      } else if (statusText == 'Check') {
+        handleCheckContrastButtonClick(context, nibui);
+      } else if (statusText.startsWith('nav-contrast')) {
+        resizeWindow(nibui, 551);
       }
     }
   });
   nibui.webMainView.setUIDelegate(webUIDelegate);
 
+  //
+  // Set up window to respond to move/resize events
   var windowUIDelegate = createCocoaObject({
     'windowWillStartLiveResize:': function(notification) {
       if (artboardId == "abid_UseWindow") {
@@ -120,17 +81,87 @@ var onRun = function(context) {
   });
   nibui.mainWindow.setDelegate(windowUIDelegate);
 
+  //
   // Make the window on top and keep it there
   nibui.mainWindow.makeKeyAndOrderFront(null);
   nibui.mainWindow.setLevel(NSFloatingWindowLevel);
-
   nibui.destroy();
 
+  // Take a snapshot of the window so it's ready if the users selects a
+  // colorblind type to simulate
   takeSnapshot(context, nibui);
 }
 
-function saveArtboardNames(context, artboards) {
-  var data = [NSString stringWithFormat:@"%@", artboards];
+function handleArtboardSelectChange(context, nibui, artboardSelectId) {
+  artboardId = artboardSelectId;
+
+  if (artboardId != "abid_UseWindow") {
+    var doc = context.document;
+    var page = [doc currentPage];
+    var artboards = [[doc currentPage] artboards];
+
+    for (var i = 0; i < artboards.count(); i++) {
+      if (artboards[i].name() == artboardId.replace("abid_", "")) {
+        var artboardToSave = artboards[i];
+
+        var filePath = "/Resources/Web/img/snapshot.png";
+        var scriptPath = context.scriptPath.stringByDeletingLastPathComponent();
+        scriptPath = scriptPath.stringByDeletingLastPathComponent() + filePath;
+
+        var slice = [[MSExportRequest exportRequestsFromExportableLayer:artboardToSave] firstObject];
+
+        [slice setShouldTrim:0];
+        [slice setScale:2];
+
+        [doc saveArtboardOrSlice:slice toFile:scriptPath];
+      }
+    }
+  } else {
+    takeSnapshot(context, nibui);
+  }
+
+  postWebFunction(nibui, "runSimulation", [""]);
+}
+
+function handleCheckContrastButtonClick(context, nibui) {
+  var returnValue = checkContrast(context);
+  postWebFunction(nibui, "updateCheckerOutput", [returnValue]);
+}
+
+function handleExportButtonClick(imageDataString) {
+  var url = [NSURL URLWithString:imageDataString];
+  var imageData = [NSData dataWithContentsOfURL:url];
+  var snapshot = [[NSBitmapImageRep alloc] initWithData:imageData];
+
+  var panel = [NSSavePanel savePanel];
+  [panel setTitle:"Choose where to save your colorblind simulation image:"];
+  [panel setAllowsOtherFileTypes:false];
+  [panel setExtensionHidden:false];
+  [panel setCanCreateDirectories:true];
+  [panel setNameFieldStringValue:"simulation.png"];
+
+  if ([panel runModal] == NSOKButton) {
+    var message = [panel filename];
+    var data = [snapshot representationUsingType:NSPNGFileType properties:nil];
+    var filepath = message + '.png';
+    var file = [NSString stringWithFormat:@"%@", filepath];
+    var fileSuccess = [data writeToFile:file atomically:true];
+  }
+}
+
+function generateArtboardNames(context) {
+  var doc = context.document;
+  var page = [doc currentPage];
+  var artboards = [[doc currentPage] artboards];
+  var artboardNames = "var artboardNames = [";
+
+  for (var i = artboards.count() - 1; i >= 0; i--) {
+    artboardNames += "\"" + artboards[i].name() + "\",";
+  }
+
+  artboardNames += "];"
+
+  var data = [NSString stringWithFormat:@"%@", artboardNames];
 
   saveFile(context, '/Resources/Web/js/artboard-names.js', data);
 }
@@ -177,4 +208,15 @@ function saveFile(context, filePath, data) {
 
   var file = [NSString stringWithFormat:@"%@", scriptPath];
   var fileSuccess = [data writeToFile:file atomically:true];
+}
+
+function resizeWindow(nibui, width) {
+  var mainWindow = nibui.mainWindow;
+  var frame = [mainWindow frame];
+  var oldWidth = frame.size.width;
+  frame.size.width = width;
+
+  frame.origin.x += oldWidth - width;
+
+  [mainWindow setFrame:frame display:true animate:false];
 }
