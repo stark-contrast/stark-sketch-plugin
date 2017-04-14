@@ -6,12 +6,12 @@
     <meta http-equiv='cache-control' content='no-cache'>
     <meta http-equiv='expires' content='0'>
     <meta http-equiv='pragma' content='no-cache'>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <title>a11y Plugin</title>
   </head>
   <body>
-    <div id="canvas" class="canvas canvas--window canvas--hidden">
-      <canvas id="mainCanvas"></canvas>
+    <div id="CanvasContainer" class="canvas canvas--window canvas--hidden">
+      <canvas id="SimulationCanvas"></canvas>
     </div>
     <div id="CheckerOutput" class="checker-output hidden">
       <div class="output-container">
@@ -46,18 +46,19 @@
           <div id="ColorNav" class="nav__item nav__item--selected">Color</div>
           <div id="ContrastNav" class="nav__item">Contrast</div>
         </nav>
-        <div id="ColorBlindSection" class="colorblind-simulation">
+        <div id="ColorSection" class="colorblind-simulation">
           <div class="step">
             <div class="step__number">1</div>
             <div class="step__instructions">Select Artboard or drag and resize this window:</div>
             <select id="ArtboardSelect" class="select__artboard">
+              <option value="abid_UseWindow">Use Window</option>
             </select>
           </div>
           <div class="step">
             <div class="step__number">2</div>
             <div class="step__instructions">Select Colorblindness to simulate:</div>
             <select id="SimulationSelect" class="select__simulation">
-              <option value="cbid_NoSim">No simulation</option>
+              <option value="cbid_NoSim">No Simulation</option>
               <option value="cbid_Protanopia">Protanopia</option>
               <option value="cbid_Protanomaly">Protanomaly</option>
               <option value="cbid_Deuteranopia">Deuteranopia</option>
@@ -74,7 +75,7 @@
             <button id="ExportButton" class="button__export">Export</button>
           </div>
         </div>
-        <div id="ContrastCheckSection" class="contrast-checker hidden">
+        <div id="ContrastSection" class="contrast-checker hidden">
           <div class="step">
             <div class="step__number">1</div>
             <div class="step__instructions">Select two layers containing the colors you want to check the contrast of.</div>
@@ -82,7 +83,7 @@
           <div class="step">
             <div class="step__number">2</div>
             <div class="step__instructions">Check the two colors against WCAG 2.0 standards:</div>
-            <button id="ContrastCheckButton" class="button__check">Check Contrast</button>
+            <button id="CheckContrastButton" class="button__check">Check Contrast</button>
           </div>
         </div>
       </div>
@@ -93,10 +94,8 @@
         </div>
       </div>
     </div>
-    <script src="select-ids.js"></script>
-    <script src="color-blind-sim-lib.js"></script>
-    <script src="image-loader.js"></script>
-    <script src="artboard-names.js"></script>
-    <script src="main.js"></script>
+    <script src="js/color-blind-simulation.js"></script>
+    <script src="js/artboard-names.js"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>

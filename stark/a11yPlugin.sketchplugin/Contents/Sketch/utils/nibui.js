@@ -108,3 +108,16 @@ NibUI.prototype.attachTargetAndAction = function(view, fn) {
 NibUI.prototype.destroy = function() {
   this._bundle.unload();
 };
+
+
+
+function createCocoaObject(methods, superclass) {
+  var uniqueClassName = "Stark_dynamic_class_" + NSUUID.UUID().UUIDString();
+  var classDesc = MOClassDescription.allocateDescriptionForClassWithName_superclass_(uniqueClassName, superclass || NSObject);
+  classDesc.registerClass();
+  for (var selectorString in methods) {
+    var selector = NSSelectorFromString(selectorString);
+    [classDesc addInstanceMethodWithSelector:selector function:(methods[selectorString])];
+  }
+  return NSClassFromString(uniqueClassName).new();
+}

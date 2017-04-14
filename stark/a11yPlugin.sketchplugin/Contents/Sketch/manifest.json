@@ -6,26 +6,18 @@
       "shortcut" : "",
       "name" : "Color Blind Simulator",
       "identifier" : "colorBlindSimulator"
-    },
-    {
-      "script" : "contrastChecker.cocoascript",
-      "handler" : "onRun",
-      "shortcut" : "",
-      "name" : "Contrast Checker",
-      "identifier" : "contrastChecker"
-    },
+    }
   ],
   "menu": {
     "title" : "Stark",
     "items" : [
-      "colorBlindSimulator",
-      "contrastChecker",
+      "colorBlindSimulator"
     ]
   },
-  "identifier" : "com.example.sketch.a11y",
+  "identifier" : "com.example.sketch.stark",
   "version" : "1.0",
   "description" : "See how your designs look to those with color vision impairment.",
   "author" : "Michael Fouquet",
   "authorEmail" : "michael.fouquet@me.com",
-  "name" : "a11y"
+  "name" : "Stark"
 }

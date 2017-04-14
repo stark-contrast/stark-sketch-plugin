@@ -2,7 +2,6 @@
 @import 'utils/checker.js';
 
 var COSCRIPT;
-var simId = "cbid_NoSim";
 var artboardId = "abid_UseWindow";
 
 var onRun = function(context) {
@@ -11,7 +10,6 @@ var onRun = function(context) {
   // Prepare the NIB so we can do stuff with the UI
   COSCRIPT = [COScript currentCOScript];
   [COSCRIPT setShouldKeepAround:true];
-  var defaults = [NSUserDefaults standardUserDefaults];
   var nibui = new NibUI(context, 'UIBundle', 'a11yNibUITemplate', [
     'mainWindow', 'webMainView'
   ]);
@@ -28,7 +26,6 @@ var onRun = function(context) {
   artboardNames += "];"
 
   saveArtboardNames(context, artboardNames);
-
 
   nibui.mainWindow.setOpaque(false);
 
@@ -48,16 +45,15 @@ var onRun = function(context) {
 
   var webUIDelegate = createCocoaObject({
     'webView:setStatusText:': function(webView, statusText) {
+      log(statusText);
       if (!statusText || statusText == '') {
         return;
-      } else if (statusText.startsWith("cbid_")) {
-        simId = statusText;
       } else if (statusText.startsWith("abid_")) {
         artboardId = statusText;
         if (artboardId != "abid_UseWindow") {
           for (var i = 0; i < artboards.count(); i++) {
             if (artboards[i].name() == statusText.replace("abid_", "")) {
-              var filePath = "/Resources/Web/snapshot.png";
+              var filePath = "/Resources/Web/img/snapshot.png";
               var scriptPath = context.scriptPath.stringByDeletingLastPathComponent();
               scriptPath = scriptPath.stringByDeletingLastPathComponent() + filePath;
 
@@ -66,19 +62,14 @@ var onRun = function(context) {
             }
           }
         } else {
-          runSimulation(context, nibui);
+          takeSnapshot(context, nibui);
         }
 
-        var legs = nibui.webMainView;
-        var script = [legs windowScriptObject];
-        [script callWebScriptMethod:@"runSimulation" withArguments:[@""]];
+        postWebFunction(nibui, "runSimulation", [""]);
       } else if (statusText == 'Check') {
         var returnValue = checkContrast(context);
-
-        var legs = nibui.webMainView;
-        var script = [legs windowScriptObject];
-        [script callWebScriptMethod:@"updateCheckerOutput" withArguments:[returnValue]];
-      } else {
+        postWebFunction(nibui, "updateCheckerOutput", [returnValue]);
+      } else if (statusText.startsWith("data:image")){
         var url = [NSURL URLWithString:statusText];
         var imageData = [NSData dataWithContentsOfURL:url];
         var snapshot = [[NSBitmapImageRep alloc] initWithData:imageData];
@@ -106,34 +97,24 @@ var onRun = function(context) {
   var windowUIDelegate = createCocoaObject({
     'windowWillStartLiveResize:': function(notification) {
       if (artboardId == "abid_UseWindow") {
-        var legs = nibui.webMainView;
-        var script = [legs windowScriptObject];
-        [script callWebScriptMethod:@"removeCanvasOpacity" withArguments:[@""]];
+        postWebFunction(nibui, "removeCanvasOpacity", [""]);
       }
     },
     'windowDidEndLiveResize:': function(notification) {
       if (artboardId == "abid_UseWindow") {
-        runSimulation(context, nibui);
-
-        var legs = nibui.webMainView;
-        var script = [legs windowScriptObject];
-        [script callWebScriptMethod:@"runSimulation" withArguments:[@""]];
+        takeSnapshot(context, nibui);
+        postWebFunction(nibui, "runSimulation", [""]);
       }
     },
     'windowWillMove:': function(notification) {
       if (artboardId == "abid_UseWindow") {
-        var legs = nibui.webMainView;
-        var script = [legs windowScriptObject];
-        [script callWebScriptMethod:@"removeCanvasOpacity" withArguments:[@""]];
+        postWebFunction(nibui, "removeCanvasOpacity", [""]);
       }
     },
     'windowDidMove:': function(notification) {
       if (artboardId == "abid_UseWindow") {
-        runSimulation(context, nibui);
-
-        var legs = nibui.webMainView;
-        var script = [legs windowScriptObject];
-        [script callWebScriptMethod:@"runSimulation" withArguments:[@""]];
+        takeSnapshot(context, nibui);
+        postWebFunction(nibui, "runSimulation", [""]);
       }
     },
   });
@@ -148,25 +129,10 @@ var onRun = function(context) {
   takeSnapshot(context, nibui);
 }
 
-function createCocoaObject(methods, superclass) {
-  var uniqueClassName = "Stark_dynamic_class_" + NSUUID.UUID().UUIDString();
-  var classDesc = MOClassDescription.allocateDescriptionForClassWithName_superclass_(uniqueClassName, superclass || NSObject);
-  classDesc.registerClass();
-  for (var selectorString in methods) {
-    var selector = NSSelectorFromString(selectorString);
-    [classDesc addInstanceMethodWithSelector:selector function:(methods[selectorString])];
-  }
-  return NSClassFromString(uniqueClassName).new();
-}
-
 function saveArtboardNames(context, artboards) {
   var data = [NSString stringWithFormat:@"%@", artboards];
 
-  saveFile(context, '/Resources/Web/artboard-names.js', data);
-}
-
-function runSimulation(context, nibui) {
-  takeSnapshot(context, nibui);
+  saveFile(context, '/Resources/Web/js/artboard-names.js', data);
 }
 
 function takeSnapshot(context, nibui) {
@@ -176,7 +142,6 @@ function takeSnapshot(context, nibui) {
   var screenHeight = [[NSScreen mainScreen] frame].size.height;
 
   var frameRelativeToScreen = [webViewWindow convertRectToScreen:webViewFrame];
-  log(frameRelativeToScreen);
   frameRelativeToScreen.size.width = frameRelativeToScreen.size.width - 220;
   frameRelativeToScreen.origin.y = screenHeight - webViewFrame.size.height - frameRelativeToScreen.origin.y;
 
@@ -189,7 +154,7 @@ function takeSnapshot(context, nibui) {
   var snapshot = [[NSBitmapImageRep alloc] initWithCGImage:quartzSnapshot];
   var data = [snapshot representationUsingType:NSPNGFileType properties:nil];
 
-  saveFile(context, '/Resources/Web/snapshot.png', data);
+  saveFile(context, '/Resources/Web/img/snapshot.png', data);
 
   // release previous screen capture, first the NSBitmapImageRep then the CGImage
   if (snapshot != null) {
@@ -198,6 +163,12 @@ function takeSnapshot(context, nibui) {
   if (quartzSnapshot != null) {
     CGImageRelease(quartzSnapshot);
   }
+}
+
+function postWebFunction(nibui, functionName, functionArguments) {
+  var webView = nibui.webMainView;
+  var script = webView.windowScriptObject();
+  script.callWebScriptMethod_withArguments_(functionName, functionArguments);
 }
 
 function saveFile(context, filePath, data) {

@@ -1,87 +1,107 @@
-var canvas = document.getElementById('canvas');
-var mainCanvas = document.getElementById('mainCanvas');
-
-var simSelect = document.getElementById('SimulationSelect');
-
+//
+// Select Elements
+var simulationSelect = document.getElementById('SimulationSelect');
 var artboardSelect = document.getElementById('ArtboardSelect');
 
+
+//
+// Navigation Elements
 var colorNav = document.getElementById('ColorNav');
 var contrastNav = document.getElementById('ContrastNav');
 
-var colorSection = document.getElementById('ColorBlindSection');
-var contrastSection = document.getElementById('ContrastCheckSection');
 
+//
+// Section Elements
+var colorSection = document.getElementById('ColorSection');
+var contrastSection = document.getElementById('ContrastSection');
+
+
+//
+// Button Elements
 var exportButton = document.getElementById('ExportButton');
-var contrastCheckButton = document.getElementById('ContrastCheckButton');
+var checkContrastButton = document.getElementById('CheckContrastButton');
 
-var checkerOutput = document.getElementById('CheckerOutput');
-var contrastRatio = document.getElementById('ContrastRatio');
 
-var opt1 = document.createElement('option');
-opt1.value = "abid_UseWindow";
-opt1.innerHTML = "Use Window";
-artboardSelect.appendChild(opt1);
 
-for (var i = 0; i < artboardNames.length; i++){
-    var opt = document.createElement('option');
-    opt.value = "abid_" + artboardNames[i];
-    opt.innerHTML = artboardNames[i];
-    artboardSelect.appendChild(opt);
-}
 
-simSelect.addEventListener("change", function(event) {
-  window.status = simSelect.value;
-  colorBlindId = simSelect.value;
+//
+// Select Events
+simulationSelect.addEventListener("change", function(event) {
+  window.status = simulationSelect.value;
   runSimulation();
 });
 
 artboardSelect.addEventListener("change", function(event) {
-  artboardId = artboardSelect.value;
   window.status = artboardSelect.value;
 });
 
+
+//
+// Navigation Events
 colorNav.addEventListener("click", function(event) {
+  var checkerOutput = document.getElementById('CheckerOutput');
+
   colorNav.classList.add('nav__item--selected');
   contrastNav.classList.remove('nav__item--selected');
 
   colorSection.classList.remove('hidden');
   contrastSection.classList.add('hidden');
 
-  canvas.classList.remove('hidden');
+  canvasContainer.classList.remove('hidden');
   checkerOutput.classList.add('hidden');
 });
 
 contrastNav.addEventListener("click", function(event) {
+  var checkerOutput = document.getElementById('CheckerOutput');
+
   colorNav.classList.remove('nav__item--selected');
   contrastNav.classList.add('nav__item--selected');
 
   colorSection.classList.add('hidden');
   contrastSection.classList.remove('hidden');
 
-  canvas.classList.add('hidden');
+  canvasContainer.classList.add('hidden');
   checkerOutput.classList.remove('hidden');
 });
 
-exportButton.addEventListener('click', download, false);
 
-contrastCheckButton.addEventListener('click', function(event) {
+//
+// Button Events
+exportButton.addEventListener('click', function(event) {
+  var mainCanvas = document.getElementById('SimulationCanvas');
+  var dt = mainCanvas.toDataURL();
+  window.status = dt;
+});
+
+checkContrastButton.addEventListener('click', function(event) {
   window.status = 'Check';
 });
 
+
+
+
+//
+// Page Functions
+for (var i = 0; i < artboardNames.length; i++){
+  var opt = document.createElement('option');
+  opt.value = "abid_" + artboardNames[i];
+  opt.innerHTML = artboardNames[i];
+  artboardSelect.appendChild(opt);
+}
+
 function addCanvasOpacity() {
-  canvas.classList.remove('canvas--hidden');
+  var canvasContainer = document.getElementById('CanvasContainer');
+  canvasContainer.classList.remove('canvas--hidden');
 }
 
 function removeCanvasOpacity() {
-  canvas.classList.add('canvas--hidden');
-}
-
-function download() {
-    var dt = mainCanvas.toDataURL();
-    window.status = dt;
+  var canvasContainer = document.getElementById('CanvasContainer');
+  canvasContainer.classList.add('canvas--hidden');
 }
 
 function updateCheckerOutput(contrastResults) {
+  var contrastRatio = document.getElementById('ContrastRatio');
+
   var results = contrastResults.split(',');
   contrastRatio.textContent = results[0];
 
