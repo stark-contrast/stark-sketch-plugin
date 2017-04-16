@@ -107,7 +107,44 @@ function updateCheckerOutput(contrastResults) {
   var contrastRatio = document.getElementById('ContrastRatio');
 
   var results = contrastResults.split(',');
-  contrastRatio.textContent = results[0];
+  contrastRatio.textContent = results[0] + ':1';
+
+
+  if (results[0] >= 3.1) {
+    document.getElementById('ResultsLargeAaPass').classList.remove('hidden');
+    document.getElementById('ResultsLargeAaFail').classList.add('hidden');
+  }
+
+  if (results[0] >= 4.5) {
+    document.getElementById('ResultsNormalAaPass').classList.remove('hidden');
+    document.getElementById('ResultsNormalAaFail').classList.add('hidden');
+
+    document.getElementById('ResultsLargeAaaPass').classList.remove('hidden');
+    document.getElementById('ResultsLargeAaaFail').classList.add('hidden');
+  }
+
+  if (results[0] >= 7.1) {
+    document.getElementById('ResultsNormalAaaPass').classList.remove('hidden');
+    document.getElementById('ResultsNormalAaaFail').classList.add('hidden');
+  }
+
+  if (results[0] < 3.1) {
+    document.getElementById('ResultsLargeAaPass').classList.add('hidden');
+    document.getElementById('ResultsLargeAaFail').classList.remove('hidden');
+  }
+
+  if (results[0] < 4.5) {
+    document.getElementById('ResultsNormalAaPass').classList.add('hidden');
+    document.getElementById('ResultsNormalAaFail').classList.remove('hidden');
+
+    document.getElementById('ResultsLargeAaaPass').classList.add('hidden');
+    document.getElementById('ResultsLargeAaaFail').classList.remove('hidden');
+  }
+
+  if (results[0] < 7.1) {
+    document.getElementById('ResultsNormalAaaPass').classList.add('hidden');
+    document.getElementById('ResultsNormalAaaFail').classList.remove('hidden');
+  }
 
   var firstColor = results[1].split('|');
   var secondColor = results[2].split('|');

@@ -264,3 +264,31 @@ select::after {
   font-weight: 600;
   margin-bottom: 16px;
 }
+
+.fail {
+  width: 1rem;
+  fill: red;
+  margin-right: 0.5rem;
+}
+
+.pass {
+  width: 1.25rem;
+  fill: green;
+  margin-right: 0.5rem;
+}
+
+#ResultsLargeAaaFail {
+  margin-left: 1.5rem;
+}
+
+#ResultsLargeAaaPass {
+  margin-left: 1.25rem;
+}
+
+#ResultsNormalAaFail {
+  margin-left: 0.25rem;
+}
+
+#ResultsNormalAaPass {
+  margin-left: 0.5rem;
+}
