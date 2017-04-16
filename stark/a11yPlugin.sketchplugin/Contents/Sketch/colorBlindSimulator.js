@@ -138,7 +138,7 @@ function handleExportButtonClick(imageDataString) {
   [panel setAllowsOtherFileTypes:false];
   [panel setExtensionHidden:false];
   [panel setCanCreateDirectories:true];
-  [panel setNameFieldStringValue:"simulation.png"];
+  [panel setNameFieldStringValue:"simulation"];
 
   if ([panel runModal] == NSOKButton) {
     var message = [panel filename];
