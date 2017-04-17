@@ -56,9 +56,11 @@ colorNav.addEventListener("click", function(event) {
 
     canvasContainer.classList.remove('hidden');
     checkerOutput.classList.add('hidden');
-  }, 75);
 
-  window.status = "nav-color";
+    setTimeout(function(){
+      window.status = "nav-color";
+    }, 100);
+  }, 75);
 });
 
 contrastNav.addEventListener("click", function(event) {
@@ -102,12 +104,12 @@ checkContrastButton.addEventListener('click', function(event) {
 
 //
 // Page Functions
-// for (var i = 0; i < artboardNames.length; i++){
-//   var opt = document.createElement('option');
-//   opt.value = "abid_" + artboardNames[i];
-//   opt.innerHTML = artboardNames[i];
-//   artboardSelect.appendChild(opt);
-// }
+for (var i = 0; i < artboardNames.length; i++){
+  var opt = document.createElement('option');
+  opt.value = "abid_" + artboardNames[i];
+  opt.innerHTML = artboardNames[i];
+  artboardSelect.appendChild(opt);
+}
 
 function addCanvasOpacity() {
   var canvasContainer = document.getElementById('CanvasContainer');

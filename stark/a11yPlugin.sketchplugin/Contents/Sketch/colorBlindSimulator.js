@@ -48,9 +48,16 @@ var onRun = function(context) {
         handleCheckContrastButtonClick(context, nibui);
       } else if (statusText == 'nav-contrast') {
         resizeWindow(nibui, 551);
+        var mainWindow = nibui.mainWindow;
+        [mainWindow setStyleMask:[mainWindow styleMask] & ~NSResizableWindowMask];
       } else if (statusText == 'nav-color') {
-        takeSnapshot(context, nibui);
-        postWebFunction(nibui, "runSimulation", [""]);
+        var mainWindow = nibui.mainWindow;
+        [mainWindow setStyleMask:[mainWindow styleMask] | NSResizableWindowMask];
+
+        if (artboardId == 'abid_UseWindow') {
+          takeSnapshot(context, nibui);
+          postWebFunction(nibui, "runSimulation", [""]);
+        }
       }
     }
   });
