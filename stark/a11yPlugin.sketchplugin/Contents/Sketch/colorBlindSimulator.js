@@ -47,7 +47,7 @@ var onRun = function(context) {
       } else if (statusText == 'Check') {
         handleCheckContrastButtonClick(context, nibui);
       } else if (statusText == 'nav-contrast') {
-        resizeWindow(nibui, 551);
+        resizeWindow(nibui, 551, 623);
         var mainWindow = nibui.mainWindow;
         [mainWindow setStyleMask:[mainWindow styleMask] & ~NSResizableWindowMask];
       } else if (statusText == 'nav-color') {
@@ -220,13 +220,16 @@ function saveFile(context, filePath, data) {
   var fileSuccess = [data writeToFile:file atomically:true];
 }
 
-function resizeWindow(nibui, width) {
+function resizeWindow(nibui, width, height) {
   var mainWindow = nibui.mainWindow;
   var frame = [mainWindow frame];
   var oldWidth = frame.size.width;
+  var oldHeight = frame.size.height;
   frame.size.width = width;
+  frame.size.height = height;
 
   frame.origin.x += oldWidth - width;
+  frame.origin.y += oldHeight - height;
 
   [mainWindow setFrame:frame display:true animate:true];
 }
