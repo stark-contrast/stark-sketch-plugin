@@ -152,6 +152,8 @@ select::after {
   flex-direction: column;
   font-size: 12px;
   font-weight: 500;
+  background-color: #E5E5E5;
+  transition: background-color 0.15s ease;
 }
 
 .nav__item::before {
@@ -167,19 +169,42 @@ select::after {
   background-color: #F5F5F5;
 }
 
-.nav__item--selected::before {
+#ColorNav::before {
   content: '';
   position: absolute;
   width: 100%;
   background: black;
   height: 4px;
   bottom: 0;
+  transform: translateX(0);
+  transition: transform 0.15s ease-in-out;
+  z-index: 100;
+}
+
+#ColorNav.not-selected::before {
+  transform: translateX(100%);
 }
 
 .nav__item svg {
   fill: black;
   height: 1.25rem;
   margin-bottom: 0.25rem
+}
+
+.fade-out-left {
+  animation: 0.1s fade-out-left ease-in-out;
+}
+
+.fade-out-right {
+  animation: 0.1s fade-out-right ease-in-out;
+}
+
+.fade-in-left {
+  animation: 0.1s fade-in-left ease-in-out;
+}
+
+.fade-in-right {
+  animation: 0.1s fade-in-right ease-in-out;
 }
 
 .step {
@@ -222,10 +247,20 @@ select::after {
   padding-bottom: 0.25rem;
   font-weight: 800;
   font-size: 14px;
+  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
 }
 
 .button__export:focus {
   outline: none;
+}
+
+.button__export:hover {
+  background-color: black;
+  color: white;
+}
+
+.button__export:active {
+  transform: scale(0.95);
 }
 
 .button__check {
@@ -238,10 +273,20 @@ select::after {
   padding-bottom: 0.25rem;
   font-weight: 800;
   font-size: 14px;
+  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
 }
 
 .button__check:focus {
   outline: none;
+}
+
+.button__check:hover {
+  background-color: black;
+  color: white;
+}
+
+.button__check:active {
+  transform: scale(0.95);
 }
 
 .info__logo {
@@ -255,6 +300,12 @@ select::after {
   fill: #F5F5F5;
   background: #D5D5D5;
   border-radius: 6px;
+  transition: background-color 0.15s ease-in-out, fill 0.15s ease-in-out;
+}
+
+.info__logo:hover > svg {
+  background-color: black;
+  fill: white;
 }
 
 .info__version {
@@ -291,4 +342,52 @@ select::after {
 
 #ResultsNormalAaPass {
   margin-left: 0.5rem;
+}
+
+@keyframes fade-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(1.5rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(-1.5rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-out-left {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(1.5rem);
+  }
+}
+
+@keyframes fade-out-right {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(-1.5rem);
+  }
 }

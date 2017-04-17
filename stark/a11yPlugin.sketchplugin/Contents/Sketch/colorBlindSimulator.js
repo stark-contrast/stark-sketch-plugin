@@ -46,8 +46,11 @@ var onRun = function(context) {
         handleExportButtonClick(statusText);
       } else if (statusText == 'Check') {
         handleCheckContrastButtonClick(context, nibui);
-      } else if (statusText.startsWith('nav-contrast')) {
+      } else if (statusText == 'nav-contrast') {
         resizeWindow(nibui, 551);
+      } else if (statusText == 'nav-color') {
+        takeSnapshot(context, nibui);
+        postWebFunction(nibui, "runSimulation", [""]);
       }
     }
   });
@@ -218,5 +221,5 @@ function resizeWindow(nibui, width) {
 
   frame.origin.x += oldWidth - width;
 
-  [mainWindow setFrame:frame display:true animate:false];
+  [mainWindow setFrame:frame display:true animate:true];
 }

@@ -43,13 +43,22 @@ colorNav.addEventListener("click", function(event) {
   var canvasContainer = document.getElementById('CanvasContainer');
 
   colorNav.classList.add('nav__item--selected');
+  colorNav.classList.remove('not-selected');
   contrastNav.classList.remove('nav__item--selected');
 
-  colorSection.classList.remove('hidden');
-  contrastSection.classList.add('hidden');
+  contrastSection.classList.add('fade-out-left');
 
-  canvasContainer.classList.remove('hidden');
-  checkerOutput.classList.add('hidden');
+  setTimeout(function(){
+    colorSection.classList.remove('fade-in-left');
+    colorSection.classList.remove('hidden');
+    contrastSection.classList.add('hidden');
+    colorSection.classList.add('fade-in-right');
+
+    canvasContainer.classList.remove('hidden');
+    checkerOutput.classList.add('hidden');
+  }, 75);
+
+  window.status = "nav-color";
 });
 
 contrastNav.addEventListener("click", function(event) {
@@ -57,13 +66,20 @@ contrastNav.addEventListener("click", function(event) {
   var canvasContainer = document.getElementById('CanvasContainer');
 
   colorNav.classList.remove('nav__item--selected');
+  colorNav.classList.add('not-selected');
   contrastNav.classList.add('nav__item--selected');
 
-  colorSection.classList.add('hidden');
-  contrastSection.classList.remove('hidden');
+  colorSection.classList.add('fade-out-right');
 
-  canvasContainer.classList.add('hidden');
-  checkerOutput.classList.remove('hidden');
+  setTimeout(function(){
+    contrastSection.classList.remove('fade-out-right');
+    colorSection.classList.add('hidden');
+    contrastSection.classList.remove('hidden');
+    contrastSection.classList.add('fade-in-left');
+
+    canvasContainer.classList.add('hidden');
+    checkerOutput.classList.remove('hidden');
+  }, 75);
 
   window.status = "nav-contrast";
 });
@@ -86,12 +102,12 @@ checkContrastButton.addEventListener('click', function(event) {
 
 //
 // Page Functions
-for (var i = 0; i < artboardNames.length; i++){
-  var opt = document.createElement('option');
-  opt.value = "abid_" + artboardNames[i];
-  opt.innerHTML = artboardNames[i];
-  artboardSelect.appendChild(opt);
-}
+// for (var i = 0; i < artboardNames.length; i++){
+//   var opt = document.createElement('option');
+//   opt.value = "abid_" + artboardNames[i];
+//   opt.innerHTML = artboardNames[i];
+//   artboardSelect.appendChild(opt);
+// }
 
 function addCanvasOpacity() {
   var canvasContainer = document.getElementById('CanvasContainer');
