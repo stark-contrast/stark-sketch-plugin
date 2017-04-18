@@ -58,6 +58,8 @@ var onRun = function(context) {
           takeSnapshot(context, nibui);
           postWebFunction(nibui, "runSimulation", [""]);
         }
+      } else if (statusText == 'LogoClicked') {
+        handleLogoButtonClicked();
       }
     }
   });
@@ -157,6 +159,11 @@ function handleExportButtonClick(imageDataString) {
     var file = [NSString stringWithFormat:@"%@", filepath];
     var fileSuccess = [data writeToFile:file atomically:true];
   }
+}
+
+function handleLogoButtonClicked() {
+  var url = "https://www.getstark.co";
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: url]]
 }
 
 function generateArtboardNames(context) {

@@ -42,6 +42,11 @@ body {
   text-align: center;
 }
 
+.output-right {
+  background-color: black;
+  color: white;
+}
+
 .left-normal,
 .right-normal {
   font-size: 14px;
@@ -90,11 +95,23 @@ body {
 .results-normal,
 .results-large {
   padding: 1rem;
+  width: 10rem;
+  margin: 0 auto;
 }
 
 .results-normal-aa,
 .results-large-aa {
   padding-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.results-normal-aaa,
+.results-large-aaa {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 select {
@@ -192,19 +209,19 @@ select::after {
 }
 
 .fade-out-left {
-  animation: 0.1s fade-out-left ease-in-out;
+  animation: 0.15s fade-out-left ease-in-out;
 }
 
 .fade-out-right {
-  animation: 0.1s fade-out-right ease-in-out;
+  animation: 0.15s fade-out-right ease-in-out;
 }
 
 .fade-in-left {
-  animation: 0.1s fade-in-left ease-in-out;
+  animation: 0.15s fade-in-left ease-in-out;
 }
 
 .fade-in-right {
-  animation: 0.1s fade-in-right ease-in-out;
+  animation: 0.15s fade-in-right ease-in-out;
 }
 
 .step {
@@ -319,7 +336,8 @@ select::after {
 .fail {
   width: 1rem;
   fill: red;
-  margin-right: 0.5rem;
+  margin-right: 0.8rem;
+  margin-left: 0.25rem;
 }
 
 .pass {
@@ -340,54 +358,80 @@ select::after {
   margin-left: 0.25rem;
 }
 
+#ResultsNormalAaaFail {
+  margin-left: 0;
+}
+
 #ResultsNormalAaPass {
   margin-left: 0.5rem;
+}
+
+#ResultsNormalAaNone,
+#ResultsNormalAaaNone,
+#ResultsLargeAaNone,
+#ResultsLargeAaaNone {
+  margin-right: 0.75rem;
+  margin-left: 0.75rem
+}
+
+#ResultsNormalAaaNone {
+  margin-left: 0.5rem;
+}
+
+#ResultsLargeAaNone {
+  margin-left: 0;
+}
+
+#ResultsLargeAaaNone {
+  margin-left: 1.4rem;
+  margin-right: 0.7rem;
 }
 
 @keyframes fade-in-left {
   from {
     opacity: 0;
-    transform: translateX(1.5rem);
+    transform: scale(0.95);
   }
 
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: scale(1);
   }
 }
 
 @keyframes fade-in-right {
   from {
     opacity: 0;
-    transform: translateX(-1.5rem);
+    transform: scale(0.95);
   }
 
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(1);
   }
 }
 
 @keyframes fade-out-left {
   from {
     opacity: 1;
-    transform: translateX(0);
+    transform: scale(1);
+
   }
 
   to {
     opacity: 0;
-    transform: translateX(1.5rem);
+    transform: scale(0.95);
   }
 }
 
 @keyframes fade-out-right {
   from {
     opacity: 1;
-    transform: translateX(0);
+    transform: scale(1);
   }
 
   to {
     opacity: 0;
-    transform: translateX(-1.5rem);
+    transform: scale(0.95);
   }
 }

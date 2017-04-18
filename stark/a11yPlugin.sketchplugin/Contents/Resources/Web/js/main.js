@@ -20,6 +20,7 @@ var contrastSection = document.getElementById('ContrastSection');
 // Button Elements
 var exportButton = document.getElementById('ExportButton');
 var checkContrastButton = document.getElementById('CheckContrastButton');
+var starkLogoButton = document.getElementById('StarkLogoButton');
 
 
 
@@ -54,11 +55,12 @@ colorNav.addEventListener("click", function(event) {
     contrastSection.classList.add('hidden');
     colorSection.classList.add('fade-in-right');
 
-    canvasContainer.classList.remove('hidden');
-    checkerOutput.classList.add('hidden');
-
     setTimeout(function(){
       window.status = "nav-color";
+      setTimeout(function(){
+        canvasContainer.classList.remove('hidden');
+        checkerOutput.classList.add('hidden');
+      }, 100);
     }, 100);
   }, 75);
 });
@@ -79,11 +81,14 @@ contrastNav.addEventListener("click", function(event) {
     contrastSection.classList.remove('hidden');
     contrastSection.classList.add('fade-in-left');
 
-    canvasContainer.classList.add('hidden');
-    checkerOutput.classList.remove('hidden');
+    setTimeout(function(){
+      window.status = "nav-contrast";
+      setTimeout(function(){
+        canvasContainer.classList.add('hidden');
+        checkerOutput.classList.remove('hidden');
+      }, 100);
+    }, 100);
   }, 75);
-
-  window.status = "nav-contrast";
 });
 
 
@@ -97,6 +102,10 @@ exportButton.addEventListener('click', function(event) {
 
 checkContrastButton.addEventListener('click', function(event) {
   window.status = 'Check';
+});
+
+starkLogoButton.addEventListener('click', function(event) {
+  window.status = 'LogoClicked';
 });
 
 
@@ -163,6 +172,11 @@ function updateCheckerOutput(contrastResults) {
     document.getElementById('ResultsNormalAaaPass').classList.add('hidden');
     document.getElementById('ResultsNormalAaaFail').classList.remove('hidden');
   }
+
+  document.getElementById('ResultsNormalAaNone').classList.add('hidden');
+  document.getElementById('ResultsNormalAaaNone').classList.add('hidden');
+  document.getElementById('ResultsLargeAaNone').classList.add('hidden');
+  document.getElementById('ResultsLargeAaaNone').classList.add('hidden');
 
   var firstColor = results[1].split('|');
   var secondColor = results[2].split('|');
