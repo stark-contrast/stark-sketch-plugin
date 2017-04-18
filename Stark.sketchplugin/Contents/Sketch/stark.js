@@ -10,7 +10,7 @@ var onRun = function(context) {
   // Prepare the NIB so we can do stuff with the UI
   COSCRIPT = COScript.currentCOScript();
   COSCRIPT.setShouldKeepAround(true);
-  var nibui = new NibUI(context, 'UIBundle', 'a11yNibUITemplate', [
+  var nibui = new NibUI(context, 'UIBundle', 'StarkNibUITemplate', [
     'mainWindow', 'webMainView'
   ]);
 

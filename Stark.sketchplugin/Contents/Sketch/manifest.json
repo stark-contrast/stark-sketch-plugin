@@ -1,0 +1,24 @@
+{
+  "commands" : [
+    {
+      "script" : "stark.js",
+      "handler" : "onRun",
+      "shortcut" : "",
+      "name" : "Stark",
+      "identifier" : "stark"
+    }
+  ],
+  "menu": {
+    "title" : "Stark",
+    "isRoot" : true,
+    "items" : [
+      "stark"
+    ]
+  },
+  "identifier" : "com.mfouquet.sketch.stark",
+  "version" : "1.0",
+  "description" : "Ensure your design is accessible and high contrast for every type of color blindness.",
+  "author" : "Michael Fouquet, Cat Noone, Benedikt Lehnert",
+  "authorEmail" : "michael.fouquet@me.com",
+  "name" : "Stark"
+}
