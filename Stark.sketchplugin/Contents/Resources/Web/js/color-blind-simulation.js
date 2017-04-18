@@ -468,3 +468,9 @@ function runSimulation() {
 
   img.src = "img/snapshot.png" + "?ts=" + new Date().getTime();
 }
+
+function setColorBlindId(colorBlindId) {
+  console.log(colorBlindId);
+  var simSelect = document.getElementById('SimulationSelect');
+  simSelect.value = colorBlindId;
+}

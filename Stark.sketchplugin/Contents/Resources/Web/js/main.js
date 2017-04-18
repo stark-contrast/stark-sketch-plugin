@@ -130,6 +130,10 @@ function removeCanvasOpacity() {
   canvasContainer.classList.add('canvas--hidden');
 }
 
+function simulateContrastClick() {
+  contrastNav.click();
+}
+
 function updateCheckerOutput(contrastResults) {
   var contrastRatio = document.getElementById('ContrastRatio');
 
@@ -199,4 +203,8 @@ function updateCheckerOutput(contrastResults) {
   rightOutput.style.backgroundColor = 'rgb(' + Math.round(secondColor[0]) + ',' + Math.round(secondColor[1]) + ',' + Math.round(secondColor[2]) + ')';
 
   rightOutput.style.color = 'rgb(' + Math.round(firstColor[0]) + ',' + Math.round(firstColor[1]) + ',' + Math.round(firstColor[2]) + ')';
+}
+
+window.onload = function(e){
+  window.status = "windowLoaded";
 }
