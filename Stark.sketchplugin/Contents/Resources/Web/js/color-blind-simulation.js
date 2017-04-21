@@ -431,7 +431,7 @@ function runSimulation() {
     if (artboardId === 'abid_UseWindow') {
       canvas.removeAttribute('style');
     } else {
-      canvas.setAttribute('style', 'width: calc(' + width + 'px / 2)')
+      canvas.setAttribute('style', 'width: calc(' + width + 'px / 2); transform: scale(' + canvasScale + ');')
     }
     ctx.drawImage(img, 0, 0, width, height,
                         0, 0, canvas.width, canvas.height);
@@ -470,7 +470,6 @@ function runSimulation() {
 }
 
 function setColorBlindId(colorBlindId) {
-  console.log(colorBlindId);
   var simSelect = document.getElementById('SimulationSelect');
   simSelect.value = colorBlindId;
 }

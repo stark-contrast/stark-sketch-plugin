@@ -12,6 +12,26 @@
   <body>
     <div id="CanvasContainer" class="canvas canvas--window canvas--hidden">
       <canvas id="SimulationCanvas"></canvas>
+      <div id="ZoomContainer" class="zoom-button__container">
+        <button id="ZoomOutButton" class="button__zoom">
+          <svg viewBox="0 0 24 8" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <g id="Fill-17" transform="translate(-1.000000, 0.000000)" fill="#0B0B0A">
+                <path d="M24.8544,0.1692 C24.7604,0.0752 24.6334,0.0222 24.5004,0.0222 L1.4994,0.0002 C1.3674,0.0002 1.2404,0.0532 1.1464,0.1472 C1.0524,0.2402 0.9994,0.3672 0.9994,0.5002 L0.9994,7.5002 C0.9994,7.7762 1.2224,7.9992 1.4994,8.0002 L24.4874,8.0002 C24.7624,8.0002 24.9864,7.7992 24.9874,7.5232 L24.9994,0.5232 C25.0004,0.3902 24.9484,0.2632 24.8544,0.1692"></path>
+              </g>
+            </g>
+          </svg>
+        </button>
+        <button id="ZoomInButton" class="button__zoom">
+          <svg viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <g id="Fill-15" transform="translate(-1.000000, 0.000000)" fill="#0B0B0A">
+                <path d="M24.5077,8.0003 L16.9997,8.0003 L16.9997,0.5083 C16.9997,0.3753 16.9687,0.2473 16.8757,0.1533 C16.7817,0.0603 16.6537,0.0073 16.5227,0.0073 L9.4997,0.0003 C9.3667,0.0003 9.2397,0.0533 9.1467,0.1463 C9.0527,0.2403 8.9997,0.3673 8.9997,0.5003 L8.9997,8.0003 L1.4997,8.0003 C1.2237,8.0003 0.9997,8.2243 0.9997,8.5003 L0.9997,15.5003 C0.9997,15.7763 1.2237,16.0003 1.4997,16.0003 L8.9997,16.0003 L8.9997,23.5003 C8.9997,23.7763 9.2237,24.0003 9.4997,24.0003 L16.4997,24.0003 C16.7757,24.0003 16.9997,23.7763 16.9997,23.5003 L16.9997,16.0003 L24.4997,16.0003 C24.7757,16.0003 24.9987,15.7763 24.9997,15.5003 L24.9997,8.5233 C25.0007,8.2463 24.7827,8.0013 24.5077,8.0003"></path>
+              </g>
+            </g>
+          </svg>
+        </button>
+      </div>
     </div>
     <div id="CheckerOutput" class="checker-output hidden">
       <div class="output-container">

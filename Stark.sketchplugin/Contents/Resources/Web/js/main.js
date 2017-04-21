@@ -19,9 +19,16 @@ var contrastSection = document.getElementById('ContrastSection');
 //
 // Button Elements
 var exportButton = document.getElementById('ExportButton');
+
 var checkContrastButton = document.getElementById('CheckContrastButton');
 var starkLogoButton = document.getElementById('StarkLogoButton');
 
+var zoomOutButton = document.getElementById('ZoomOutButton');
+var zoomInButton = document.getElementById('ZoomInButton');
+
+
+// Defaults
+var canvasScale = 1;
 
 
 
@@ -34,6 +41,14 @@ simulationSelect.addEventListener("change", function(event) {
 
 artboardSelect.addEventListener("change", function(event) {
   window.status = artboardSelect.value;
+
+  var zoomContainer = document.getElementById('ZoomContainer');
+
+  if (artboardSelect.value == 'abid_UseWindow') {
+    zoomContainer.style.display = 'none';
+  } else {
+    zoomContainer.style.display = 'flex';
+  }
 });
 
 
@@ -98,6 +113,26 @@ exportButton.addEventListener('click', function(event) {
   var mainCanvas = document.getElementById('SimulationCanvas');
   var dt = mainCanvas.toDataURL();
   window.status = dt;
+});
+
+zoomInButton.addEventListener('click', function(event) {
+  var canvas = document.getElementById('SimulationCanvas');
+  zoomOutButton.disabled = false;
+  canvasScale += .1;
+  canvas.style.transform = ("scale(" + canvasScale + ")");
+});
+
+zoomOutButton.addEventListener('click', function(event) {
+  var canvas = document.getElementById('SimulationCanvas');
+  var newCanvasScale = canvasScale - .1;
+
+  if (newCanvasScale <= 0.1) {
+    zoomOutButton.disabled = true;
+  } else {
+    canvasScale -= .1;
+    zoomOutButton.disabled = false;
+    canvas.style.transform = ("scale(" + canvasScale + ")");
+  }
 });
 
 checkContrastButton.addEventListener('click', function(event) {
@@ -206,5 +241,10 @@ function updateCheckerOutput(contrastResults) {
 }
 
 window.onload = function(e){
+  if (artboardSelect.value == 'abid_UseWindow') {
+    var zoomContainer = document.getElementById('ZoomContainer');
+    zoomContainer.style.display = 'none;'
+  }
+
   window.status = "windowLoaded";
 }

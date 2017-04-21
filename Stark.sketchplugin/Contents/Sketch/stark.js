@@ -3,10 +3,80 @@
 
 var COSCRIPT;
 var artboardId = "abid_UseWindow";
+var simulationId = "cbid_NoSim";
+var shouldCheckContrast = false;
 
 var onRun = function(context) {
-  var app = NSApplication.sharedApplication();
+  var nibui = prepareWindow(context);
 
+  // Take a snapshot of the window so it's ready if the users selects a
+  // colorblind type to simulate
+  takeSnapshot(context, nibui);
+}
+
+var handleProtanopia = function(context) {
+  var nibui = prepareWindow(context);
+  simulationId = "cbid_Protanopia"
+  takeSnapshot(context, nibui);
+}
+
+var handleProtanomaly = function(context) {
+  var nibui = prepareWindow(context);
+  simulationId = "cbid_Protanomaly"
+  takeSnapshot(context, nibui);
+}
+
+var handleDeuteranopia = function(context) {
+  var nibui = prepareWindow(context);
+  simulationId = "cbid_Deuteranopia"
+  takeSnapshot(context, nibui);
+}
+
+var handleDeuteranomaly = function(context) {
+  var nibui = prepareWindow(context);
+  simulationId = "cbid_Deuteranomaly"
+  takeSnapshot(context, nibui);
+}
+
+var handleTritanopia = function(context) {
+  var nibui = prepareWindow(context);
+  simulationId = "cbid_Tritanopia"
+  takeSnapshot(context, nibui);
+}
+
+var handleTritanomaly = function(context) {
+  var nibui = prepareWindow(context);
+  simulationId = "cbid_Tritanomaly"
+  takeSnapshot(context, nibui);
+}
+
+var handleAchromatopsia = function(context) {
+  var nibui = prepareWindow(context);
+  simulationId = "cbid_Achromatopsia"
+  takeSnapshot(context, nibui);
+}
+
+var handleAchromatomaly = function(context) {
+  var nibui = prepareWindow(context);
+  simulationId = "cbid_Achromatomaly"
+  takeSnapshot(context, nibui);
+}
+
+var handleProtanomaly = function(context) {
+  var nibui = prepareWindow(context);
+  simulationId = "cbid_Protanomaly"
+  takeSnapshot(context, nibui);
+}
+
+var handleContrastCheck = function(context) {
+  var returnVal = checkContrast(context);
+  if (returnVal) {
+    var nibui = prepareWindow(context);
+    shouldCheckContrast = true;
+  }
+}
+
+function prepareWindow(context) {
   // Prepare the NIB so we can do stuff with the UI
   COSCRIPT = COScript.currentCOScript();
   COSCRIPT.setShouldKeepAround(true);
@@ -60,6 +130,14 @@ var onRun = function(context) {
         }
       } else if (statusText == 'LogoClicked') {
         handleLogoButtonClicked();
+      } else if (statusText == 'windowLoaded') {
+        if (shouldCheckContrast) {
+          postWebFunction(nibui, "simulateContrastClick", [""]);
+          handleCheckContrastButtonClick(context, nibui);
+        } else {
+          postWebFunction(nibui, "setColorBlindId", [simulationId]);
+          postWebFunction(nibui, "runSimulation", [""]);
+        }
       }
     }
   });
@@ -99,9 +177,7 @@ var onRun = function(context) {
   nibui.mainWindow.setLevel(NSFloatingWindowLevel);
   nibui.destroy();
 
-  // Take a snapshot of the window so it's ready if the users selects a
-  // colorblind type to simulate
-  takeSnapshot(context, nibui);
+  return nibui;
 }
 
 function handleArtboardSelectChange(context, nibui, artboardSelectId) {
@@ -136,6 +212,7 @@ function handleArtboardSelectChange(context, nibui, artboardSelectId) {
 }
 
 function handleCheckContrastButtonClick(context, nibui) {
+  log('handling check contrast button click');
   var returnValue = checkContrast(context);
   postWebFunction(nibui, "updateCheckerOutput", [returnValue]);
 }
