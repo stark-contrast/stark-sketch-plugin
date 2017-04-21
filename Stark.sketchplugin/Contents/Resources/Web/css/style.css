@@ -9,6 +9,10 @@ body {
   display: none;
 }
 
+canvas {
+  transform-origin: top left;
+}
+
 .canvas {
   background-color: white;
   width: 100%;
@@ -23,6 +27,54 @@ body {
 .canvas--window canvas {
   width: 100%;
   height: 100%;
+}
+
+.zoom-button__container {
+  position: fixed;
+  z-index: 1;
+  bottom: 0;
+  display: none;
+  justify-content: center;
+  width: calc(100% - 220px);
+  margin-bottom: 0.5rem
+}
+
+.button__zoom {
+  border-radius: 50%;
+  border: 2px solid black;
+  font-weight: 800;
+  font-size: 14px;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: white;
+  display: flex;
+  opacity: 0.75;
+  transition: opacity 0.15s ease;
+}
+
+.button__zoom:hover:disabled,
+.button__zoom:disabled {
+  opacity: 0.25;
+}
+
+.button__zoom:hover {
+  opacity: 1;
+}
+
+.button__zoom:active {
+  transform: scale(0.95);
+}
+
+#ZoomOutButton {
+  padding-top: 0.25rem;
+}
+
+#ZoomOutButton {
+  margin-right: 0.25rem;
+}
+
+#ZoomInButton {
+  margin-left: 0.25rem;
 }
 
 .checker-output {
