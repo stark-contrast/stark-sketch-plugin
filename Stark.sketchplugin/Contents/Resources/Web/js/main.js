@@ -176,7 +176,7 @@ function updateCheckerOutput(contrastResults) {
   contrastRatio.textContent = results[0] + ':1';
 
 
-  if (results[0] >= 3.1) {
+  if (results[0] >= 3.0) {
     document.getElementById('ResultsLargeAaPass').classList.remove('hidden');
     document.getElementById('ResultsLargeAaFail').classList.add('hidden');
   }
@@ -189,12 +189,12 @@ function updateCheckerOutput(contrastResults) {
     document.getElementById('ResultsLargeAaaFail').classList.add('hidden');
   }
 
-  if (results[0] >= 7.1) {
+  if (results[0] >= 7.0) {
     document.getElementById('ResultsNormalAaaPass').classList.remove('hidden');
     document.getElementById('ResultsNormalAaaFail').classList.add('hidden');
   }
 
-  if (results[0] < 3.1) {
+  if (results[0] < 3.0) {
     document.getElementById('ResultsLargeAaPass').classList.add('hidden');
     document.getElementById('ResultsLargeAaFail').classList.remove('hidden');
   }
@@ -207,7 +207,7 @@ function updateCheckerOutput(contrastResults) {
     document.getElementById('ResultsLargeAaaFail').classList.remove('hidden');
   }
 
-  if (results[0] < 7.1) {
+  if (results[0] < 7.0) {
     document.getElementById('ResultsNormalAaaPass').classList.add('hidden');
     document.getElementById('ResultsNormalAaaFail').classList.remove('hidden');
   }
