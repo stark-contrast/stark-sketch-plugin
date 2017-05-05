@@ -31,9 +31,9 @@ var zoomInButton = document.getElementById('ZoomInButton');
 var canvasScale = 1;
 
 
-
 //
 // Select Events
+simulationSelect.focus();
 simulationSelect.addEventListener("change", function(event) {
   window.status = simulationSelect.value;
   runSimulation();
@@ -142,6 +142,70 @@ checkContrastButton.addEventListener('click', function(event) {
 starkLogoButton.addEventListener('click', function(event) {
   window.status = 'LogoClicked';
 });
+
+
+//
+// Keypress Events
+document.onkeydown = checkKey;
+var changeEvent = new Event('change', { 'bubbles': true });
+var clickEvent = new Event('click', { 'bubbles': true });
+
+function checkKey(e) {
+  e.preventDefault();
+  switch(e.keyCode) {
+    case 38:
+    // up arrow
+    if (simulationSelect.selectedIndex == 0) {
+      simulationSelect.selectedIndex = simulationSelect.options.length - 1;
+    } else {
+      simulationSelect.selectedIndex = simulationSelect.selectedIndex - 1;
+    }
+    simulationSelect.dispatchEvent(changeEvent);
+    break;
+
+    case 40:
+    // down arrow
+    if (simulationSelect.selectedIndex == simulationSelect.options.length - 1) {
+      simulationSelect.selectedIndex = 0;
+    } else {
+      simulationSelect.selectedIndex = simulationSelect.selectedIndex + 1;
+    }
+    simulationSelect.dispatchEvent(changeEvent);
+    break;
+
+    case 37:
+    // left arrow
+    if (artboardSelect.selectedIndex != 0) {
+      artboardSelect.selectedIndex = artboardSelect.selectedIndex - 1;
+      artboardSelect.dispatchEvent(changeEvent);
+    }
+    break;
+
+    case 39:
+    // right arrow
+    if (artboardSelect.selectedIndex != artboardSelect.options.length - 1) {
+      artboardSelect.selectedIndex = artboardSelect.selectedIndex + 1;
+      artboardSelect.dispatchEvent(changeEvent);
+    }
+    break;
+
+    case 107:
+    case 187:
+    // plus sign or equals
+    if (artboardSelect.value != 'abid_UseWindow') {
+      zoomInButton.dispatchEvent(clickEvent);
+    }
+    break;
+
+    case 109:
+    case 189:
+    // minus sign or dash
+    if (artboardSelect.value != 'abid_UseWindow') {
+      zoomOutButton.dispatchEvent(clickEvent);
+    }
+    break;
+  }
+}
 
 
 
