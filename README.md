@@ -1,4 +1,4 @@
-# Stark.
+# Stark
 
 **Rather than go through this readme, check out the [website](http://www.getstark.co/). It's much better.**
 
@@ -32,9 +32,17 @@ You can obviously select any of the options below, but try speeding up your work
 #### Simulate Colorblindness
 * Jump straight to a simulation by selecting any one of the 8 types of colorblindness.
 
+##### Hotkeys
+The colorblind simulation has the following hotkeys available:
+- <kbd>↑</kbd><kbd>↓</kbd> - Cycle between the 8 types of colorblindness.
+- <kbd>←</kbd><kbd>→</kbd> - Cycle between the artboards in your document.
+- <kbd>-</kbd><kbd>numpad -</kbd> - Zoom out on an artboard.
+- <kbd>+</kbd><kbd>numpad +</kbd> - Zoom in on an artboard.
+
 
 #### Check Contrast
 * If you have two layers selected, jump straight to checking the contrast of them both.
+
 
 
 ## Problems?
