@@ -254,28 +254,28 @@ function updateHelpLinkAndText(simType) {
   helpLink.innerHTML = 'Show more on it';
   switch (simType) {
     case 'Protanopia':
-      helpText.innerHTML = 'Affects 1% of males. No working red cone cells meaning reds can appear as black.';
+      helpText.innerHTML = 'Affects 1% of males. No working red cone cells, meaning reds can appear as black.';
       break;
     case 'Protanomaly':
       helpText.innerHTML = 'Affects 1% of males. Abnormal red cone photopigment. Colors not as bright with some actually showing greener.';
       break;
     case 'Deuteranopia':
-      helpText.innerHTML = 'Affects 1% of males. No working green cone cells meaning greens can appear beige.';
+      helpText.innerHTML = 'Affects 1% of males. No working green cone cells, meaning greens can appear beige.';
       break;
     case 'Deuteranomaly':
-      helpText.innerHTML = 'Affects 5% of males. Abnormal green cone photopigment. Yellow and green appear redder and difficulty telling violet from blue.';
+      helpText.innerHTML = 'Affects 5% of males. Abnormal green cone photopigment. Yellow and green appear redder, plus difficulty telling violet from blue.';
       break;
     case 'Tritanopia':
-      helpText.innerHTML = 'Extremely rare - affects genders equally. No blue cone cells meaning blues can appear green.';
+      helpText.innerHTML = 'Extremely rare - affects genders equally. No blue cone cells, meaning blues can appear green.';
       break;
     case 'Tritanomaly':
-      helpText.innerHTML = 'Extremely rare - affects genders equally. Limited blue cone cells meaning blues appear greener and difficulty telling yellow and red from pink.';
+      helpText.innerHTML = 'Extremely rare - affects genders equally. Limited blue cone cells, meaning blues appear greener, plus difficulty telling yellow and red from pink.';
       break;
     case 'Achromatopsia':
-      helpText.innerHTML = 'Extremely Rare - affects genders equally. No working cone cells meaning an inability to distinguish between colors.';
+      helpText.innerHTML = 'Extremely Rare - affects genders equally. No working cone cells, meaning an inability to distinguish between colors.';
       break;
     case 'Achromatomaly':
-      helpText.innerHTML = 'Extremely Rare - affects genders equally. Limited working cone cells meaning almost no color is visible.';
+      helpText.innerHTML = 'Extremely Rare - affects genders equally. Limited working cone cells, meaning almost no color is visible.';
       break;
   }
 }
