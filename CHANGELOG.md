@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.4] - 2017-16-06
+### Added
+- Added info for the 8 different types of colorblindness.
+
 ## [1.3] - 2017-05-05
 ### Added
 - Add hotkeys for zooming in and out, cycling through the different colorblind options, and cycling through the artobards in the document.
