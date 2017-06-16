@@ -10,7 +10,7 @@
       "identifier" : "stark"
     },
     {
-      "script" : "colorblind.js",
+      "script" : "stark.js",
       "handler" : "handleProtanopia",
       "shortcut" : "",
       "name" : "Protanopia",
@@ -19,7 +19,7 @@
       "identifier" : "protanopia"
     },
     {
-      "script" : "colorblind.js",
+      "script" : "stark.js",
       "handler" : "handleProtanomaly",
       "shortcut" : "",
       "name" : "Protanomaly",
@@ -28,7 +28,7 @@
       "identifier" : "protanomaly"
     },
     {
-      "script" : "colorblind.js",
+      "script" : "stark.js",
       "handler" : "handleDeuteranopia",
       "shortcut" : "",
       "name" : "Deuteranopia",
@@ -37,7 +37,7 @@
       "identifier" : "deuteranopia"
     },
     {
-      "script" : "colorblind.js",
+      "script" : "stark.js",
       "handler" : "handleDeuteranomaly",
       "shortcut" : "",
       "name" : "Deuteranomaly",
@@ -46,7 +46,7 @@
       "identifier" : "deuteranomaly"
     },
     {
-      "script" : "colorblind.js",
+      "script" : "stark.js",
       "handler" : "handleTritanopia",
       "shortcut" : "",
       "name" : "Tritanopia",
@@ -55,7 +55,7 @@
       "identifier" : "tritanopia"
     },
     {
-      "script" : "colorblind.js",
+      "script" : "stark.js",
       "handler" : "handleTritanomaly",
       "shortcut" : "",
       "name" : "Tritanomaly",
@@ -64,7 +64,7 @@
       "identifier" : "tritanomaly"
     },
     {
-      "script" : "colorblind.js",
+      "script" : "stark.js",
       "handler" : "handleAchromatopsia",
       "shortcut" : "",
       "name" : "Achromatopsia",
@@ -73,7 +73,7 @@
       "identifier" : "achromatopsia"
     },
     {
-      "script" : "colorblind.js",
+      "script" : "stark.js",
       "handler" : "handleAchromatomaly",
       "shortcut" : "",
       "name" : "Achromatomaly",
@@ -82,7 +82,7 @@
       "identifier" : "achromatomaly"
     },
     {
-      "script" : "colorblind.js",
+      "script" : "stark.js",
       "handler" : "handleContrastCheck",
       "shortcut" : "",
       "name" : "Check Contrast",
@@ -113,7 +113,7 @@
     ]
   },
   "identifier" : "com.mfouquet.sketch.stark",
-  "version" : "1.0",
+  "version" : "1.3",
   "description" : "Ensure your design is accessible and high contrast for every type of color blindness.",
   "author" : "Michael Fouquet, Cat Noone, Benedikt Lehnert",
   "authorEmail" : "michael.fouquet@me.com",
