@@ -27,6 +27,12 @@ var zoomOutButton = document.getElementById('ZoomOutButton');
 var zoomInButton = document.getElementById('ZoomInButton');
 
 
+//
+// Help Elements
+var helpContainer = document.getElementById('HelpContainer');
+var helpLink = document.getElementById('HelpLink');
+var helpText = document.getElementById('HelpText');
+
 // Defaults
 var canvasScale = 1;
 
@@ -35,6 +41,14 @@ var canvasScale = 1;
 // Select Events
 simulationSelect.focus();
 simulationSelect.addEventListener("change", function(event) {
+  if (simulationSelect.value === 'cbid_NoSim') {
+    helpContainer.classList.remove('simulation__help-container--show');
+  }
+  else {
+    updateHelpLinkAndText(simulationSelect.value.replace('cbid_', ''))
+    helpContainer.classList.add('simulation__help-container--show');
+  }
+
   window.status = simulationSelect.value;
   runSimulation();
 });
@@ -49,6 +63,13 @@ artboardSelect.addEventListener("change", function(event) {
   } else {
     zoomContainer.style.display = 'flex';
   }
+});
+
+
+//
+// Help Events
+helpContainer.addEventListener("click", function(event) {
+  helpContainer.focus();
 });
 
 
@@ -227,6 +248,36 @@ function addCanvasOpacity() {
 function removeCanvasOpacity() {
   var canvasContainer = document.getElementById('CanvasContainer');
   canvasContainer.classList.add('canvas--hidden');
+}
+
+function updateHelpLinkAndText(simType) {
+  helpLink.innerHTML = 'Show more on it';
+  switch (simType) {
+    case 'Protanopia':
+      helpText.innerHTML = 'Affects 1% of males. No working red cone cells, meaning reds can appear as black.';
+      break;
+    case 'Protanomaly':
+      helpText.innerHTML = 'Affects 1% of males. Abnormal red cone photopigment. Colors not as bright with some actually showing greener.';
+      break;
+    case 'Deuteranopia':
+      helpText.innerHTML = 'Affects 1% of males. No working green cone cells, meaning greens can appear beige.';
+      break;
+    case 'Deuteranomaly':
+      helpText.innerHTML = 'Affects 5% of males. Abnormal green cone photopigment. Yellow and green appear redder, plus difficulty telling violet from blue.';
+      break;
+    case 'Tritanopia':
+      helpText.innerHTML = 'Extremely rare - affects genders equally. No blue cone cells, meaning blues can appear green.';
+      break;
+    case 'Tritanomaly':
+      helpText.innerHTML = 'Extremely rare - affects genders equally. Limited blue cone cells, meaning blues appear greener, plus difficulty telling yellow and red from pink.';
+      break;
+    case 'Achromatopsia':
+      helpText.innerHTML = 'Extremely Rare - affects genders equally. No working cone cells, meaning an inability to distinguish between colors.';
+      break;
+    case 'Achromatomaly':
+      helpText.innerHTML = 'Extremely Rare - affects genders equally. Limited working cone cells, meaning almost no color is visible.';
+      break;
+  }
 }
 
 function simulateContrastClick() {

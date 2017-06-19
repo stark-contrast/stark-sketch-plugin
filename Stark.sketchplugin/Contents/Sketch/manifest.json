@@ -113,9 +113,10 @@
     ]
   },
   "identifier" : "com.mfouquet.sketch.stark",
-  "version" : "1.3",
+  "version" : "1.4",
   "description" : "Ensure your design is accessible and high contrast for every type of color blindness.",
   "author" : "Michael Fouquet, Cat Noone, Benedikt Lehnert",
   "authorEmail" : "michael.fouquet@me.com",
+  "appcast" : "https://raw.githubusercontent.com/stark-contrast/stark-sketch-plugin/master/appcast.xml",
   "name" : "Stark"
 }

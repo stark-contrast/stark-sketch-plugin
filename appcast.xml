@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Stark</title>
+    <link>https://raw.githubusercontent.com/stark-contrast/stark-sketch-plugin/master/appcast.xml</link>
+    <description>Easily check your designs against the 8 different types of colorblindness. In addition, run a pair of colors against WCAG 2.0 standards.</description>
+    <language>en</language>
+      <item>
+        <title>Version 1.4</title>
+        <description>
+          <![CDATA[
+            <ul>
+              <li>Added info on the different types of colorblindness.</li>
+            </ul>
+          ]]>
+        </description>
+        <pubDate>Fri, 16 Jun 2017 12:58:00 +0000</pubDate>
+        <enclosure url="https://github.com/stark-contrast/stark-sketch-plugin/archive/v1.4.zip" sparkle:version="1.4" type="application/octet-stream" />
+      </item>
+      <item>
+        <title>Version 1.3</title>
+        <description>
+          <![CDATA[
+            <ul>
+              <li>Add hotkeys for zooming in and out, cycling through the different colorblind options, and cycling through the artobards in the document.</li>
+              <li>Fixed the treshold for each of the WCAG 2.0 contrast standards.</li>
+            </ul>
+          ]]>
+        </description>
+        <pubDate>Fri, 5 May 2017 12:58:00 +0000</pubDate>
+        <enclosure url="https://github.com/stark-contrast/stark-sketch-plugin/archive/v1.3.zip" sparkle:version="1.3" type="application/octet-stream" />
+      </item>
+      <item>
+        <title>Version 1.2</title>
+        <description>
+          <![CDATA[
+            <ul>
+              <li>Zoom in and zoom out buttons when viewing an artboard.</li>
+              <li>Problem with contrast checker not working if you closed and reopened the window.</li>
+            </ul>
+          ]]>
+        </description>
+        <pubDate>Thu, 20 Apr 2017 12:58:00 +0000</pubDate>
+        <enclosure url="https://github.com/stark-contrast/stark-sketch-plugin/archive/v1.2.zip" sparkle:version="1.2" type="application/octet-stream" />
+      </item>
+  </channel>
+</rss>
