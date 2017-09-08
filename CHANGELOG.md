@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.5] - 2017-06-09
+### Added
+- Added info for the text sizes in the contrast checker.
+
 ## [1.4] - 2017-16-06
 ### Added
 - Added info for the 8 different types of colorblindness.
