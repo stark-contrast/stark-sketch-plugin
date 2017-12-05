@@ -6,6 +6,18 @@
     <description>Easily check your designs against the 8 different types of colorblindness. In addition, run a pair of colors against WCAG 2.0 standards.</description>
     <language>en</language>
       <item>
+        <title>Version 1.6</title>
+        <description>
+          <![CDATA[
+            <ul>
+              <li>Added name of colorblind simulation to preview export filename.</li>
+            </ul>
+          ]]>
+        </description>
+        <pubDate>Tue, 5 Dec 2017 8:30:00 +0000</pubDate>
+        <enclosure url="https://github.com/stark-contrast/stark-sketch-plugin/archive/v1.6.zip" sparkle:version="1.6" type="application/octet-stream" />
+      </item>
+      <item>
         <title>Version 1.5</title>
         <description>
           <![CDATA[

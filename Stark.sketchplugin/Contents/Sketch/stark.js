@@ -4,6 +4,7 @@
 var COSCRIPT;
 var artboardId = "abid_UseWindow";
 var simulationId = "cbid_NoSim";
+
 var shouldCheckContrast = false;
 
 var onRun = function(context) {
@@ -112,7 +113,9 @@ function prepareWindow(context) {
     'webView:setStatusText:': function(webView, statusText) {
       if (statusText.startsWith("abid_")) {
         handleArtboardSelectChange(context, nibui, statusText);
-      } else if (statusText.startsWith("data:image")){
+      } else if (statusText.startsWith("cbid_")) {
+        simulationId = statusText;
+      }else if (statusText.startsWith("data:image")){
         handleExportButtonClick(statusText);
       } else if (statusText == 'Check') {
         handleCheckContrastButtonClick(context, nibui);
@@ -221,13 +224,14 @@ function handleExportButtonClick(imageDataString) {
   var url = [NSURL URLWithString:imageDataString];
   var imageData = [NSData dataWithContentsOfURL:url];
   var snapshot = [[NSBitmapImageRep alloc] initWithData:imageData];
+  var fileName = simulationId.replace('cbid_', '') + "-Simulation";
 
   var panel = [NSSavePanel savePanel];
   [panel setTitle:"Choose where to save your colorblind simulation image:"];
   [panel setAllowsOtherFileTypes:false];
   [panel setExtensionHidden:false];
   [panel setCanCreateDirectories:true];
-  [panel setNameFieldStringValue:"simulation"];
+  [panel setNameFieldStringValue:fileName];
 
   if ([panel runModal] == NSOKButton) {
     var message = [panel filename];
