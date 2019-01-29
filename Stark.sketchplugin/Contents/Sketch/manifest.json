@@ -1,122 +1,32 @@
 {
+  "compatibleVersion": 3,
+  "bundleVersion": 1,
+  "icon": "icon.png",
   "commands": [
     {
-      "script": "stark.js",
-      "handler": "onRun",
-      "shortcut": "",
-      "name": "Show Stark",
-      "description": "Show the Stark window.",
-      "icon": "icons/logo.png",
-      "identifier": "stark"
-    },
-    {
-      "script": "stark.js",
-      "handler": "handleProtanopia",
-      "shortcut": "",
-      "name": "Protanopia",
-      "description": "Simulate protanopia colorblindness.",
-      "icon": "icons/colorblind.png",
-      "identifier": "protanopia"
-    },
-    {
-      "script": "stark.js",
-      "handler": "handleProtanomaly",
-      "shortcut": "",
-      "name": "Protanomaly",
-      "description": "Simulate protanomaly colorblindness.",
-      "icon": "icons/colorblind.png",
-      "identifier": "protanomaly"
-    },
-    {
-      "script": "stark.js",
-      "handler": "handleDeuteranopia",
-      "shortcut": "",
-      "name": "Deuteranopia",
-      "description": "Simulate deuteranopia colorblindness.",
-      "icon": "icons/colorblind.png",
-      "identifier": "deuteranopia"
-    },
-    {
-      "script": "stark.js",
-      "handler": "handleDeuteranomaly",
-      "shortcut": "",
-      "name": "Deuteranomaly",
-      "description": "Simulate deuteranomaly colorblindness.",
-      "icon": "icons/colorblind.png",
-      "identifier": "deuteranomaly"
-    },
-    {
-      "script": "stark.js",
-      "handler": "handleTritanopia",
-      "shortcut": "",
-      "name": "Tritanopia",
-      "description": "Simulate tritanopia colorblindness.",
-      "icon": "icons/colorblind.png",
-      "identifier": "tritanopia"
-    },
-    {
-      "script": "stark.js",
-      "handler": "handleTritanomaly",
-      "shortcut": "",
-      "name": "Tritanomaly",
-      "description": "Simulate tritanomaly colorblindness.",
-      "icon": "icons/colorblind.png",
-      "identifier": "tritanomaly"
-    },
-    {
-      "script": "stark.js",
-      "handler": "handleAchromatopsia",
-      "shortcut": "",
-      "name": "Achromatopsia",
-      "description": "Simulate achromatopsia colorblindness.",
-      "icon": "icons/colorblind.png",
-      "identifier": "achromatopsia"
-    },
-    {
-      "script": "stark.js",
-      "handler": "handleAchromatomaly",
-      "shortcut": "",
-      "name": "Achromatomaly",
-      "description": "Simulate achromatomaly colorblindness.",
-      "icon": "icons/colorblind.png",
-      "identifier": "achromatomaly"
-    },
-    {
-      "script": "stark.js",
-      "handler": "handleContrastCheck",
-      "shortcut": "",
       "name": "Check Contrast",
-      "description": "Check your selected layers against WCAG 2.0 contrast standards.",
-      "icon": "icons/contrastcheck.png",
-      "identifier": "contrast"
+      "identifier": "contrast",
+      "script": "contrast.js"
+    },
+    {
+      "name": "Colorblind Simulation",
+      "identifier": "colorblind",
+      "script": "colorblind.js"
     }
   ],
   "menu": {
     "title": "Stark",
     "items": [
-      "stark",
-      "-",
-      {
-        "title": "Simulate Colorblindness",
-        "items": [
-          "protanopia",
-          "protanomaly",
-          "deuteranopia",
-          "deuteranomaly",
-          "tritanopia",
-          "tritanomaly",
-          "achromatopsia",
-          "achromatomaly"
-        ]
-      },
+      "colorblind",
       "contrast"
     ]
   },
   "identifier": "com.mfouquet.sketch.stark",
-  "version": "1.6",
+  "version": "2.0",
   "description": "Ensure your design is accessible and high contrast for every type of color blindness.",
   "author": "Michael Fouquet, Cat Noone, Benedikt Lehnert",
   "authorEmail": "michael.fouquet@me.com",
   "appcast": "https://raw.githubusercontent.com/stark-contrast/stark-sketch-plugin/master/appcast.xml",
-  "name": "Stark"
+  "name": "Stark",
+  "disableCocoaScriptPreprocessor": true
 }

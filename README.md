@@ -20,31 +20,3 @@ Easily check your designs against the 8 different types of colorblindness. In ad
 
 #### Old-Fashioned
 * Download [this file](https://github.com/stark-contrast/stark-sketch-plugin/archive/master.zip) and double click to install.
-
-
-## Usage
-
-You can obviously select any of the options below, but try speeding up your workflow with [Sketch Runner](http://sketchrunner.com/) and just typing the commands into that.
-
-#### Show Stark
-* Brings up the Stark window. From here you can check your current screen or artboard against the 8 different types of colorblindness and also check a pair of color's contrast.
-
-#### Simulate Colorblindness
-* Jump straight to a simulation by selecting any one of the 8 types of colorblindness.
-
-##### Hotkeys
-The colorblind simulation has the following hotkeys available:
-- <kbd>↑</kbd><kbd>↓</kbd> - Cycle between the 8 types of colorblindness.
-- <kbd>←</kbd><kbd>→</kbd> - Cycle between the artboards in your document.
-- <kbd>-</kbd><kbd>numpad -</kbd> - Zoom out on an artboard.
-- <kbd>+</kbd><kbd>numpad +</kbd> - Zoom in on an artboard.
-
-
-#### Check Contrast
-* If you have two layers selected, jump straight to checking the contrast of them both.
-
-
-
-## Problems?
-
-[File an issue](https://github.com/stark-contrast/stark-sketch-plugin/issues) or send me a note on [Twitter](https://twitter.com/_fookay). Any and all feedback is welcome!
