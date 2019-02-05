@@ -6,11 +6,13 @@
     {
       "name": "Check Contrast",
       "identifier": "contrast",
+      "shortcut": "cmd shift p",
       "script": "contrast.js"
     },
     {
       "name": "Colorblind Simulation",
       "identifier": "colorblind",
+      "shortcut": "cmd shift u",
       "script": "colorblind.js"
     }
   ],
