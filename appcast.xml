@@ -5,6 +5,21 @@
     <link>https://raw.githubusercontent.com/stark-contrast/stark-sketch-plugin/master/appcast.xml</link>
     <description>Design products that are accessible, ethical, and inclusive with a contrast checker, colorblind simulator and more.</description>
     <language>en</language>
+    <item>
+        <title>Version 2.5</title>
+        <description>
+          <![CDATA[
+            <ul>
+              <li>Will now show an error if they try to run a contrast check and the background layer is < 100% opacity.</li>
+              <li>It will now run successfully if you change the fill, text OR layer opacity on the foreground element.</li>
+              <li>It will show an error if you have < 100% on BOTH the layer and text/fill opacity.</li>
+              <li>Ability to drag the windows around.</li>
+            </ul>
+          ]]>
+        </description>
+        <pubDate>Tue, 9 Apr 2019 8:00:00 +0000</pubDate>
+        <enclosure url="https://github.com/stark-contrast/stark-sketch-plugin/archive/v2.5.zip" sparkle:version="2.5" type="application/octet-stream" />
+      </item>
       <item>
         <title>Version 2.4</title>
         <description>
