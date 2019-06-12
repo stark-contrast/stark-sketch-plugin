@@ -86,7 +86,7 @@ var exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/contrast.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/registration.js");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -2531,235 +2531,367 @@ module.exports = function buildAPI(browserWindow, panel, webview) {
 
 /***/ }),
 
-/***/ "./resources/contrast.html":
-/*!*********************************!*\
-  !*** ./resources/contrast.html ***!
-  \*********************************/
+/***/ "./node_modules/sketch-polyfill-fetch/lib/index.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/sketch-polyfill-fetch/lib/index.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(Promise) {/* globals NSJSONSerialization NSJSONWritingPrettyPrinted NSDictionary NSHTTPURLResponse NSString NSASCIIStringEncoding NSUTF8StringEncoding coscript NSURL NSMutableURLRequest NSMutableData NSURLConnection */
+var _ObjCClass = __webpack_require__(/*! cocoascript-class */ "./node_modules/cocoascript-class/lib/index.js")
+
+var ObjCClass = _ObjCClass.default
+var Buffer
+try {
+  Buffer = __webpack_require__(/*! buffer */ "buffer").Buffer
+} catch (err) {}
+
+function response (httpResponse, data) {
+  var keys = []
+  var all = []
+  var headers = {}
+  var header
+
+  for (var i = 0; i < httpResponse.allHeaderFields().allKeys().length; i++) {
+    var key = httpResponse.allHeaderFields().allKeys()[i].toLowerCase()
+    var value = String(httpResponse.allHeaderFields()[key])
+    keys.push(key)
+    all.push([key, value])
+    header = headers[key]
+    headers[key] = header ? (header + ',' + value) : value
+  }
+
+  return {
+    ok: (httpResponse.statusCode() / 200 | 0) == 1, // 200-399
+    status: Number(httpResponse.statusCode()),
+    statusText: NSHTTPURLResponse.localizedStringForStatusCode(httpResponse.statusCode()),
+    useFinalURL: true,
+    url: String(httpResponse.URL().absoluteString()),
+    clone: response.bind(this, httpResponse, data),
+    text: function () {
+      return new Promise(function (resolve, reject) {
+        const str = NSString.alloc().initWithData_encoding(data, NSASCIIStringEncoding)
+        if (str) {
+          resolve(str)
+        } else {
+          reject(new Error("Couldn't parse body"))
+        }
+      })
+    },
+    json: function () {
+      return new Promise(function (resolve, reject) {
+        var str = NSString.alloc().initWithData_encoding(data, NSUTF8StringEncoding)
+        if (str) {
+          // parse errors are turned into exceptions, which cause promise to be rejected
+          var obj = JSON.parse(str)
+          resolve(obj)
+        } else {
+          reject(new Error('Could not parse JSON because it is not valid UTF-8 data.'))
+        }
+      })
+    },
+    blob: function () {
+      return Promise.resolve(data)
+    },
+    arrayBuffer: function() {
+      return Promise.resolve(Buffer.from(data))
+    },
+    headers: {
+      keys: function () { return keys },
+      entries: function () { return all },
+      get: function (n) { return headers[n.toLowerCase()] },
+      has: function (n) { return n.toLowerCase() in headers }
+    }
+  }
+}
+
+// We create one ObjC class for ourselves here
+var DelegateClass
+
+function fetch (urlString, options) {
+  options = options || {}
+  var fiber
+  try {
+    fiber = coscript.createFiber()
+  } catch (err) {
+    coscript.shouldKeepAround = true
+  }
+  return new Promise(function (resolve, reject) {
+    var url = NSURL.alloc().initWithString(urlString)
+    var request = NSMutableURLRequest.requestWithURL(url)
+    request.setHTTPMethod(options.method || 'GET')
+
+    Object.keys(options.headers || {}).forEach(function (i) {
+      request.setValue_forHTTPHeaderField(options.headers[i], i)
+    })
+
+    if (options.body) {
+      var data
+      if (typeof options.body === 'string') {
+        var str = NSString.alloc().initWithString(options.body)
+        data = str.dataUsingEncoding(NSUTF8StringEncoding)
+      } else if (Buffer && Buffer.isBuffer(options.body)) {
+        data = options.body.toNSData()
+      } else if (options.body.isKindOfClass && (options.body.isKindOfClass(NSData) == 1) ) {
+        data = options.body
+      } else if (options.body._isFormData) {
+        var boundary = options.body._boundary
+        data = options.body._data
+        data.appendData(
+          NSString.alloc()
+            .initWithString("--" + boundary + "--\r\n")
+            .dataUsingEncoding(NSUTF8StringEncoding)
+        )
+        request.setValue_forHTTPHeaderField('multipart/form-data; boundary=' + boundary, 'Content-Type')
+      } else {
+        var error
+        data = NSJSONSerialization.dataWithJSONObject_options_error(options.body, NSJSONWritingPrettyPrinted, error)
+        if (error != null) {
+          return reject(error)
+        }
+        request.setValue_forHTTPHeaderField('' + data.length(), 'Content-Length')
+      }
+      request.setHTTPBody(data)
+    }
+
+    if (options.cache) {
+      switch (options.cache) {
+        case 'reload':
+        case 'no-cache':
+        case 'no-store': {
+          request.setCachePolicy(1) // NSURLRequestReloadIgnoringLocalCacheData
+        }
+        case 'force-cache': {
+          request.setCachePolicy(2) // NSURLRequestReturnCacheDataElseLoad
+        }
+        case 'only-if-cached': {
+          request.setCachePolicy(3) // NSURLRequestReturnCacheDataElseLoad
+        }
+      }
+    }
+
+
+    if (!options.credentials) {
+      request.setHTTPShouldHandleCookies(false)
+    }
+
+    if (!DelegateClass) {
+      DelegateClass = ObjCClass({
+        classname: 'FetchPolyfillDelegate',
+        data: null,
+        httpResponse: null,
+        fiber: null,
+        callbacks: null,
+
+        'connectionDidFinishLoading:': function (connection) {
+          this.callbacks.succeed(this.httpResponse, this.data)
+          if (this.fiber) {
+            this.fiber.cleanup()
+          } else {
+            coscript.shouldKeepAround = false
+          }
+        },
+        'connection:didReceiveResponse:': function (connection, httpResponse) {
+          this.httpResponse = httpResponse
+          this.data = NSMutableData.alloc().init()
+        },
+        'connection:didFailWithError:': function (connection, error) {
+          this.callbacks.fail(error)
+          if (this.fiber) {
+            this.fiber.cleanup()
+          } else {
+            coscript.shouldKeepAround = false
+          }
+        },
+        'connection:didReceiveData:': function (connection, data) {
+          this.data.appendData(data)
+        }
+      })
+    }
+
+    var finished = false
+
+    function succeed(res, data) {
+      finished = true
+      resolve(response(res, data))
+    }
+
+    function fail(err) {
+      finished = true
+      reject(err)
+    }
+
+    var connectionDelegate = DelegateClass.new()
+    connectionDelegate.callbacks = NSDictionary.dictionaryWithDictionary({
+      succeed: succeed,
+      fail: fail,
+    })
+    connectionDelegate.fiber = fiber;
+
+    var connection = NSURLConnection.alloc().initWithRequest_delegate(
+      request,
+      connectionDelegate
+    )
+
+    if (fiber) {
+      fiber.onCleanup(function () {
+        if (!finished) {
+          connection.cancel()
+        }
+      })
+    }
+
+  })
+}
+
+module.exports = fetch
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/promise-polyfill/lib/index.js */ "./node_modules/promise-polyfill/lib/index.js")))
+
+/***/ }),
+
+/***/ "./resources/registration.html":
+/*!*************************************!*\
+  !*** ./resources/registration.html ***!
+  \*************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "file://" + context.plugin.urlForResourceNamed("_webpack_resources/c631e77d5d82ee287dada6a10f9f0494.html").path();
+module.exports = "file://" + context.plugin.urlForResourceNamed("_webpack_resources/59c440e82d643e6b90a9f07df2a4a1bf.html").path();
 
 /***/ }),
 
-/***/ "./src/__utils/subscription.js":
-/*!*************************************!*\
-  !*** ./src/__utils/subscription.js ***!
-  \*************************************/
-/*! exports provided: getLicenseKey, getVerificationNumber, isUserSubscribed, hasVerificationLapsed, setVerificationStatus */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "./resources/renewal.html":
+/*!********************************!*\
+  !*** ./resources/renewal.html ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getLicenseKey", function() { return getLicenseKey; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getVerificationNumber", function() { return getVerificationNumber; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isUserSubscribed", function() { return isUserSubscribed; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hasVerificationLapsed", function() { return hasVerificationLapsed; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setVerificationStatus", function() { return setVerificationStatus; });
-/* harmony import */ var sketch_settings__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sketch/settings */ "sketch/settings");
-/* harmony import */ var sketch_settings__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sketch_settings__WEBPACK_IMPORTED_MODULE_0__);
-
-function getLicenseKey() {
-  return sketch_settings__WEBPACK_IMPORTED_MODULE_0___default.a.settingForKey("com.stark.license-key");
-}
-function getVerificationNumber() {
-  return sketch_settings__WEBPACK_IMPORTED_MODULE_0___default.a.settingForKey("com.stark.verification");
-}
-function isUserSubscribed(licenseKey) {
-  if (licenseKey !== null && licenseKey !== "" && licenseKey !== undefined) {
-    if (sketch_settings__WEBPACK_IMPORTED_MODULE_0___default.a.settingForKey("com.stark.subscription-status") === "expired") {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
-  return false;
-}
-function hasVerificationLapsed(verificationNumber) {
-  if (verificationNumber < new Date().getMonth()) {
-    return true;
-  }
-
-  return false;
-}
-function setVerificationStatus(status, setVerificationNumber) {
-  sketch_settings__WEBPACK_IMPORTED_MODULE_0___default.a.setSettingForKey("com.stark.subscription-status", status);
-
-  if (setVerificationNumber) {
-    sketch_settings__WEBPACK_IMPORTED_MODULE_0___default.a.setSettingForKey("com.stark.verification", new Date().getMonth());
-  }
-}
+module.exports = "file://" + context.plugin.urlForResourceNamed("_webpack_resources/1e8704814cd42f6ee49c9991d0aabd46.html").path();
 
 /***/ }),
 
-/***/ "./src/contrast.js":
-/*!*************************!*\
-  !*** ./src/contrast.js ***!
-  \*************************/
+/***/ "./resources/validation.html":
+/*!***********************************!*\
+  !*** ./resources/validation.html ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "file://" + context.plugin.urlForResourceNamed("_webpack_resources/2bdf22c6125f295782fcdb92443484db.html").path();
+
+/***/ }),
+
+/***/ "./src/registration.js":
+/*!*****************************!*\
+  !*** ./src/registration.js ***!
+  \*****************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var sketch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sketch */ "sketch");
+/* WEBPACK VAR INJECTION */(function(fetch) {/* harmony import */ var sketch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sketch */ "sketch");
 /* harmony import */ var sketch__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sketch__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var sketch_settings__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sketch/settings */ "sketch/settings");
-/* harmony import */ var sketch_settings__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sketch_settings__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var sketch_module_web_view__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sketch-module-web-view */ "./node_modules/sketch-module-web-view/lib/index.js");
-/* harmony import */ var sketch_module_web_view__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sketch_module_web_view__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var sketch_ui__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! sketch/ui */ "sketch/ui");
-/* harmony import */ var sketch_ui__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(sketch_ui__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _utils_subscription__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./__utils/subscription */ "./src/__utils/subscription.js");
+/* harmony import */ var sketch_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sketch/dom */ "sketch/dom");
+/* harmony import */ var sketch_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sketch_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var sketch_settings__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sketch/settings */ "sketch/settings");
+/* harmony import */ var sketch_settings__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sketch_settings__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var sketch_module_web_view__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! sketch-module-web-view */ "./node_modules/sketch-module-web-view/lib/index.js");
+/* harmony import */ var sketch_module_web_view__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(sketch_module_web_view__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var sketch_ui__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sketch/ui */ "sketch/ui");
+/* harmony import */ var sketch_ui__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sketch_ui__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var os__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! os */ "os");
+/* harmony import */ var os__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(os__WEBPACK_IMPORTED_MODULE_5__);
+
 
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = (function (context) {
-  var licenseKey = Object(_utils_subscription__WEBPACK_IMPORTED_MODULE_4__["getLicenseKey"])();
-  var verificationNumber = Object(_utils_subscription__WEBPACK_IMPORTED_MODULE_4__["getVerificationNumber"])();
-  var isSubscribed = Object(_utils_subscription__WEBPACK_IMPORTED_MODULE_4__["isUserSubscribed"])(licenseKey);
-  var doc = sketch__WEBPACK_IMPORTED_MODULE_0___default.a.getSelectedDocument();
-  var selection = doc.selectedLayers;
-  var shapeLayers = [];
-  var imageLayers = [];
-  var textLayers = [];
-  var layerOpacities = [];
-  var colors = [];
-  var hasTextLayer = false;
-  selection.forEach(function iterate(layer) {
-    layer.type === "Shape" && shapeLayers.push(layer);
-    layer.type === "ShapePath" && shapeLayers.push(layer);
-    layer.type === "Image" && imageLayers.push(layer);
-    layer.type === "Text" && textLayers.push(layer);
-    (layer.layers || []).forEach(iterate);
-  }); // THIS NEEDS TO BE UPDATED
+  // Settings.setSettingForKey("com.stark.subscription-status", "");
+  var subscriptionStatus = sketch_settings__WEBPACK_IMPORTED_MODULE_2___default.a.settingForKey("com.stark.subscription-status");
+  var email = sketch_settings__WEBPACK_IMPORTED_MODULE_2___default.a.settingForKey("com.stark.email");
+  var frequency = sketch_settings__WEBPACK_IMPORTED_MODULE_2___default.a.settingForKey("com.stark.frequency");
+  var browserHeight = 460;
 
-  if (shapeLayers.length + imageLayers.length + textLayers.length === 0) {
-    sketch_ui__WEBPACK_IMPORTED_MODULE_3___default.a.message("Please select two layers to run the contrast checker.");
-  } else if (shapeLayers.length + imageLayers.length + textLayers.length === 1) {
-    sketch_ui__WEBPACK_IMPORTED_MODULE_3___default.a.message("Please select two layers to run the contrast checker.");
-  } else if (shapeLayers.length + imageLayers.length + textLayers.length > 2) {
-    sketch_ui__WEBPACK_IMPORTED_MODULE_3___default.a.message("You can only run the contrast checker against two layers.");
-  } else if (imageLayers.length > 0) {
-    sketch_ui__WEBPACK_IMPORTED_MODULE_3___default.a.message("You can only check against colors, not gradients or bitmaps.");
+  if (subscriptionStatus === "valid") {
+    browserHeight = 362;
+  } else if (subscriptionStatus === "expired") {
+    browserHeight = 420;
+  }
+
+  var options = {
+    identifier: "stark.registration",
+    frame: false,
+    height: browserHeight,
+    width: 570,
+    resizable: false,
+    alwaysOnTop: true
+  };
+  var browserWindow = new sketch_module_web_view__WEBPACK_IMPORTED_MODULE_3___default.a(options);
+  var webContents = browserWindow.webContents;
+  webContents.on("did-finish-load", function (value) {
+    webContents.executeJavaScript("prepareFiristLoad('".concat(email, "', '").concat(frequency, "')")).catch(console.error);
+  });
+  webContents.on("cancelButtonClicked", function () {
+    browserWindow.close();
+  });
+  webContents.on("purchaseButtonClicked", function () {
+    NSWorkspace.sharedWorkspace().openURL(NSURL.URLWithString("http://getstark.co/pricing"));
+  });
+  webContents.on("supportButtonClicked", function () {
+    NSWorkspace.sharedWorkspace().openURL(NSURL.URLWithString("http://support.getstark.co/"));
+  });
+  webContents.on("activateButtonClicked", function (licenseKey) {
+    fetch("https://stark-contrast.herokuapp.com/validate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        license: licenseKey,
+        fingerprint: "sketch|" + licenseKey
+      })
+    }).then(function (response) {
+      return response.json();
+    }).then(function (json) {
+      if (json.error) {
+        webContents.executeJavaScript("showError(\"".concat(json.error, "\")")).catch(console.error);
+      } else {
+        sketch_settings__WEBPACK_IMPORTED_MODULE_2___default.a.setSettingForKey("com.stark.license-key", licenseKey);
+        sketch_settings__WEBPACK_IMPORTED_MODULE_2___default.a.setSettingForKey("com.stark.subscription-status", "valid");
+        sketch_settings__WEBPACK_IMPORTED_MODULE_2___default.a.setSettingForKey("com.stark.email", json.email);
+        sketch_settings__WEBPACK_IMPORTED_MODULE_2___default.a.setSettingForKey("com.stark.frequency", json.frequency);
+        sketch_settings__WEBPACK_IMPORTED_MODULE_2___default.a.setSettingForKey("com.stark.verification", new Date().getMonth());
+        webContents.executeJavaScript("showConfirmation()").catch(console.error);
+      }
+    });
+  });
+
+  if (subscriptionStatus === "valid") {
+    browserWindow.loadURL(__webpack_require__(/*! ../resources/validation.html */ "./resources/validation.html"));
+  } else if (subscriptionStatus === "expired") {
+    browserWindow.loadURL(__webpack_require__(/*! ../resources/renewal.html */ "./resources/renewal.html"));
   } else {
-    shapeLayers.forEach(function (layer) {
-      layerOpacities.push(Math.round(255 * layer.style.opacity));
-
-      if (layer.style.fills) {
-        layer.style.fills.forEach(function (fill) {
-          var hex = fill.color;
-          var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-          var color = result ? {
-            r: parseInt(result[1], 16),
-            g: parseInt(result[2], 16),
-            b: parseInt(result[3], 16),
-            a: parseInt(result[4], 16)
-          } : null;
-          colors.push(color);
-        });
-      }
-    });
-    textLayers.forEach(function (layer) {
-      layerOpacities.push(Math.round(255 * layer.style.opacity));
-      var textColor = layer.sketchObject.textColor();
-      var colorObject = {
-        r: Math.round(255 * textColor.red()),
-        g: Math.round(255 * textColor.green()),
-        b: Math.round(255 * textColor.blue()),
-        a: Math.round(255 * textColor.alpha())
-      };
-      colors.push(colorObject);
-    });
-    hasTextLayer = textLayers.length > 0;
-    var primaryOriginalColor = colors[0];
-    var secondaryOriginalColor = colors[1];
-    var primaryMixedColor;
-    var secondaryMixedColor;
-
-    if (primaryOriginalColor.a < 255 && layerOpacities[0] < 255 || secondaryOriginalColor.a < 255 && layerOpacities[1] < 255) {
-      sketch_ui__WEBPACK_IMPORTED_MODULE_3___default.a.message("Either the layer opacity or fill opacity must be at 100%.");
-      return;
-    } else if (primaryOriginalColor.a === 255 && layerOpacities[0] < 255) {
-      primaryOriginalColor.a = layerOpacities[0];
-    } else if (secondaryOriginalColor.a === 255 && layerOpacities[1] < 255) {
-      secondaryOriginalColor.a = layerOpacities[1];
-    }
-
-    if (primaryOriginalColor.a < 255 && secondaryOriginalColor.a < 255) {
-      sketch_ui__WEBPACK_IMPORTED_MODULE_3___default.a.message("At least one of your layers needs to be at full opacity.");
-      return;
-    }
-
-    if (primaryOriginalColor.a < 255) {
-      sketch_ui__WEBPACK_IMPORTED_MODULE_3___default.a.message("Only the foreground (top) layer can be less than 100% opacity.");
-      return;
-    } else {
-      primaryMixedColor = primaryOriginalColor;
-    }
-
-    if (secondaryOriginalColor.a < 255) {
-      secondaryMixedColor = convertAlpha(primaryOriginalColor, secondaryOriginalColor);
-    } else {
-      secondaryMixedColor = secondaryOriginalColor;
-    }
-
-    var options = {
-      identifier: "unique.id",
-      frame: false,
-      height: hasTextLayer ? 607 : 585,
-      width: 492,
-      resizable: false,
-      alwaysOnTop: true
-    };
-    var browserWindow = new sketch_module_web_view__WEBPACK_IMPORTED_MODULE_2___default.a(options);
-    var webContents = browserWindow.webContents; // print a message when the page loads
-
-    webContents.on("did-finish-load", function () {
-      webContents.executeJavaScript("setColors('".concat(JSON.stringify(primaryOriginalColor), "', '").concat(JSON.stringify(secondaryOriginalColor), "', '").concat(JSON.stringify(primaryMixedColor), "', '").concat(JSON.stringify(secondaryMixedColor), "', '").concat(hasTextLayer, "')")).catch(console.error);
-      webContents.executeJavaScript("prepareFiristLoad(\"".concat(isSubscribed, "\")")).catch(console.error);
-
-      if (verificationNumber && licenseKey && Object(_utils_subscription__WEBPACK_IMPORTED_MODULE_4__["hasVerificationLapsed"])(verificationNumber)) {
-        webContents.executeJavaScript("verifySubscription('".concat(licenseKey, "')")).catch(console.error);
-      }
-    });
-    webContents.on("doneButtonClicked", function () {
-      browserWindow.close();
-    });
-    webContents.on("upgradeButtonClicked", function () {
-      NSWorkspace.sharedWorkspace().openURL(NSURL.URLWithString("http://getstark.co/pricing"));
-    });
-    webContents.on("verificationFailed", function () {
-      Object(_utils_subscription__WEBPACK_IMPORTED_MODULE_4__["setVerificationStatus"])("expired");
-    });
-    webContents.on("verificationPassed", function () {
-      Object(_utils_subscription__WEBPACK_IMPORTED_MODULE_4__["setVerificationStatus"])("valid", true);
-    });
-    browserWindow.loadURL(__webpack_require__(/*! ../resources/contrast.html */ "./resources/contrast.html"));
+    browserWindow.loadURL(__webpack_require__(/*! ../resources/registration.html */ "./resources/registration.html"));
   }
 });
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/sketch-polyfill-fetch/lib/index.js */ "./node_modules/sketch-polyfill-fetch/lib/index.js")))
 
-function convertAlpha(firstColor, secondColor) {
-  var weight = secondColor.a / 255 * 100;
-  var rgbArray2 = [firstColor.r, firstColor.g, firstColor.b];
-  var rgbArray1 = [secondColor.r, secondColor.g, secondColor.b];
-  var returnArray = [];
+/***/ }),
 
-  for (var i = 0; i <= 2; i++) {
-    var v1 = Math.round(rgbArray1[i]);
-    var v2 = Math.round(rgbArray2[i]);
-    returnArray.push(Math.floor(v2 + (v1 - v2) * (weight / 100.0)));
-  }
+/***/ "buffer":
+/*!*************************!*\
+  !*** external "buffer" ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-  return {
-    r: returnArray[0],
-    g: returnArray[1],
-    b: returnArray[2],
-    a: 255
-  };
-}
+module.exports = require("buffer");
 
 /***/ }),
 
@@ -2774,6 +2906,17 @@ module.exports = require("events");
 
 /***/ }),
 
+/***/ "os":
+/*!*********************!*\
+  !*** external "os" ***!
+  \*********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("os");
+
+/***/ }),
+
 /***/ "sketch":
 /*!*************************!*\
   !*** external "sketch" ***!
@@ -2782,6 +2925,17 @@ module.exports = require("events");
 /***/ (function(module, exports) {
 
 module.exports = require("sketch");
+
+/***/ }),
+
+/***/ "sketch/dom":
+/*!*****************************!*\
+  !*** external "sketch/dom" ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("sketch/dom");
 
 /***/ }),
 
@@ -2816,4 +2970,4 @@ module.exports = require("sketch/ui");
 }
 that['onRun'] = __skpm_run.bind(this, 'default')
 
-//# sourceMappingURL=contrast.js.map
+//# sourceMappingURL=registration.js.map
