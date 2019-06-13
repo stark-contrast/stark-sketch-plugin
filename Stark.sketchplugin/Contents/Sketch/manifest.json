@@ -14,17 +14,31 @@
       "identifier": "colorblind",
       "shortcut": "cmd shift u",
       "script": "colorblind.js"
+    },
+    {
+      "name": "Registration",
+      "identifier": "registration",
+      "script": "registration.js"
+    },
+    {
+      "name": "Support",
+      "identifier": "support",
+      "script": "support.js"
     }
   ],
   "menu": {
     "title": "Stark",
     "items": [
       "colorblind",
-      "contrast"
+      "contrast",
+      "-",
+      "registration",
+      "-",
+      "support"
     ]
   },
   "identifier": "com.mfouquet.sketch.stark",
-  "version": "2.5",
+  "version": "2.6",
   "description": "Ensure your design is accessible and high contrast for every type of color blindness.",
   "author": "Michael Fouquet, Cat Noone, Benedikt Lehnert",
   "authorEmail": "michael.fouquet@me.com",
