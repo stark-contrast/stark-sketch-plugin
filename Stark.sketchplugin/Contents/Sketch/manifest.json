@@ -4,16 +4,16 @@
   "icon": "icon.png",
   "commands": [
     {
-      "name": "Check Contrast",
-      "identifier": "contrast",
-      "shortcut": "cmd shift p",
-      "script": "contrast.js"
-    },
-    {
       "name": "Colorblind Simulation",
       "identifier": "colorblind",
       "shortcut": "cmd shift u",
       "script": "colorblind.js"
+    },
+    {
+      "name": "Check Contrast",
+      "identifier": "contrast",
+      "shortcut": "cmd shift p",
+      "script": "contrast.js"
     },
     {
       "name": "Registration",
@@ -38,7 +38,7 @@
     ]
   },
   "identifier": "com.mfouquet.sketch.stark",
-  "version": "2.7",
+  "version": "2.8",
   "description": "Ensure your design is accessible and high contrast for every type of color blindness.",
   "author": "Stark Lab",
   "authorEmail": "michael.fouquet@me.com",
