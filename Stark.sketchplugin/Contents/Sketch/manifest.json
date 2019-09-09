@@ -21,9 +21,14 @@
       "script": "registration.js"
     },
     {
-      "name": "Support",
-      "identifier": "support",
-      "script": "support.js"
+      "name": "Get Help with Stark",
+      "identifier": "gethelp",
+      "script": "gethelp.js"
+    },
+    {
+      "name": "Refresh Stark Subscription",
+      "identifier": "refresh",
+      "script": "refresh.js"
     }
   ],
   "menu": {
@@ -34,11 +39,19 @@
       "-",
       "registration",
       "-",
-      "support"
+      "support",
+      {
+        "title": "Support",
+        "items": [
+          "gethelp",
+          "-",
+          "refresh"
+        ]
+      }
     ]
   },
   "identifier": "com.mfouquet.sketch.stark",
-  "version": "2.8",
+  "version": "2.9",
   "description": "Ensure your design is accessible and high contrast for every type of color blindness.",
   "author": "Stark Lab",
   "authorEmail": "michael.fouquet@me.com",
