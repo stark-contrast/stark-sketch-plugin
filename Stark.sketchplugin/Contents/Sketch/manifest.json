@@ -51,7 +51,7 @@
     ]
   },
   "identifier": "com.mfouquet.sketch.stark",
-  "version": "2.10",
+  "version": "2.11",
   "description": "Ensure your design is accessible and high contrast for every type of color blindness.",
   "author": "Stark Lab",
   "authorEmail": "michael.fouquet@me.com",
