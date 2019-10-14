@@ -6,6 +6,21 @@
     <description>Design products that are accessible, ethical, and inclusive with a contrast checker, colorblind simulator and more.</description>
     <language>en</language>
     <item>
+      <title>Version 2.11</title>
+      <description>
+        <![CDATA[
+          <ul>
+            <li>Change "Normal" to "Original" in Colorblind Simulator.</li>
+            <li>Change AA rating for shapes.</li>
+            <li>Show correct error when running on just images with no artboards present.</li>
+            <li>Fix issue with Colorblind Simulator not running on component artboards.</li>
+          </ul>
+        ]]>
+      </description>
+      <pubDate>Mon, 14 Oct 2019 8:00:00 +0000</pubDate>
+      <enclosure url="https://github.com/stark-contrast/stark-sketch-plugin/archive/v2.11.zip" sparkle:version="2.11" type="application/octet-stream" />
+    </item>
+    <item>
       <title>Version 2.10</title>
       <description>
         <![CDATA[
