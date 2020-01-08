@@ -328,7 +328,7 @@ Object.defineProperty(t,"__esModule",{value:!0});var n=null,r=!1,o=3,i=-1,a=-1,s
 /*!****************************************!*\
   !*** ./resources/__utils/constants.js ***!
   \****************************************/
-/*! exports provided: VERSION_NUMBER, MIXPANEL_ID */function(e,t,n){"use strict";n.r(t),n.d(t,"VERSION_NUMBER",function(){return r}),n.d(t,"MIXPANEL_ID",function(){return o});var r="2.11",o="82f48c1a242bd569a37e8d3dd0a3d1e4"},"./resources/__utils/generate-rgba-string.ts":
+/*! exports provided: VERSION_NUMBER, MIXPANEL_ID */function(e,t,n){"use strict";n.r(t),n.d(t,"VERSION_NUMBER",function(){return r}),n.d(t,"MIXPANEL_ID",function(){return o});var r="2.12",o="82f48c1a242bd569a37e8d3dd0a3d1e4"},"./resources/__utils/generate-rgba-string.ts":
 /*!***************************************************!*\
   !*** ./resources/__utils/generate-rgba-string.ts ***!
   \***************************************************/
@@ -336,7 +336,7 @@ Object.defineProperty(t,"__esModule",{value:!0});var n=null,r=!1,o=3,i=-1,a=-1,s
 /*!*************************!*\
   !*** ./resources/ui.js ***!
   \*************************/
-/*! no exports provided */function(e,t,n){"use strict";n.r(t);var r=n(/*! ./ui.tsx */"./resources/ui.tsx"),o=n(/*! mixpanel-browser */"./node_modules/mixpanel-browser/build/mixpanel.cjs.js"),i=n.n(o),a=n(/*! ./__utils/constants */"./resources/__utils/constants.js"),s=n(/*! react */"./node_modules/react/index.js"),l=n.n(s),u=n(/*! react-dom */"./node_modules/react-dom/index.js"),c=n.n(u);document.addEventListener("contextmenu",function(e){return e.preventDefault()}),i.a.init(a.MIXPANEL_ID),window.prepareFirstLoad=function(e,t,n){var o=JSON.parse(t);c.a.render(l.a.createElement(r.Plugin,{eventType:e,pluginMessage:o,imageData:n}),document.getElementById("react-page"))},window.handleArtboardChange=function(e,t,n){var o=JSON.parse(t);c.a.render(l.a.createElement(r.Plugin,{eventType:e,pluginMessage:o,imageData:n}),document.getElementById("react-page"))},window.handleMixpanelEvent=function(e,t){var n=JSON.parse(t);i.a.track(e,{Platform:"Sketch","Plugin Version Number":a.VERSION_NUMBER,"Event Details Primary":n.eventDetailsPrimary,"Event Details Secondary":n.eventDetailsSecondary})}},"./resources/ui.tsx":
+/*! no exports provided */function(e,t,n){"use strict";n.r(t);var r=n(/*! ./ui.tsx */"./resources/ui.tsx"),o=n(/*! mixpanel-browser */"./node_modules/mixpanel-browser/build/mixpanel.cjs.js"),i=n.n(o),a=n(/*! ./__utils/constants */"./resources/__utils/constants.js"),s=n(/*! react */"./node_modules/react/index.js"),l=n.n(s),u=n(/*! react-dom */"./node_modules/react-dom/index.js"),c=n.n(u);document.addEventListener("contextmenu",function(e){return e.preventDefault()}),i.a.init(a.MIXPANEL_ID),window.prepareFirstLoad=function(e,t,n){var o=JSON.parse(t);c.a.render(l.a.createElement(r.Plugin,{eventType:e,pluginMessage:o,imageData:n}),document.getElementById("react-page"))},window.handleArtboardChange=function(e,t,n){var o=JSON.parse(t);c.a.render(l.a.createElement(r.Plugin,{eventType:e,pluginMessage:o,imageData:n}),document.getElementById("react-page"))},window.handleMixpanelEvent=function(e,t){var n=JSON.parse(t);i.a.track(e,{Platform:"Sketch",distinct_id:n.distinct_id,"Plugin Version Number":a.VERSION_NUMBER,"Event Details Primary":n.eventDetailsPrimary,"Event Details Secondary":n.eventDetailsSecondary})}},"./resources/ui.tsx":
 /*!**************************!*\
   !*** ./resources/ui.tsx ***!
   \**************************/
