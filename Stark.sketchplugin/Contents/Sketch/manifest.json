@@ -1,7 +1,7 @@
 {
   "compatibleVersion": 3,
   "bundleVersion": 1,
-  "icon": "icon.png",
+  "icon": "images/icon.png",
   "commands": [
     {
       "name": "Colorblind Simulation",
@@ -51,10 +51,10 @@
     ]
   },
   "identifier": "com.mfouquet.sketch.stark",
-  "version": "2.12",
+  "version": "2.13",
   "description": "Ensure your design is accessible and high contrast for every type of color blindness.",
   "author": "Stark Lab",
-  "authorEmail": "michael.fouquet@me.com",
+  "authorEmail": "michael@getstark.co",
   "appcast": "https://raw.githubusercontent.com/stark-contrast/stark-sketch-plugin/master/appcast.xml",
   "name": "Stark",
   "disableCocoaScriptPreprocessor": true
