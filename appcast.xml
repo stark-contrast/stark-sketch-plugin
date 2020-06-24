@@ -5,6 +5,18 @@
     <link>https://raw.githubusercontent.com/stark-contrast/stark-sketch-plugin/master/appcast.xml</link>
     <description>Design products that are accessible, ethical, and inclusive with a contrast checker, colorblind simulator and more.</description>
     <language>en</language>
+      <item>
+      <title>Version 2.14.1</title>
+      <description>
+        <![CDATA[
+          <ul>
+            <li>Fix issue with black screen when there are apostrophes in artboard names.</li>
+          </ul>
+        ]]>
+      </description>
+      <pubDate>Wed, 24 Jun 2020 8:00:00 +0000</pubDate>
+      <enclosure url="https://github.com/stark-contrast/stark-sketch-plugin/archive/v2.14.1.zip" sparkle:version="2.14.1" type="application/octet-stream" />
+    </item>
     <item>
       <title>Version 2.14</title>
       <description>
