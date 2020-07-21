@@ -6,6 +6,24 @@
     <description>Design products that are accessible, ethical, and inclusive with a contrast checker, colorblind simulator and more.</description>
     <language>en</language>
     <item>
+      <title>Version 2.16</title>
+      <description>
+        <![CDATA[
+          <ul>
+            <li>Renamed Refresh Stark Subscription to Refresh Subscription.</li>
+            <li>Fixed the window height for contrast checker dialogs.</li>
+            <li>Fixed empty transparent window look upon load.</li>
+            <li>Renames "Original" to "Original Artboard" in colorblind type.</li>
+            <li>Make it so long artboard names don't overlap the arrow in the Artboard dropdown.</li>
+            <li>Fixed the upgrade link not working in the Upgrade message.</li>
+            <li>Improve how the color suggestions work.</li>
+          </ul>
+        ]]>
+      </description>
+      <pubDate>Tue, 21 Jul 2020 8:00:00 +0000</pubDate>
+      <enclosure url="https://github.com/stark-contrast/stark-sketch-plugin/archive/v2.16.zip" sparkle:version="2.16" type="application/octet-stream" />
+    </item>
+    <item>
       <title>Version 2.15</title>
       <description>
         <![CDATA[
