@@ -6,6 +6,18 @@
     <description>Design products that are accessible, ethical, and inclusive with a contrast checker, colorblind simulator and more.</description>
     <language>en</language>
     <item>
+      <title>Version 2.17</title>
+      <description>
+        <![CDATA[
+          <ul>
+            <li>Fixed issue with not being able to scroll entire artboard when zoomed in.</li>
+          </ul>
+        ]]>
+      </description>
+      <pubDate>Wed, 22 Jul 2020 8:00:00 +0000</pubDate>
+      <enclosure url="https://github.com/stark-contrast/stark-sketch-plugin/archive/v2.17.zip" sparkle:version="2.17" type="application/octet-stream" />
+    </item>
+    <item>
       <title>Version 2.16</title>
       <description>
         <![CDATA[
