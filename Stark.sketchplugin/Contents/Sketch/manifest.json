@@ -51,11 +51,11 @@
     ]
   },
   "identifier": "com.mfouquet.sketch.stark",
-  "version": "2.17",
+  "version": "2.18",
   "description": "Ensure your design is accessible and high contrast for every type of color blindness.",
-  "author": "Stark Lab",
+  "author": "Stark Lab, Inc.",
   "authorEmail": "michael@getstark.co",
-  "appcast": "https://raw.githubusercontent.com/stark-contrast/stark-sketch-plugin/master/appcast.xml",
+  "appcast": "https://raw.githubusercontent.com/stark-contrast/stark-sketch-plugin/main/appcast.xml",
   "name": "Stark",
   "disableCocoaScriptPreprocessor": true
 }
