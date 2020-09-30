@@ -6,6 +6,22 @@
     <description>Design products that are accessible, ethical, and inclusive with a contrast checker, colorblind simulator and more.</description>
     <language>en</language>
     <item>
+      <title>Version 2.20</title>
+      <description>
+        <![CDATA[
+          <ul>
+            <li>Swapped foreground/background suggestions position.</li>
+            <li>Improvements to the color suggestions.</li>
+            <li>A toast now shows up to confirm artboard generation.</li>
+            <li>The viewport gets centered on the first generated artboard to make it more clear what just happened.</li>
+            <li>The generator will now do borders/strokes. Even if the design has a gradient!.</li>
+          </ul>
+        ]]>
+      </description>
+      <pubDate>Wed, 30 Sep 2020 8:00:00 +0000</pubDate>
+      <enclosure url="https://github.com/stark-contrast/stark-sketch-plugin/archive/v2.20.zip" sparkle:version="2.20" type="application/octet-stream" />
+    </item>
+    <item>
       <title>Version 2.19</title>
       <description>
         <![CDATA[
