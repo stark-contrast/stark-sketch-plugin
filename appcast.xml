@@ -6,6 +6,18 @@
     <description>Design products that are accessible, ethical, and inclusive with a contrast checker, colorblind simulator and more.</description>
     <language>en</language>
     <item>
+      <title>Version 2.21</title>
+      <description>
+        <![CDATA[
+          <ul>
+            <li>Fixes issue with contrast checker not working correctly when checking layers with reduced opacity.</li>
+          </ul>
+        ]]>
+      </description>
+      <pubDate>Thu, 1 Oct 2020 8:00:00 +0000</pubDate>
+      <enclosure url="https://github.com/stark-contrast/stark-sketch-plugin/archive/v2.21.zip" sparkle:version="2.21" type="application/octet-stream" />
+    </item>
+    <item>
       <title>Version 2.20</title>
       <description>
         <![CDATA[
