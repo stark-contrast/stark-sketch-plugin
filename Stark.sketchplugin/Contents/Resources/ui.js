@@ -104,7 +104,7 @@ object-assign
 /*!****************************************!*\
   !*** ./src/web/utilities/constants.ts ***!
   \****************************************/
-/*! no static exports found */function(e,t,n){"use strict";t.__esModule=!0,t.URL_SUPPORT=t.URL_PRICING=t.VERSION_NUMBER=t.PLATFORM=void 0;t.PLATFORM="Sketch";t.VERSION_NUMBER="2.21";t.URL_PRICING="http://getstark.co/pricing";t.URL_SUPPORT="http://support.getstark.co/"},"./src/web/utilities/index.ts":
+/*! no static exports found */function(e,t,n){"use strict";t.__esModule=!0,t.URL_SUPPORT=t.URL_PRICING=t.VERSION_NUMBER=t.PLATFORM=void 0;t.PLATFORM="Sketch";t.VERSION_NUMBER="2.22";t.URL_PRICING="http://getstark.co/pricing";t.URL_SUPPORT="http://support.getstark.co/"},"./src/web/utilities/index.ts":
 /*!************************************!*\
   !*** ./src/web/utilities/index.ts ***!
   \************************************/
