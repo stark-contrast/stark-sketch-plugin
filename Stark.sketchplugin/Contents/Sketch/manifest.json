@@ -4,10 +4,10 @@
   "icon": "images/icon.png",
   "commands": [
     {
-      "name": "Colorblind Simulation",
-      "identifier": "colorblind",
+      "name": "Vision Simulator",
+      "identifier": "simulator",
       "shortcut": "cmd shift u",
-      "script": "colorblind.js"
+      "script": "vision-simulator.js"
     },
     {
       "name": "Check Contrast",
@@ -34,7 +34,7 @@
   "menu": {
     "title": "Stark",
     "items": [
-      "colorblind",
+      "simulator",
       "contrast",
       "-",
       "registration",
@@ -51,7 +51,7 @@
     ]
   },
   "identifier": "com.mfouquet.sketch.stark",
-  "version": "2.23",
+  "version": "2.24",
   "description": "Ensure your design is accessible and high contrast for every type of color blindness.",
   "author": "Stark Lab, Inc.",
   "authorEmail": "michael@getstark.co",
