@@ -1,169 +1,4904 @@
-var that=this;function __skpm_run(key,context){that.context=context;var exports=function(e){var t={};function n(o){if(t[o])return t[o].exports;var r=t[o]={i:o,l:!1,exports:{}};return e[o].call(r.exports,r,r.exports,n),r.l=!0,r.exports}return n.m=e,n.c=t,n.d=function(e,t,o){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:o})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var o=Object.create(null);if(n.r(o),Object.defineProperty(o,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var r in e)n.d(o,r,function(t){return e[t]}.bind(null,r));return o},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s="./src/sketch/vision-simulator.js")}({"./node_modules/@skpm/timers/immediate.js":
+var that = this;
+function __skpm_run (key, context) {
+  that.context = context;
+
+var exports =
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/sketch/vision-simulator.js");
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./node_modules/@skpm/timers/immediate.js":
 /*!************************************************!*\
   !*** ./node_modules/@skpm/timers/immediate.js ***!
   \************************************************/
-/*! no static exports found */function(e,t,n){var o=n(/*! ./timeout */"./node_modules/@skpm/timers/timeout.js");e.exports={setImmediate:function(e,t,n,r,i,a,s,l,u,c,d){return o.setTimeout(e,0,t,n,r,i,a,s,l,u,c,d)},clearImmediate:function(e){return o.clearTimeout(e)}}},"./node_modules/@skpm/timers/interval.js":
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* globals coscript, sketch */
+var timeout = __webpack_require__(/*! ./timeout */ "./node_modules/@skpm/timers/timeout.js")
+
+function setImmediate(func, param1, param2, param3, param4, param5, param6, param7, param8, param9, param10) {
+  return timeout.setTimeout(func, 0, param1, param2, param3, param4, param5, param6, param7, param8, param9, param10)
+}
+
+function clearImmediate(id) {
+  return timeout.clearTimeout(id)
+}
+
+module.exports = {
+  setImmediate: setImmediate,
+  clearImmediate: clearImmediate
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@skpm/timers/interval.js":
 /*!***********************************************!*\
   !*** ./node_modules/@skpm/timers/interval.js ***!
   \***********************************************/
-/*! no static exports found */function(e,t,n){var o,r,i=[];n(/*! ./test-if-fiber */"./node_modules/@skpm/timers/test-if-fiber.js")()?(o=function(e,t,n,o,r,a,s,l,u,c,d,f){var h=i.length;return i.push(coscript.scheduleWithRepeatingInterval_jsFunction((t||0)/1e3,function(){e(n,o,r,a,s,l,u,c,d,f)})),h},r=function(e){var t=i[e];t&&(t.cancel(),i[e]=void 0)}):(o=function(e,t,n,o,r,a,s,l,u,c,d,f){coscript.shouldKeepAround=!0;var h=i.length;return i.push(!0),function m(){coscript.scheduleWithInterval_jsFunction((t||0)/1e3,function(){i[h]&&(e(n,o,r,a,s,l,u,c,d,f),m())})}(),h},r=function(e){i[e]=!1,i.every(function(e){return!e})&&(coscript.shouldKeepAround=!1)}),e.exports={setInterval:o,clearInterval:r}},"./node_modules/@skpm/timers/test-if-fiber.js":
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* globals coscript, sketch */
+var fiberAvailable = __webpack_require__(/*! ./test-if-fiber */ "./node_modules/@skpm/timers/test-if-fiber.js")
+
+var setInterval
+var clearInterval
+
+var fibers = []
+
+if (fiberAvailable()) {
+  setInterval = function (func, delay, param1, param2, param3, param4, param5, param6, param7, param8, param9, param10) {
+    // fibers takes care of keeping coscript around
+    var id = fibers.length
+    fibers.push(coscript.scheduleWithRepeatingInterval_jsFunction(
+      (delay || 0) / 1000,
+      function () {
+        func(param1, param2, param3, param4, param5, param6, param7, param8, param9, param10)
+      }
+    ))
+    return id
+  }
+
+  clearInterval = function (id) {
+    var interval = fibers[id]
+    if (interval) {
+      interval.cancel() // fibers takes care of keeping coscript around
+      fibers[id] = undefined // garbage collect the fiber
+    }
+  }
+} else {
+  setInterval = function (func, delay, param1, param2, param3, param4, param5, param6, param7, param8, param9, param10) {
+    coscript.shouldKeepAround = true
+    var id = fibers.length
+    fibers.push(true)
+    function trigger () {
+      coscript.scheduleWithInterval_jsFunction(
+        (delay || 0) / 1000,
+        function () {
+          if (fibers[id]) { // if not cleared
+            func(param1, param2, param3, param4, param5, param6, param7, param8, param9, param10)
+            trigger()
+          }
+        }
+      )
+    }
+    trigger()
+    return id
+  }
+
+  clearInterval = function (id) {
+    fibers[id] = false
+    if (fibers.every(function (_id) { return !_id })) { // if everything is cleared
+      coscript.shouldKeepAround = false
+    }
+  }
+}
+
+module.exports = {
+  setInterval: setInterval,
+  clearInterval: clearInterval
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@skpm/timers/test-if-fiber.js":
 /*!****************************************************!*\
   !*** ./node_modules/@skpm/timers/test-if-fiber.js ***!
   \****************************************************/
-/*! no static exports found */function(e,t){e.exports=function(){return"undefined"!=typeof coscript&&coscript.createFiber}},"./node_modules/@skpm/timers/timeout.js":
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = function () {
+  return typeof coscript !== 'undefined' && coscript.createFiber
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@skpm/timers/timeout.js":
 /*!**********************************************!*\
   !*** ./node_modules/@skpm/timers/timeout.js ***!
   \**********************************************/
-/*! no static exports found */function(e,t,n){var o,r,i=[];if(n(/*! ./test-if-fiber */"./node_modules/@skpm/timers/test-if-fiber.js")()){i=[];o=function(e,t,n,o,r,a,s,l,u,c,d,f){var h=i.length;return i.push(coscript.scheduleWithInterval_jsFunction((t||0)/1e3,function(){e(n,o,r,a,s,l,u,c,d,f)})),h},r=function(e){var t=i[e];t&&(t.cancel(),i[e]=void 0)}}else o=function(e,t,n,o,a,s,l,u,c,d,f,h){coscript.shouldKeepAround=!0;var m=i.length;return i.push(!0),coscript.scheduleWithInterval_jsFunction((t||0)/1e3,function(){i[m]&&e(n,o,a,s,l,u,c,d,f,h),r(m),i.every(function(e){return!e})&&(coscript.shouldKeepAround=!1)}),m},r=function(e){i[e]=!1};e.exports={setTimeout:o,clearTimeout:r}},"./node_modules/@stark-contrast/color-utilities/lib/__constants.js":
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* globals coscript, sketch */
+var fiberAvailable = __webpack_require__(/*! ./test-if-fiber */ "./node_modules/@skpm/timers/test-if-fiber.js")
+
+var setTimeout
+var clearTimeout
+
+var fibers = []
+
+if (fiberAvailable()) {
+  var fibers = []
+
+  setTimeout = function (func, delay, param1, param2, param3, param4, param5, param6, param7, param8, param9, param10) {
+    // fibers takes care of keeping coscript around
+    var id = fibers.length
+    fibers.push(coscript.scheduleWithInterval_jsFunction(
+      (delay || 0) / 1000,
+      function () {
+        func(param1, param2, param3, param4, param5, param6, param7, param8, param9, param10)
+      }
+    ))
+    return id
+  }
+
+  clearTimeout = function (id) {
+    var timeout = fibers[id]
+    if (timeout) {
+      timeout.cancel() // fibers takes care of keeping coscript around
+      fibers[id] = undefined // garbage collect the fiber
+    }
+  }
+} else {
+  setTimeout = function (func, delay, param1, param2, param3, param4, param5, param6, param7, param8, param9, param10) {
+    coscript.shouldKeepAround = true
+    var id = fibers.length
+    fibers.push(true)
+    coscript.scheduleWithInterval_jsFunction(
+      (delay || 0) / 1000,
+      function () {
+        if (fibers[id]) { // if not cleared
+          func(param1, param2, param3, param4, param5, param6, param7, param8, param9, param10)
+        }
+        clearTimeout(id)
+        if (fibers.every(function (_id) { return !_id })) { // if everything is cleared
+          coscript.shouldKeepAround = false
+        }
+      }
+    )
+    return id
+  }
+
+  clearTimeout = function (id) {
+    fibers[id] = false
+  }
+}
+
+module.exports = {
+  setTimeout: setTimeout,
+  clearTimeout: clearTimeout
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@stark-contrast/color-utilities/lib/__constants.js":
 /*!*************************************************************************!*\
   !*** ./node_modules/@stark-contrast/color-utilities/lib/__constants.js ***!
   \*************************************************************************/
-/*! no static exports found */function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.CB_ACHROLY=t.CB_ACHRO=t.CB_TRITALY=t.CB_TRITA=t.CB_DEUTERLY=t.CB_DEUTER=t.CB_PROTALY=t.CB_PROTA=t.RGBA_REGEX=void 0,t.RGBA_REGEX=/rgba?\((\d+.?\d+|\d),\s*(\d+.?\d+|\d),\s*(\d+.?\d+|\d),\s*(\d+.?\d+|\d)?\)/,t.CB_PROTA="Protanopia",t.CB_PROTALY="Protanomaly",t.CB_DEUTER="Deuteranopia",t.CB_DEUTERLY="Deuteranomaly",t.CB_TRITA="Tritanopia",t.CB_TRITALY="Tritanomaly",t.CB_ACHRO="Achromatopsia",t.CB_ACHROLY="Achromatomaly"},"./node_modules/@stark-contrast/color-utilities/lib/__prop-types.js":
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CB_ACHROLY = exports.CB_ACHRO = exports.CB_TRITALY = exports.CB_TRITA = exports.CB_DEUTERLY = exports.CB_DEUTER = exports.CB_PROTALY = exports.CB_PROTA = exports.RGBA_REGEX = void 0;
+exports.RGBA_REGEX = /rgba?\((\d+.?\d+|\d),\s*(\d+.?\d+|\d),\s*(\d+.?\d+|\d),\s*(\d+.?\d+|\d)?\)/;
+exports.CB_PROTA = 'Protanopia';
+exports.CB_PROTALY = 'Protanomaly';
+exports.CB_DEUTER = 'Deuteranopia';
+exports.CB_DEUTERLY = 'Deuteranomaly';
+exports.CB_TRITA = 'Tritanopia';
+exports.CB_TRITALY = 'Tritanomaly';
+exports.CB_ACHRO = 'Achromatopsia';
+exports.CB_ACHROLY = 'Achromatomaly';
+
+
+/***/ }),
+
+/***/ "./node_modules/@stark-contrast/color-utilities/lib/__prop-types.js":
 /*!**************************************************************************!*\
   !*** ./node_modules/@stark-contrast/color-utilities/lib/__prop-types.js ***!
   \**************************************************************************/
-/*! no static exports found */function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0})},"./node_modules/@stark-contrast/color-utilities/lib/color-mixer.js":
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+
+
+/***/ }),
+
+/***/ "./node_modules/@stark-contrast/color-utilities/lib/color-mixer.js":
 /*!*************************************************************************!*\
   !*** ./node_modules/@stark-contrast/color-utilities/lib/color-mixer.js ***!
   \*************************************************************************/
-/*! no static exports found */function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.MixColors=void 0,t.MixColors=function(e,t){for(var n=[e.r,e.g,e.b],o=[t.r,t.g,t.b],r=[],i=0;i<=2;i++){var a=o[i],s=n[i];r.push(s+(a-s)*(t.a||1))}return{r:Math.round(r[0]),g:Math.round(r[1]),b:Math.round(r[2]),a:1}}},"./node_modules/@stark-contrast/color-utilities/lib/color-modifiers.js":
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.MixColors = void 0;
+/**
+ * Mixes two colors (usually one with lowered alpha)
+ *
+ *
+ * @param firstColor - An rgba object
+ * @param secondColor = An rgba object
+ * @returns `The two colors mixed`
+ *
+ */
+exports.MixColors = function (firstColor, secondColor) {
+    var rgbArray2 = [firstColor.r, firstColor.g, firstColor.b];
+    var rgbArray1 = [secondColor.r, secondColor.g, secondColor.b];
+    var returnArray = [];
+    for (var i = 0; i <= 2; i++) {
+        var v1 = rgbArray1[i];
+        var v2 = rgbArray2[i];
+        returnArray.push(v2 + (v1 - v2) * (secondColor.a || 1));
+    }
+    return {
+        r: Math.round(returnArray[0]),
+        g: Math.round(returnArray[1]),
+        b: Math.round(returnArray[2]),
+        a: 1,
+    };
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/@stark-contrast/color-utilities/lib/color-modifiers.js":
 /*!*****************************************************************************!*\
   !*** ./node_modules/@stark-contrast/color-utilities/lib/color-modifiers.js ***!
   \*****************************************************************************/
-/*! no static exports found */function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.LightenColor=t.DarkenColor=void 0;var o=n(/*! ./hsl-conversions */"./node_modules/@stark-contrast/color-utilities/lib/hsl-conversions.js"),r=n(/*! ./rgb-conversions */"./node_modules/@stark-contrast/color-utilities/lib/rgb-conversions.js");t.DarkenColor=function(e,t){var n=r.ConvertRgbaToBaseHsla(e);return n.l-=t,n.l<0&&(n.l=0),o.ConvertBaseHslaToRgba(n)},t.LightenColor=function(e,t){var n=r.ConvertRgbaToBaseHsla(e);return n.l+=t,n.l>1&&(n.l=1),o.ConvertBaseHslaToRgba(n)}},"./node_modules/@stark-contrast/color-utilities/lib/contrast-checker.js":
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.LightenColor = exports.DarkenColor = void 0;
+var hsl_conversions_1 = __webpack_require__(/*! ./hsl-conversions */ "./node_modules/@stark-contrast/color-utilities/lib/hsl-conversions.js");
+var rgb_conversions_1 = __webpack_require__(/*! ./rgb-conversions */ "./node_modules/@stark-contrast/color-utilities/lib/rgb-conversions.js");
+/**
+ * Darkens the provided rgba object by the provided ammount
+ *
+ *
+ * @param rgba - An object containing the rgba values in 0-255 format
+ * @param amount - The amount to darken the rgba object
+ * @returns `rgba(r, g, b, a) in 0-255 format`
+ *
+ */
+exports.DarkenColor = function (rgba, amount) {
+    var baseHsla = rgb_conversions_1.ConvertRgbaToBaseHsla(rgba);
+    baseHsla.l -= amount;
+    if (baseHsla.l < 0) {
+        baseHsla.l = 0;
+    }
+    return hsl_conversions_1.ConvertBaseHslaToRgba(baseHsla);
+};
+/**
+ * Lightens the provided rgba object by the provided ammount
+ *
+ *
+ * @param rgba - An object containing the rgba values in 0-255 format
+ * @param amount - The amount to lighten the rgba object
+ * @returns `rgba(r, g, b, a) in 0-255 format`
+ *
+ */
+exports.LightenColor = function (rgba, amount) {
+    var baseHsla = rgb_conversions_1.ConvertRgbaToBaseHsla(rgba);
+    baseHsla.l += amount;
+    if (baseHsla.l > 1) {
+        baseHsla.l = 1;
+    }
+    return hsl_conversions_1.ConvertBaseHslaToRgba(baseHsla);
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/@stark-contrast/color-utilities/lib/contrast-checker.js":
 /*!******************************************************************************!*\
   !*** ./node_modules/@stark-contrast/color-utilities/lib/contrast-checker.js ***!
   \******************************************************************************/
-/*! no static exports found */function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.GetContrastRatio=void 0,t.GetContrastRatio=function(e,t,n){var o=function(e){var t,n,o;return t=e.r/255,n=e.g/255,o=e.b/255,.2126*(t<=.03928?t/12.92:Math.pow((t+.055)/1.055,2.4))+.7152*(n<=.03928?n/12.92:Math.pow((n+.055)/1.055,2.4))+.0722*(o<=.03928?o/12.92:Math.pow((o+.055)/1.055,2.4))},r=(Math.max(o(e),o(t))+.05)/(Math.min(o(e),o(t))+.05);if(n){var i=String(r);if(-1!==i.indexOf(".")){var a=i.split(".");r=1===a.length?Number(i):Number(a[0]+"."+a[1].charAt(0)+a[1].charAt(1))}r=Number(r.toFixed(2))}return r}},"./node_modules/@stark-contrast/color-utilities/lib/get-luminance.js":
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.GetContrastRatio = void 0;
+/**
+ * Returns a contrast ratio from two colors
+ *
+ *
+ * @param firstColor - An rgba object
+ * @param secondColor = An rgba object
+ * @returns `A contrast ratio`
+ *
+ */
+exports.GetContrastRatio = function (firstColor, secondColor, roundResult) {
+    var getLuminance = function (color) {
+        // http://www.w3.org/TR/2008/REC-WCAG20-20081211/#relativeluminancedef
+        var RsRGB;
+        var GsRGB;
+        var BsRGB;
+        var R;
+        var G;
+        var B;
+        RsRGB = color.r / 255;
+        GsRGB = color.g / 255;
+        BsRGB = color.b / 255;
+        if (RsRGB <= 0.03928) {
+            R = RsRGB / 12.92;
+        }
+        else {
+            R = Math.pow((RsRGB + 0.055) / 1.055, 2.4);
+        }
+        if (GsRGB <= 0.03928) {
+            G = GsRGB / 12.92;
+        }
+        else {
+            G = Math.pow((GsRGB + 0.055) / 1.055, 2.4);
+        }
+        if (BsRGB <= 0.03928) {
+            B = BsRGB / 12.92;
+        }
+        else {
+            B = Math.pow((BsRGB + 0.055) / 1.055, 2.4);
+        }
+        return 0.2126 * R + 0.7152 * G + 0.0722 * B;
+    };
+    var result = (Math.max(getLuminance(firstColor), getLuminance(secondColor)) + 0.05) /
+        (Math.min(getLuminance(firstColor), getLuminance(secondColor)) + 0.05);
+    if (roundResult) {
+        var stringResult = String(result);
+        if (stringResult.indexOf('.') !== -1) {
+            var numArray = stringResult.split('.');
+            if (numArray.length === 1) {
+                result = Number(stringResult);
+            }
+            else {
+                result = Number(numArray[0] + '.' + numArray[1].charAt(0) + numArray[1].charAt(1));
+            }
+        }
+        result = Number(result.toFixed(2));
+    }
+    return result;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/@stark-contrast/color-utilities/lib/get-luminance.js":
 /*!***************************************************************************!*\
   !*** ./node_modules/@stark-contrast/color-utilities/lib/get-luminance.js ***!
   \***************************************************************************/
-/*! no static exports found */function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.GetLuminance=void 0,t.GetLuminance=function(e){var t,n,o,r,i,a;return t=e.r/255,n=e.g/255,o=e.b/255,r=t<=.03928?t/12.92:Math.pow((t+.055)/1.055,2.4),i=n<=.03928?n/12.92:Math.pow((n+.055)/1.055,2.4),a=o<=.03928?o/12.92:Math.pow((o+.055)/1.055,2.4),Number((.2126*r+.7152*i+.0722*a).toFixed(2))}},"./node_modules/@stark-contrast/color-utilities/lib/get-nearest-passing-color.js":
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.GetLuminance = void 0;
+/**
+ * Provides the luminance of a given color.
+ *
+ *
+ * @param rgba - An object containing the rgba values in 0-255 format
+ * @returns `Luminance of the color with 0 being dark and 1 being white`
+ *
+ */
+exports.GetLuminance = function (rgba) {
+    var RtempRGB;
+    var GtempRGB;
+    var BtempRGB;
+    var newR;
+    var newG;
+    var newB;
+    RtempRGB = rgba.r / 255;
+    GtempRGB = rgba.g / 255;
+    BtempRGB = rgba.b / 255;
+    if (RtempRGB <= 0.03928) {
+        newR = RtempRGB / 12.92;
+    }
+    else {
+        newR = Math.pow((RtempRGB + 0.055) / 1.055, 2.4);
+    }
+    if (GtempRGB <= 0.03928) {
+        newG = GtempRGB / 12.92;
+    }
+    else {
+        newG = Math.pow((GtempRGB + 0.055) / 1.055, 2.4);
+    }
+    if (BtempRGB <= 0.03928) {
+        newB = BtempRGB / 12.92;
+    }
+    else {
+        newB = Math.pow((BtempRGB + 0.055) / 1.055, 2.4);
+    }
+    return Number((0.2126 * newR + 0.7152 * newG + 0.0722 * newB).toFixed(2));
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/@stark-contrast/color-utilities/lib/get-nearest-passing-color.js":
 /*!***************************************************************************************!*\
   !*** ./node_modules/@stark-contrast/color-utilities/lib/get-nearest-passing-color.js ***!
   \***************************************************************************************/
-/*! no static exports found */function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.GetColorSuggestions=t.GetNearestPassingColor=t.DetermineColorModification=void 0;var o=n(/*! ./color-modifiers */"./node_modules/@stark-contrast/color-utilities/lib/color-modifiers.js"),r=n(/*! ./contrast-checker */"./node_modules/@stark-contrast/color-utilities/lib/contrast-checker.js"),i=n(/*! ./rgb-conversions */"./node_modules/@stark-contrast/color-utilities/lib/rgb-conversions.js");t.DetermineColorModification=function(e,t,n){void 0===n&&(n=.05);var i=o.LightenColor(e,n),a=o.DarkenColor(e,n);return r.GetContrastRatio(i,t)>r.GetContrastRatio(a,t)?"light":"dark"},t.GetNearestPassingColor=function(e,n,i,a,s){var l;void 0===i&&(i=.05),void 0===a&&(a=4.5);var u=t.DetermineColorModification(e,n,i);l=s?"light"===s?o.LightenColor:o.DarkenColor:"light"===u?o.LightenColor:o.DarkenColor;for(var c=i,d=r.GetContrastRatio(e,n),f=d<a,h=e;f;){var m=l(e,c+=i),p=d;(d=r.GetContrastRatio(m,n))>=a&&(h=m,f=!1),p===d&&(f=!1,d<a&&(h=t.GetNearestPassingColor(e,n,i,a,l===o.LightenColor?"dark":"light")))}return h},t.GetColorSuggestions=function(e,n,r,a,s){void 0===r&&(r=4),void 0===a&&(a=.05),void 0===s&&(s=.1);for(var l=t.DetermineColorModification(e,n,a),u=t.GetNearestPassingColor(e,n,a),c="light"===l?o.LightenColor:o.DarkenColor,d=[i.ConvertRgbaToRgbaString(u)],f=1;f<r;f++)d.push(i.ConvertRgbaToRgbaString(c(u,f*s)));var h=0;if(d.forEach(function(e,t){0!==t&&e===d[t-1]&&h++}),h>2){var m="light"===l?o.DarkenColor:o.LightenColor,p=t.GetNearestPassingColor(e,n,a,4.5,"light"===l?"dark":"light"),g=[i.ConvertRgbaToRgbaString(p)];for(f=1;f<r;f++)g.push(i.ConvertRgbaToRgbaString(m(p,.1*f)));var S=0;if(g.forEach(function(e,t){0!==t&&e===g[t-1]&&S++}),S<h)return g}return d}},"./node_modules/@stark-contrast/color-utilities/lib/hex-conversions.js":
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.GetColorSuggestions = exports.GetNearestPassingColor = exports.DetermineColorModification = void 0;
+var color_modifiers_1 = __webpack_require__(/*! ./color-modifiers */ "./node_modules/@stark-contrast/color-utilities/lib/color-modifiers.js");
+var contrast_checker_1 = __webpack_require__(/*! ./contrast-checker */ "./node_modules/@stark-contrast/color-utilities/lib/contrast-checker.js");
+var rgb_conversions_1 = __webpack_require__(/*! ./rgb-conversions */ "./node_modules/@stark-contrast/color-utilities/lib/rgb-conversions.js");
+/**
+ * Determines whether to lighten or darken a color.
+ *
+ *
+ * @param colorToModify - An object containing the rgba values in 0-255 format
+ * @param colorToCompare - An object containing the rgba values in 0-255 format
+ * @param modificationAmount - The amount to modify the color in decimal format (.1 = 10%)
+ * @returns `light or dark`
+ *
+ */
+exports.DetermineColorModification = function (colorToModify, colorToCompare, modificationAmount) {
+    if (modificationAmount === void 0) { modificationAmount = 0.05; }
+    var colorLightened = color_modifiers_1.LightenColor(colorToModify, modificationAmount);
+    var colorDarkened = color_modifiers_1.DarkenColor(colorToModify, modificationAmount);
+    var lightenedCR = contrast_checker_1.GetContrastRatio(colorLightened, colorToCompare);
+    var darkenedCR = contrast_checker_1.GetContrastRatio(colorDarkened, colorToCompare);
+    return lightenedCR > darkenedCR ? 'light' : 'dark';
+};
+/**
+ * Lightens or darkens a provided color until it passes contrast with the other provided color.
+ *
+ *
+ * @param colorToModify - An object containing the rgba values in 0-255 format
+ * @param colorToCompare - An object containing the rgba values in 0-255 format
+ * @param modificationAmount - The amount to modify the color in decimal format (.1 = 10%)
+ * @param minimumContrast - The minimum contrast ratio to check for
+ * @param modificationType - whether to lighten or darken the color
+ * @returns `{ r: 18, g: 96, b: 58, a: 1}`
+ *
+ */
+exports.GetNearestPassingColor = function (colorToModify, colorToCompare, modificationAmount, minimumContrast, modificationType) {
+    if (modificationAmount === void 0) { modificationAmount = 0.05; }
+    if (minimumContrast === void 0) { minimumContrast = 4.5; }
+    var modFunc;
+    var colorModificationType = exports.DetermineColorModification(colorToModify, colorToCompare, modificationAmount);
+    if (modificationType) {
+        modFunc = modificationType === 'light' ? color_modifiers_1.LightenColor : color_modifiers_1.DarkenColor;
+    }
+    else {
+        modFunc = colorModificationType === 'light' ? color_modifiers_1.LightenColor : color_modifiers_1.DarkenColor;
+    }
+    var percentage = modificationAmount;
+    var cr = contrast_checker_1.GetContrastRatio(colorToModify, colorToCompare);
+    var runCheck = cr < minimumContrast;
+    var colorToReturn = colorToModify;
+    while (runCheck) {
+        percentage += modificationAmount;
+        var newColorModified = modFunc(colorToModify, percentage);
+        var oldCr = cr;
+        cr = contrast_checker_1.GetContrastRatio(newColorModified, colorToCompare);
+        if (cr >= minimumContrast) {
+            colorToReturn = newColorModified;
+            runCheck = false;
+        }
+        if (oldCr === cr) {
+            runCheck = false;
+            if (cr < minimumContrast) {
+                colorToReturn = exports.GetNearestPassingColor(colorToModify, colorToCompare, modificationAmount, minimumContrast, modFunc === color_modifiers_1.LightenColor ? 'dark' : 'light');
+            }
+        }
+    }
+    return colorToReturn;
+};
+/**
+ * Determines whether to lighten or darken a color.
+ *
+ *
+ * @param colorToModify - An object containing the rgba values in 0-255 format
+ * @param colorToCompare - An object containing the rgba values in 0-255 format
+ * @param numberOfSuggestions - The number of suggestions to return
+ * @param passingColorModificationAmount - The amount to modify the color in decimal format (.1 = 10%) to get a passing color
+ * @param modificationAmount - The amount to modify the color in decimal format (.1 = 10%)
+ * @returns `array of colors`
+ *
+ */
+exports.GetColorSuggestions = function (colorToModify, colorToCompare, numberOfSuggestions, passingColorModificationAmount, modificationAmount) {
+    if (numberOfSuggestions === void 0) { numberOfSuggestions = 4; }
+    if (passingColorModificationAmount === void 0) { passingColorModificationAmount = 0.05; }
+    if (modificationAmount === void 0) { modificationAmount = 0.1; }
+    var initialModification = exports.DetermineColorModification(colorToModify, colorToCompare, passingColorModificationAmount);
+    var passingColor = exports.GetNearestPassingColor(colorToModify, colorToCompare, passingColorModificationAmount);
+    var colorModifier = initialModification === 'light' ? color_modifiers_1.LightenColor : color_modifiers_1.DarkenColor;
+    var colorArray = [rgb_conversions_1.ConvertRgbaToRgbaString(passingColor)];
+    for (var i = 1; i < numberOfSuggestions; i++) {
+        colorArray.push(rgb_conversions_1.ConvertRgbaToRgbaString(colorModifier(passingColor, i * modificationAmount)));
+    }
+    var initialDupeColorCount = 0;
+    colorArray.forEach(function (color, index) {
+        if (index !== 0 && color === colorArray[index - 1]) {
+            initialDupeColorCount++;
+        }
+    });
+    if (initialDupeColorCount > 2) {
+        var newModifier = initialModification === 'light' ? color_modifiers_1.DarkenColor : color_modifiers_1.LightenColor;
+        var newPassingColor = exports.GetNearestPassingColor(colorToModify, colorToCompare, passingColorModificationAmount, 4.5, initialModification === 'light' ? 'dark' : 'light');
+        var newColorArray_1 = [rgb_conversions_1.ConvertRgbaToRgbaString(newPassingColor)];
+        for (var i = 1; i < numberOfSuggestions; i++) {
+            newColorArray_1.push(rgb_conversions_1.ConvertRgbaToRgbaString(newModifier(newPassingColor, i * 0.1)));
+        }
+        var newDupeColorCount_1 = 0;
+        newColorArray_1.forEach(function (color, index) {
+            if (index !== 0 && color === newColorArray_1[index - 1]) {
+                newDupeColorCount_1++;
+            }
+        });
+        if (newDupeColorCount_1 < initialDupeColorCount) {
+            return newColorArray_1;
+        }
+    }
+    return colorArray;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/@stark-contrast/color-utilities/lib/hex-conversions.js":
 /*!*****************************************************************************!*\
   !*** ./node_modules/@stark-contrast/color-utilities/lib/hex-conversions.js ***!
   \*****************************************************************************/
-/*! no static exports found */function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.ConvertHexToRgba=t.ConvertHexToRgbaString=void 0,t.ConvertHexToRgbaString=function(e){var t=e.startsWith("#")?e.substring(1,e.length+1):e,n={r:parseInt(t.slice(0,2),16),g:parseInt(t.slice(2,4),16),b:parseInt(t.slice(4,6),16),a:parseInt(t.slice(6,8),16)/255};return"rgba("+n.r+", "+n.g+", "+n.b+", "+(n.a?n.a.toFixed(2):1)+")"},t.ConvertHexToRgba=function(e){var t=e.startsWith("#")?e.substring(1,e.length+1):e,n=parseInt(t.slice(6,8),16)/255||1;return{r:parseInt(t.slice(0,2),16),g:parseInt(t.slice(2,4),16),b:parseInt(t.slice(4,6),16),a:Number(n.toFixed(2))}}},"./node_modules/@stark-contrast/color-utilities/lib/hsl-conversions.js":
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ConvertHexToRgba = exports.ConvertHexToRgbaString = void 0;
+/**
+ * Converts a hex string to an rgba string.
+ *
+ *
+ * @param hex - A hex in string format
+ * @returns `rgba(r, g, b, a) in 0-255 format`
+ *
+ */
+exports.ConvertHexToRgbaString = function (hex) {
+    var normalizedHex = hex.startsWith('#')
+        ? hex.substring(1, hex.length + 1)
+        : hex;
+    var rgba = {
+        r: parseInt(normalizedHex.slice(0, 2), 16),
+        g: parseInt(normalizedHex.slice(2, 4), 16),
+        b: parseInt(normalizedHex.slice(4, 6), 16),
+        a: parseInt(normalizedHex.slice(6, 8), 16) / 255,
+    };
+    return "rgba(" + rgba.r + ", " + rgba.g + ", " + rgba.b + ", " + (rgba.a ? rgba.a.toFixed(2) : 1) + ")";
+};
+/**
+ * Converts a hex string to an rgba.
+ *
+ *
+ * @param hex - A hex in string format
+ * @returns `{ r: 255, g: 255, b: 255, a: 1}`
+ *
+ */
+exports.ConvertHexToRgba = function (hex) {
+    var normalizedHex = hex.startsWith('#')
+        ? hex.substring(1, hex.length + 1)
+        : hex;
+    var alpha = parseInt(normalizedHex.slice(6, 8), 16) / 255 || 1;
+    var rgba = {
+        r: parseInt(normalizedHex.slice(0, 2), 16),
+        g: parseInt(normalizedHex.slice(2, 4), 16),
+        b: parseInt(normalizedHex.slice(4, 6), 16),
+        a: Number(alpha.toFixed(2)),
+    };
+    return rgba;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/@stark-contrast/color-utilities/lib/hsl-conversions.js":
 /*!*****************************************************************************!*\
   !*** ./node_modules/@stark-contrast/color-utilities/lib/hsl-conversions.js ***!
   \*****************************************************************************/
-/*! no static exports found */function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.ConvertBaseHslaToRgba=void 0,t.ConvertBaseHslaToRgba=function(e){var t,n,o,r=function(e,t,n){return n<0&&(n+=1),n>1&&(n-=1),n<1/6?e+6*(t-e)*n:n<.5?t:n<2/3?e+(t-e)*(2/3-n)*6:e};if(0===e.s)t=n=o=e.l;else{var i=e.l<.5?e.l*(1+e.s):e.l+e.s-e.l*e.s,a=2*e.l-i;t=r(a,i,e.h+1/3),n=r(a,i,e.h),o=r(a,i,e.h-1/3)}return{r:Math.round(255*t),g:Math.round(255*n),b:Math.round(255*o),a:e.a}}},"./node_modules/@stark-contrast/color-utilities/lib/index.js":
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ConvertBaseHslaToRgba = void 0;
+/**
+ * Converts an hsla object to an rgba object.
+ *
+ *
+ * @param hsla - An object containing the hsla values in 0-255 format
+ * @returns `{ r: 18, g: 96, b: 58, a: 1}`
+ *
+ */
+exports.ConvertBaseHslaToRgba = function (hsla) {
+    var red;
+    var green;
+    var blue;
+    var convertHueToRgb = function (p, q, t) {
+        if (t < 0)
+            t += 1;
+        if (t > 1)
+            t -= 1;
+        if (t < 1 / 6)
+            return p + (q - p) * 6 * t;
+        if (t < 1 / 2)
+            return q;
+        if (t < 2 / 3)
+            return p + (q - p) * (2 / 3 - t) * 6;
+        return p;
+    };
+    if (hsla.s === 0) {
+        red = green = blue = hsla.l;
+    }
+    else {
+        var q = hsla.l < 0.5 ? hsla.l * (1 + hsla.s) : hsla.l + hsla.s - hsla.l * hsla.s;
+        var p = 2 * hsla.l - q;
+        red = convertHueToRgb(p, q, hsla.h + 1 / 3);
+        green = convertHueToRgb(p, q, hsla.h);
+        blue = convertHueToRgb(p, q, hsla.h - 1 / 3);
+    }
+    return {
+        r: Math.round(red * 255),
+        g: Math.round(green * 255),
+        b: Math.round(blue * 255),
+        a: hsla.a,
+    };
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/@stark-contrast/color-utilities/lib/index.js":
 /*!*******************************************************************!*\
   !*** ./node_modules/@stark-contrast/color-utilities/lib/index.js ***!
   \*******************************************************************/
-/*! no static exports found */function(e,t,n){"use strict";var o=this&&this.__createBinding||(Object.create?function(e,t,n,o){void 0===o&&(o=n),Object.defineProperty(e,o,{enumerable:!0,get:function(){return t[n]}})}:function(e,t,n,o){void 0===o&&(o=n),e[o]=t[n]}),r=this&&this.__exportStar||function(e,t){for(var n in e)"default"===n||Object.prototype.hasOwnProperty.call(t,n)||o(t,e,n)};Object.defineProperty(t,"__esModule",{value:!0}),r(n(/*! ./color-mixer */"./node_modules/@stark-contrast/color-utilities/lib/color-mixer.js"),t),r(n(/*! ./color-modifiers */"./node_modules/@stark-contrast/color-utilities/lib/color-modifiers.js"),t),r(n(/*! ./contrast-checker */"./node_modules/@stark-contrast/color-utilities/lib/contrast-checker.js"),t),r(n(/*! ./get-luminance */"./node_modules/@stark-contrast/color-utilities/lib/get-luminance.js"),t),r(n(/*! ./get-nearest-passing-color */"./node_modules/@stark-contrast/color-utilities/lib/get-nearest-passing-color.js"),t),r(n(/*! ./hex-conversions */"./node_modules/@stark-contrast/color-utilities/lib/hex-conversions.js"),t),r(n(/*! ./hsl-conversions */"./node_modules/@stark-contrast/color-utilities/lib/hsl-conversions.js"),t),r(n(/*! ./rgb-conversions */"./node_modules/@stark-contrast/color-utilities/lib/rgb-conversions.js"),t),r(n(/*! ./simulate-colorblindness */"./node_modules/@stark-contrast/color-utilities/lib/simulate-colorblindness.js"),t),r(n(/*! ./__constants */"./node_modules/@stark-contrast/color-utilities/lib/__constants.js"),t),r(n(/*! ./__prop-types */"./node_modules/@stark-contrast/color-utilities/lib/__prop-types.js"),t)},"./node_modules/@stark-contrast/color-utilities/lib/rgb-conversions.js":
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+__exportStar(__webpack_require__(/*! ./color-mixer */ "./node_modules/@stark-contrast/color-utilities/lib/color-mixer.js"), exports);
+__exportStar(__webpack_require__(/*! ./color-modifiers */ "./node_modules/@stark-contrast/color-utilities/lib/color-modifiers.js"), exports);
+__exportStar(__webpack_require__(/*! ./contrast-checker */ "./node_modules/@stark-contrast/color-utilities/lib/contrast-checker.js"), exports);
+__exportStar(__webpack_require__(/*! ./get-luminance */ "./node_modules/@stark-contrast/color-utilities/lib/get-luminance.js"), exports);
+__exportStar(__webpack_require__(/*! ./get-nearest-passing-color */ "./node_modules/@stark-contrast/color-utilities/lib/get-nearest-passing-color.js"), exports);
+__exportStar(__webpack_require__(/*! ./hex-conversions */ "./node_modules/@stark-contrast/color-utilities/lib/hex-conversions.js"), exports);
+__exportStar(__webpack_require__(/*! ./hsl-conversions */ "./node_modules/@stark-contrast/color-utilities/lib/hsl-conversions.js"), exports);
+__exportStar(__webpack_require__(/*! ./rgb-conversions */ "./node_modules/@stark-contrast/color-utilities/lib/rgb-conversions.js"), exports);
+__exportStar(__webpack_require__(/*! ./simulate-colorblindness */ "./node_modules/@stark-contrast/color-utilities/lib/simulate-colorblindness.js"), exports);
+__exportStar(__webpack_require__(/*! ./__constants */ "./node_modules/@stark-contrast/color-utilities/lib/__constants.js"), exports);
+__exportStar(__webpack_require__(/*! ./__prop-types */ "./node_modules/@stark-contrast/color-utilities/lib/__prop-types.js"), exports);
+
+
+/***/ }),
+
+/***/ "./node_modules/@stark-contrast/color-utilities/lib/rgb-conversions.js":
 /*!*****************************************************************************!*\
   !*** ./node_modules/@stark-contrast/color-utilities/lib/rgb-conversions.js ***!
   \*****************************************************************************/
-/*! no static exports found */function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.ConvertRgbaToHex=t.ConvertRgbaToBaseHsla=t.ConvertRgbaToHsla=t.ConvertRgbaToBaseRgba=t.ConvertBaseRgbaToRgba=t.ConvertRgbaStringToBaseRgba=t.ConvertRgbaStringToRgba=t.ConvertBaseRgbaToRgbaString=t.ConvertRgbaToRgbaString=void 0;var o=n(/*! ./__constants */"./node_modules/@stark-contrast/color-utilities/lib/__constants.js");t.ConvertRgbaToRgbaString=function(e){return"rgba("+e.r+", "+e.g+", "+e.b+", "+(e.a?e.a:1)+")"},t.ConvertBaseRgbaToRgbaString=function(e){return"rgba("+Math.round(255*e.r)+", "+Math.round(255*e.g)+", "+Math.round(255*e.b)+", "+(e.a?e.a:1)+")"},t.ConvertRgbaStringToRgba=function(e){var t=o.RGBA_REGEX,n=e.match(t);return n&&(null===n||void 0===n?void 0:n.length)>0?{r:Number(n[1]),g:Number(n[2]),b:Number(n[3]),a:Number(n[4])}:{r:0,g:0,b:0,a:0}},t.ConvertRgbaStringToBaseRgba=function(e){var t=o.RGBA_REGEX,n=e.match(t);return n&&(null===n||void 0===n?void 0:n.length)>0?{r:Number(n[1])/255,g:Number(n[2])/255,b:Number(n[3])/255,a:Number(n[4])}:{r:0,g:0,b:0,a:0}},t.ConvertBaseRgbaToRgba=function(e,t){var n=e.a?e.a:1;return{r:255*e.r,g:255*e.g,b:255*e.b,a:t?255*n:n}},t.ConvertRgbaToBaseRgba=function(e,t){var n=e.a?e.a:255;return{r:e.r/255,g:e.g/255,b:e.b/255,a:t?n/255:n}},t.ConvertRgbaToHsla=function(e){var t,n=e.r/255,o=e.g/255,r=e.b/255,i=Math.max(n,o,r),a=Math.min(n,o,r),s=0,l=(i+a)/2;if(i===a)s=t=0;else{var u=i-a;switch(t=l>.5?u/(2-i-a):u/(i+a),i){case n:s=(o-r)/u+(o<r?6:0);break;case o:s=(r-n)/u+2;break;case r:s=(n-o)/u+4}s/=6}return{h:Math.round(360*s),s:Math.round(100*t),l:Math.round(100*l),a:e.a}},t.ConvertRgbaToBaseHsla=function(e){var t,n=e.r/255,o=e.g/255,r=e.b/255,i=Math.max(n,o,r),a=Math.min(n,o,r),s=0,l=(i+a)/2;if(i===a)s=t=0;else{var u=i-a;switch(t=l>.5?u/(2-i-a):u/(i+a),i){case n:s=(o-r)/u+(o<r?6:0);break;case o:s=(r-n)/u+2;break;case r:s=(n-o)/u+4}s/=6}return{h:s,s:t,l:l,a:e.a}},t.ConvertRgbaToHex=function(e,t,n){var o=function(e){return 1===e.length?"0"+e:""+e};return(t?"#":"")+o(Math.round(e.r).toString(16))+o(Math.round(e.g).toString(16))+o(Math.round(e.b).toString(16))+(n&&e.a?o(Math.round(255*e.a).toString(16)):"")}},"./node_modules/@stark-contrast/color-utilities/lib/simulate-colorblindness.js":
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ConvertRgbaToHex = exports.ConvertRgbaToBaseHsla = exports.ConvertRgbaToHsla = exports.ConvertRgbaToBaseRgba = exports.ConvertBaseRgbaToRgba = exports.ConvertRgbaStringToBaseRgba = exports.ConvertRgbaStringToRgba = exports.ConvertBaseRgbaToRgbaString = exports.ConvertRgbaToRgbaString = void 0;
+var __constants_1 = __webpack_require__(/*! ./__constants */ "./node_modules/@stark-contrast/color-utilities/lib/__constants.js");
+/**
+ * Converts an rgba object to an rgba string.
+ *
+ *
+ * @param rgba - An object containing the rgba values in 0-255 format
+ * @returns `rgba(r, g, b, a) in 0-255 format`
+ *
+ */
+exports.ConvertRgbaToRgbaString = function (rgba) {
+    return "rgba(" + rgba.r + ", " + rgba.g + ", " + rgba.b + ", " + (rgba.a ? rgba.a : 1) + ")";
+};
+/**
+ * Converts a base rgba object to an rgba string.
+ *
+ *
+ * @param rgba - An object containing the rgba values in 0-1 format
+ * @returns `rgba(r, g, b, a) in 0-255 format`
+ *
+ */
+exports.ConvertBaseRgbaToRgbaString = function (rgba) {
+    return "rgba(" + Math.round(rgba.r * 255) + ", " + Math.round(rgba.g * 255) + ", " + Math.round(rgba.b * 255) + ", " + (rgba.a ? rgba.a : 1) + ")";
+};
+/**
+ * Converts an rgba string to an rgba object.
+ *
+ *
+ * @param rgba - An string in rgba(255, 255, 255, 1) or rgb(255, 255, 255) format
+ * @returns `{ r: 255, g: 255, b: 255, a: 1}`
+ *
+ */
+exports.ConvertRgbaStringToRgba = function (rgba) {
+    var regex = __constants_1.RGBA_REGEX;
+    var rgbaArray = rgba.match(regex);
+    if (rgbaArray && (rgbaArray === null || rgbaArray === void 0 ? void 0 : rgbaArray.length) > 0) {
+        return {
+            r: Number(rgbaArray[1]),
+            g: Number(rgbaArray[2]),
+            b: Number(rgbaArray[3]),
+            a: Number(rgbaArray[4]),
+        };
+    }
+    return { r: 0, g: 0, b: 0, a: 0 };
+};
+/**
+ * Converts an rgba string to an rgba object.
+ *
+ *
+ * @param rgba - An string in rgba(255, 255, 255, 1) or rgb(255, 255, 255) format
+ * @returns `{ r: 0, g: 0.12, b: 0.44, a: 1}`
+ *
+ */
+exports.ConvertRgbaStringToBaseRgba = function (rgba) {
+    var regex = __constants_1.RGBA_REGEX;
+    var rgbaArray = rgba.match(regex);
+    if (rgbaArray && (rgbaArray === null || rgbaArray === void 0 ? void 0 : rgbaArray.length) > 0) {
+        return {
+            r: Number(rgbaArray[1]) / 255,
+            g: Number(rgbaArray[2]) / 255,
+            b: Number(rgbaArray[3]) / 255,
+            a: Number(rgbaArray[4]),
+        };
+    }
+    return { r: 0, g: 0, b: 0, a: 0 };
+};
+/**
+ * Converts a base rgba object to an rgba object.
+ *
+ *
+ * @param rgba - A base rgba in 0-1 format
+ * @returns `{ r: 255, g: 255, b: 255, a: 1}`
+ *
+ */
+exports.ConvertBaseRgbaToRgba = function (rgba, convertAlpha) {
+    var alpha = rgba.a ? rgba.a : 1;
+    return {
+        r: rgba.r * 255,
+        g: rgba.g * 255,
+        b: rgba.b * 255,
+        a: convertAlpha ? alpha * 255 : alpha,
+    };
+};
+/**
+ * Converts an rgba object to a base rgba object.
+ *
+ *
+ * @param rgba - An rgba object in 0-255 format
+ * @returns `{ r: 0.1, g: 0.1, b: 0.1, a: 1}`
+ *
+ */
+exports.ConvertRgbaToBaseRgba = function (rgba, convertAlpha) {
+    var alpha = rgba.a ? rgba.a : 255;
+    return {
+        r: rgba.r / 255,
+        g: rgba.g / 255,
+        b: rgba.b / 255,
+        a: convertAlpha ? alpha / 255 : alpha,
+    };
+};
+/**
+ * Converts an rgba object to an hsla object.
+ *
+ *
+ * @param rgba - An object containing the rgba values in 0-255 format
+ * @returns `{ h: 18, s: 96, l: 58, a: 1}`
+ *
+ */
+exports.ConvertRgbaToHsla = function (rgba) {
+    var red = rgba.r / 255;
+    var green = rgba.g / 255;
+    var blue = rgba.b / 255;
+    var max = Math.max(red, green, blue);
+    var min = Math.min(red, green, blue);
+    var h = 0;
+    var s;
+    var l = (max + min) / 2;
+    if (max === min) {
+        h = s = 0;
+    }
+    else {
+        var d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch (max) {
+            case red:
+                h = (green - blue) / d + (green < blue ? 6 : 0);
+                break;
+            case green:
+                h = (blue - red) / d + 2;
+                break;
+            case blue:
+                h = (red - green) / d + 4;
+                break;
+        }
+        h /= 6;
+    }
+    return {
+        h: Math.round(h * 360),
+        s: Math.round(s * 100),
+        l: Math.round(l * 100),
+        a: rgba.a,
+    };
+};
+/**
+ * Converts an rgba object to a base hsla object.
+ *
+ *
+ * @param rgba - An object containing the rgba values in 0-255 format
+ * @returns `{ h: 0.18, s: 0.96, l: 0.58, a: 1}`
+ *
+ */
+exports.ConvertRgbaToBaseHsla = function (rgba) {
+    var red = rgba.r / 255;
+    var green = rgba.g / 255;
+    var blue = rgba.b / 255;
+    var max = Math.max(red, green, blue);
+    var min = Math.min(red, green, blue);
+    var h = 0;
+    var s;
+    var l = (max + min) / 2;
+    if (max === min) {
+        h = s = 0;
+    }
+    else {
+        var d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch (max) {
+            case red:
+                h = (green - blue) / d + (green < blue ? 6 : 0);
+                break;
+            case green:
+                h = (blue - red) / d + 2;
+                break;
+            case blue:
+                h = (red - green) / d + 4;
+                break;
+        }
+        h /= 6;
+    }
+    return {
+        h: h,
+        s: s,
+        l: l,
+        a: rgba.a,
+    };
+};
+/**
+ * Converts an rgba object to a HEX or HEXA string.
+ *
+ *
+ * @param rgba - An object containing the rgba values in 0-255 format
+ * @returns `#e5e5e5 or e5e5e5ff`
+ *
+ */
+exports.ConvertRgbaToHex = function (rgba, includeHashtag, includeAlpha) {
+    var addPadding = function (color) {
+        return color.length === 1 ? '0' + color : '' + color;
+    };
+    return "" + (includeHashtag ? '#' : '') + addPadding(Math.round(rgba.r).toString(16)) + addPadding(Math.round(rgba.g).toString(16)) + addPadding(Math.round(rgba.b).toString(16)) + (includeAlpha && rgba.a
+        ? addPadding(Math.round(rgba.a * 255).toString(16))
+        : '');
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/@stark-contrast/color-utilities/lib/simulate-colorblindness.js":
 /*!*************************************************************************************!*\
   !*** ./node_modules/@stark-contrast/color-utilities/lib/simulate-colorblindness.js ***!
   \*************************************************************************************/
-/*! no static exports found */function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.GetColorblindMatrixString=t.GetColorblindMatrixArray=t.SimulateColorblindness=void 0,t.SimulateColorblindness=function(e,t){var n=function(e){return e<0?0:e<255?e:255},o=e.r,r=e.g,i=e.b,a=e.a?e.a:1,s=o*t[0]+r*t[1]+i*t[2]+a*t[3]+t[4],l=o*t[5]+r*t[6]+i*t[7]+a*t[8]+t[9],u=o*t[10]+r*t[11]+i*t[12]+a*t[13]+t[14],c=o*t[15]+r*t[16]+i*t[17]+a*t[18]+t[19];return{r:Math.round(n(s)),g:Math.round(n(l)),b:Math.round(n(u)),a:n(c)}},t.GetColorblindMatrixArray=function(e){switch(e){case"Protanopia":return[.567,.433,0,0,0,.558,.442,0,0,0,0,.242,.758,0,0,0,0,0,1,0];case"Protanomaly":return[.817,.183,0,0,0,.333,.667,0,0,0,0,.125,.875,0,0,0,0,0,1,0];case"Deuteranopia":return[.625,.375,0,0,0,.7,.3,0,0,0,0,.3,.7,0,0,0,0,0,1,0];case"Deuteranomaly":return[.8,.2,0,0,0,.258,.742,0,0,0,0,.142,.858,0,0,0,0,0,1,0];case"Tritanopia":return[.95,.05,0,0,0,0,.433,.567,0,0,0,.475,.525,0,0,0,0,0,1,0];case"Tritanomaly":return[.967,.033,0,0,0,0,.733,.267,0,0,0,.183,.817,0,0,0,0,0,1,0];case"Achromatopsia":return[.299,.587,.114,0,0,.299,.587,.114,0,0,.299,.587,.114,0,0,0,0,0,1,0];case"Achromatomaly":return[.618,.32,.062,0,0,.163,.775,.062,0,0,.163,.32,.516,0,0,0,0,0,1,0];default:return[1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1]}},t.GetColorblindMatrixString=function(e){return t.GetColorblindMatrixArray(e).join(", ")}},"./node_modules/mocha-js-delegate/index.js":
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.GetColorblindMatrixString = exports.GetColorblindMatrixArray = exports.SimulateColorblindness = void 0;
+/**
+ * Simulates a colorblindness on the provided rgba object
+ *
+ *
+ * @param rgba - An object containing the rgba values in 0-255 format
+ * @param colorblindMatrix - The matrix to use for the colorblind simulation. Use GetColorblindMatrixArray for this.
+ * @returns `An rgba object with the simulated colorblindness`
+ *
+ */
+exports.SimulateColorblindness = function (rgba, colorblindMatrix) {
+    var fu = function (n) {
+        return n < 0 ? 0 : n < 255 ? n : 255;
+    };
+    var ogColor = {
+        r: rgba.r,
+        g: rgba.g,
+        b: rgba.b,
+        a: rgba.a ? rgba.a : 1,
+    };
+    var r = ogColor.r * colorblindMatrix[0] +
+        ogColor.g * colorblindMatrix[1] +
+        ogColor.b * colorblindMatrix[2] +
+        ogColor.a * colorblindMatrix[3] +
+        colorblindMatrix[4];
+    var g = ogColor.r * colorblindMatrix[5] +
+        ogColor.g * colorblindMatrix[6] +
+        ogColor.b * colorblindMatrix[7] +
+        ogColor.a * colorblindMatrix[8] +
+        colorblindMatrix[9];
+    var b = ogColor.r * colorblindMatrix[10] +
+        ogColor.g * colorblindMatrix[11] +
+        ogColor.b * colorblindMatrix[12] +
+        ogColor.a * colorblindMatrix[13] +
+        colorblindMatrix[14];
+    var a = ogColor.r * colorblindMatrix[15] +
+        ogColor.g * colorblindMatrix[16] +
+        ogColor.b * colorblindMatrix[17] +
+        ogColor.a * colorblindMatrix[18] +
+        colorblindMatrix[19];
+    return {
+        r: Math.round(fu(r)),
+        g: Math.round(fu(g)),
+        b: Math.round(fu(b)),
+        a: fu(a),
+    };
+};
+exports.GetColorblindMatrixArray = function (colorblindType) {
+    switch (colorblindType) {
+        case 'Protanopia': {
+            return [
+                0.567,
+                0.433,
+                0,
+                0,
+                0,
+                0.558,
+                0.442,
+                0,
+                0,
+                0,
+                0,
+                0.242,
+                0.758,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+            ];
+        }
+        case 'Protanomaly': {
+            return [
+                0.817,
+                0.183,
+                0,
+                0,
+                0,
+                0.333,
+                0.667,
+                0,
+                0,
+                0,
+                0,
+                0.125,
+                0.875,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+            ];
+        }
+        case 'Deuteranopia': {
+            return [
+                0.625,
+                0.375,
+                0,
+                0,
+                0,
+                0.7,
+                0.3,
+                0,
+                0,
+                0,
+                0,
+                0.3,
+                0.7,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+            ];
+        }
+        case 'Deuteranomaly': {
+            return [
+                0.8,
+                0.2,
+                0,
+                0,
+                0,
+                0.258,
+                0.742,
+                0,
+                0,
+                0,
+                0,
+                0.142,
+                0.858,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+            ];
+        }
+        case 'Tritanopia': {
+            return [
+                0.95,
+                0.05,
+                0,
+                0,
+                0,
+                0,
+                0.433,
+                0.567,
+                0,
+                0,
+                0,
+                0.475,
+                0.525,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+            ];
+        }
+        case 'Tritanomaly': {
+            return [
+                0.967,
+                0.033,
+                0,
+                0,
+                0,
+                0,
+                0.733,
+                0.267,
+                0,
+                0,
+                0,
+                0.183,
+                0.817,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+            ];
+        }
+        case 'Achromatopsia': {
+            return [
+                0.299,
+                0.587,
+                0.114,
+                0,
+                0,
+                0.299,
+                0.587,
+                0.114,
+                0,
+                0,
+                0.299,
+                0.587,
+                0.114,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+            ];
+        }
+        case 'Achromatomaly': {
+            return [
+                0.618,
+                0.32,
+                0.062,
+                0,
+                0,
+                0.163,
+                0.775,
+                0.062,
+                0,
+                0,
+                0.163,
+                0.32,
+                0.516,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+            ];
+        }
+        default: {
+            return [
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+            ];
+        }
+    }
+};
+exports.GetColorblindMatrixString = function (colorblindType) {
+    return exports.GetColorblindMatrixArray(colorblindType).join(', ');
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/mocha-js-delegate/index.js":
 /*!*************************************************!*\
   !*** ./node_modules/mocha-js-delegate/index.js ***!
   \*************************************************/
-/*! no static exports found */function(module,exports){module.exports=function MochaDelegate(definition,superclass){var uniqueClassName="MochaJSDelegate_DynamicClass_"+NSUUID.UUID().UUIDString(),delegateClassDesc=MOClassDescription.allocateDescriptionForClassWithName_superclass_(uniqueClassName,superclass||NSObject),handlers={},ivars={};function setHandlerForSelector(selectorString,func){var handlerHasBeenSet=selectorString in handlers,selector=NSSelectorFromString(selectorString);if(handlers[selectorString]=func,!handlerHasBeenSet){for(var args=[],regex=/:/g;regex.exec(selectorString);)args.push("arg"+args.length);var dynamicFunction=eval("(function ("+args.join(", ")+") { return handlers[selectorString].apply(this, arguments); })");delegateClassDesc.addInstanceMethodWithSelector_function(selector,dynamicFunction)}}function setIvar(e,t){var n=e in handlers;if(ivars[e]=t,!n){delegateClassDesc.addInstanceVariableWithName_typeEncoding(e,"@");var o=MOPropertyDescription.new();o.name=e,o.typeEncoding="@",o.weak=!0,o.ivarName=e,delegateClassDesc.addProperty(o)}}this.getClass=function(){return NSClassFromString(uniqueClassName)},this.getClassInstance=function(e){var t=NSClassFromString(uniqueClassName).new();return Object.keys(ivars).forEach(function(e){t[e]=ivars[e]}),Object.keys(e||{}).forEach(function(n){t[n]=e[n]}),t},this.new=this.getClassInstance,"object"==typeof definition&&Object.keys(definition).forEach(function(e){"function"==typeof definition[e]?setHandlerForSelector(e,definition[e]):setIvar(e,definition[e])}),delegateClassDesc.registerClass()}},"./node_modules/process/browser.js":
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* globals MOClassDescription, NSObject, NSSelectorFromString, NSClassFromString, MOPropertyDescription */
+
+module.exports = function MochaDelegate(definition, superclass) {
+  var uniqueClassName =
+    'MochaJSDelegate_DynamicClass_' + NSUUID.UUID().UUIDString()
+
+  var delegateClassDesc = MOClassDescription.allocateDescriptionForClassWithName_superclass_(
+    uniqueClassName,
+    superclass || NSObject
+  )
+
+  // Storage
+  var handlers = {}
+  var ivars = {}
+
+  // Define an instance method
+  function setHandlerForSelector(selectorString, func) {
+    var handlerHasBeenSet = selectorString in handlers
+    var selector = NSSelectorFromString(selectorString)
+
+    handlers[selectorString] = func
+
+    /*
+      For some reason, Mocha acts weird about arguments: https://github.com/logancollins/Mocha/issues/28
+      We have to basically create a dynamic handler with a likewise dynamic number of predefined arguments.
+    */
+    if (!handlerHasBeenSet) {
+      var args = []
+      var regex = /:/g
+      while (regex.exec(selectorString)) {
+        args.push('arg' + args.length)
+      }
+
+      // eslint-disable-next-line no-eval
+      var dynamicFunction = eval(
+        '(function (' +
+          args.join(', ') +
+          ') { return handlers[selectorString].apply(this, arguments); })'
+      )
+
+      delegateClassDesc.addInstanceMethodWithSelector_function(
+        selector,
+        dynamicFunction
+      )
+    }
+  }
+
+  // define a property
+  function setIvar(key, value) {
+    var ivarHasBeenSet = key in handlers
+
+    ivars[key] = value
+
+    if (!ivarHasBeenSet) {
+      delegateClassDesc.addInstanceVariableWithName_typeEncoding(key, '@')
+      var description = MOPropertyDescription.new()
+      description.name = key
+      description.typeEncoding = '@'
+      description.weak = true
+      description.ivarName = key
+      delegateClassDesc.addProperty(description)
+    }
+  }
+
+  this.getClass = function() {
+    return NSClassFromString(uniqueClassName)
+  }
+
+  this.getClassInstance = function(instanceVariables) {
+    var instance = NSClassFromString(uniqueClassName).new()
+    Object.keys(ivars).forEach(function(key) {
+      instance[key] = ivars[key]
+    })
+    Object.keys(instanceVariables || {}).forEach(function(key) {
+      instance[key] = instanceVariables[key]
+    })
+    return instance
+  }
+  // alias
+  this.new = this.getClassInstance
+
+  // Convenience
+  if (typeof definition === 'object') {
+    Object.keys(definition).forEach(
+      function(key) {
+        if (typeof definition[key] === 'function') {
+          setHandlerForSelector(key, definition[key])
+        } else {
+          setIvar(key, definition[key])
+        }
+      }
+    )
+  }
+
+  delegateClassDesc.registerClass()
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/process/browser.js":
 /*!*****************************************!*\
   !*** ./node_modules/process/browser.js ***!
   \*****************************************/
-/*! no static exports found */function(e,t,n){(function(t,n){var o,r,i=e.exports={};function a(){throw new Error("setTimeout has not been defined")}function s(){throw new Error("clearTimeout has not been defined")}function l(e){if(o===t)return t(e,0);if((o===a||!o)&&t)return o=t,t(e,0);try{return o(e,0)}catch(t){try{return o.call(null,e,0)}catch(t){return o.call(this,e,0)}}}!function(){try{o="function"==typeof t?t:a}catch(e){o=a}try{r="function"==typeof n?n:s}catch(e){r=s}}();var u,c=[],d=!1,f=-1;function h(){d&&u&&(d=!1,u.length?c=u.concat(c):f=-1,c.length&&m())}function m(){if(!d){var e=l(h);d=!0;for(var t=c.length;t;){for(u=c,c=[];++f<t;)u&&u[f].run();f=-1,t=c.length}u=null,d=!1,function(e){if(r===n)return n(e);if((r===s||!r)&&n)return r=n,n(e);try{r(e)}catch(t){try{return r.call(null,e)}catch(t){return r.call(this,e)}}}(e)}}function p(e,t){this.fun=e,this.array=t}function g(){}i.nextTick=function(e){var t=new Array(arguments.length-1);if(arguments.length>1)for(var n=1;n<arguments.length;n++)t[n-1]=arguments[n];c.push(new p(e,t)),1!==c.length||d||l(m)},p.prototype.run=function(){this.fun.apply(null,this.array)},i.title="browser",i.browser=!0,i.env={},i.argv=[],i.version="",i.versions={},i.on=g,i.addListener=g,i.once=g,i.off=g,i.removeListener=g,i.removeAllListeners=g,i.emit=g,i.prependListener=g,i.prependOnceListener=g,i.listeners=function(e){return[]},i.binding=function(e){throw new Error("process.binding is not supported")},i.cwd=function(){return"/"},i.chdir=function(e){throw new Error("process.chdir is not supported")},i.umask=function(){return 0}}).call(this,n(/*! ./node_modules/@skpm/timers/timeout.js */"./node_modules/@skpm/timers/timeout.js").setTimeout,n(/*! ./node_modules/@skpm/timers/timeout.js */"./node_modules/@skpm/timers/timeout.js").clearTimeout)},"./node_modules/promise-polyfill/lib/index.js":
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(setTimeout, clearTimeout) {// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@skpm/timers/timeout.js */ "./node_modules/@skpm/timers/timeout.js")["setTimeout"], __webpack_require__(/*! ./node_modules/@skpm/timers/timeout.js */ "./node_modules/@skpm/timers/timeout.js")["clearTimeout"]))
+
+/***/ }),
+
+/***/ "./node_modules/promise-polyfill/lib/index.js":
 /*!****************************************************!*\
   !*** ./node_modules/promise-polyfill/lib/index.js ***!
   \****************************************************/
-/*! no static exports found */function(e,t,n){"use strict";(function(t,n){var o=t;function r(e){return Boolean(e&&void 0!==e.length)}function i(){}function a(e){if(!(this instanceof a))throw new TypeError("Promises must be constructed via new");if("function"!=typeof e)throw new TypeError("not a function");this._state=0,this._handled=!1,this._value=void 0,this._deferreds=[],d(e,this)}function s(e,t){for(;3===e._state;)e=e._value;0!==e._state?(e._handled=!0,a._immediateFn(function(){var n=1===e._state?t.onFulfilled:t.onRejected;if(null!==n){var o;try{o=n(e._value)}catch(e){return void u(t.promise,e)}l(t.promise,o)}else(1===e._state?l:u)(t.promise,e._value)})):e._deferreds.push(t)}function l(e,t){try{if(t===e)throw new TypeError("A promise cannot be resolved with itself.");if(t&&("object"==typeof t||"function"==typeof t)){var n=t.then;if(t instanceof a)return e._state=3,e._value=t,void c(e);if("function"==typeof n)return void d(function(e,t){return function(){e.apply(t,arguments)}}(n,t),e)}e._state=1,e._value=t,c(e)}catch(t){u(e,t)}}function u(e,t){e._state=2,e._value=t,c(e)}function c(e){2===e._state&&0===e._deferreds.length&&a._immediateFn(function(){e._handled||a._unhandledRejectionFn(e._value)});for(var t=0,n=e._deferreds.length;t<n;t++)s(e,e._deferreds[t]);e._deferreds=null}function d(e,t){var n=!1;try{e(function(e){n||(n=!0,l(t,e))},function(e){n||(n=!0,u(t,e))})}catch(e){if(n)return;n=!0,u(t,e)}}a.prototype.catch=function(e){return this.then(null,e)},a.prototype.then=function(e,t){var n=new this.constructor(i);return s(this,new function(e,t,n){this.onFulfilled="function"==typeof e?e:null,this.onRejected="function"==typeof t?t:null,this.promise=n}(e,t,n)),n},a.prototype.finally=function(e){var t=this.constructor;return this.then(function(n){return t.resolve(e()).then(function(){return n})},function(n){return t.resolve(e()).then(function(){return t.reject(n)})})},a.all=function(e){return new a(function(t,n){if(!r(e))return n(new TypeError("Promise.all accepts an array"));var o=Array.prototype.slice.call(e);if(0===o.length)return t([]);var i=o.length;function a(e,r){try{if(r&&("object"==typeof r||"function"==typeof r)){var s=r.then;if("function"==typeof s)return void s.call(r,function(t){a(e,t)},n)}o[e]=r,0==--i&&t(o)}catch(e){n(e)}}for(var s=0;s<o.length;s++)a(s,o[s])})},a.allSettled=function(e){return new this(function(t,n){if(!e||void 0===e.length)return n(new TypeError(typeof e+" "+e+" is not iterable(cannot read property Symbol(Symbol.iterator))"));var o=Array.prototype.slice.call(e);if(0===o.length)return t([]);var r=o.length;function i(e,n){if(n&&("object"==typeof n||"function"==typeof n)){var a=n.then;if("function"==typeof a)return void a.call(n,function(t){i(e,t)},function(n){o[e]={status:"rejected",reason:n},0==--r&&t(o)})}o[e]={status:"fulfilled",value:n},0==--r&&t(o)}for(var a=0;a<o.length;a++)i(a,o[a])})},a.resolve=function(e){return e&&"object"==typeof e&&e.constructor===a?e:new a(function(t){t(e)})},a.reject=function(e){return new a(function(t,n){n(e)})},a.race=function(e){return new a(function(t,n){if(!r(e))return n(new TypeError("Promise.race accepts an array"));for(var o=0,i=e.length;o<i;o++)a.resolve(e[o]).then(t,n)})},a._immediateFn="function"==typeof n&&function(e){n(e)}||function(e){o(e,0)},a._unhandledRejectionFn=function(e){"undefined"!=typeof console&&console&&console.warn("Possible Unhandled Promise Rejection:",e)},e.exports=a}).call(this,n(/*! ./node_modules/@skpm/timers/timeout.js */"./node_modules/@skpm/timers/timeout.js").setTimeout,n(/*! ./node_modules/@skpm/timers/immediate.js */"./node_modules/@skpm/timers/immediate.js").setImmediate)},"./node_modules/sketch-module-web-view/lib/browser-api.js":
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(setTimeout, setImmediate) {
+
+/**
+ * @this {Promise}
+ */
+function finallyConstructor(callback) {
+  var constructor = this.constructor;
+  return this.then(
+    function(value) {
+      // @ts-ignore
+      return constructor.resolve(callback()).then(function() {
+        return value;
+      });
+    },
+    function(reason) {
+      // @ts-ignore
+      return constructor.resolve(callback()).then(function() {
+        // @ts-ignore
+        return constructor.reject(reason);
+      });
+    }
+  );
+}
+
+function allSettled(arr) {
+  var P = this;
+  return new P(function(resolve, reject) {
+    if (!(arr && typeof arr.length !== 'undefined')) {
+      return reject(
+        new TypeError(
+          typeof arr +
+            ' ' +
+            arr +
+            ' is not iterable(cannot read property Symbol(Symbol.iterator))'
+        )
+      );
+    }
+    var args = Array.prototype.slice.call(arr);
+    if (args.length === 0) return resolve([]);
+    var remaining = args.length;
+
+    function res(i, val) {
+      if (val && (typeof val === 'object' || typeof val === 'function')) {
+        var then = val.then;
+        if (typeof then === 'function') {
+          then.call(
+            val,
+            function(val) {
+              res(i, val);
+            },
+            function(e) {
+              args[i] = { status: 'rejected', reason: e };
+              if (--remaining === 0) {
+                resolve(args);
+              }
+            }
+          );
+          return;
+        }
+      }
+      args[i] = { status: 'fulfilled', value: val };
+      if (--remaining === 0) {
+        resolve(args);
+      }
+    }
+
+    for (var i = 0; i < args.length; i++) {
+      res(i, args[i]);
+    }
+  });
+}
+
+// Store setTimeout reference so promise-polyfill will be unaffected by
+// other code modifying setTimeout (like sinon.useFakeTimers())
+var setTimeoutFunc = setTimeout;
+
+function isArray(x) {
+  return Boolean(x && typeof x.length !== 'undefined');
+}
+
+function noop() {}
+
+// Polyfill for Function.prototype.bind
+function bind(fn, thisArg) {
+  return function() {
+    fn.apply(thisArg, arguments);
+  };
+}
+
+/**
+ * @constructor
+ * @param {Function} fn
+ */
+function Promise(fn) {
+  if (!(this instanceof Promise))
+    throw new TypeError('Promises must be constructed via new');
+  if (typeof fn !== 'function') throw new TypeError('not a function');
+  /** @type {!number} */
+  this._state = 0;
+  /** @type {!boolean} */
+  this._handled = false;
+  /** @type {Promise|undefined} */
+  this._value = undefined;
+  /** @type {!Array<!Function>} */
+  this._deferreds = [];
+
+  doResolve(fn, this);
+}
+
+function handle(self, deferred) {
+  while (self._state === 3) {
+    self = self._value;
+  }
+  if (self._state === 0) {
+    self._deferreds.push(deferred);
+    return;
+  }
+  self._handled = true;
+  Promise._immediateFn(function() {
+    var cb = self._state === 1 ? deferred.onFulfilled : deferred.onRejected;
+    if (cb === null) {
+      (self._state === 1 ? resolve : reject)(deferred.promise, self._value);
+      return;
+    }
+    var ret;
+    try {
+      ret = cb(self._value);
+    } catch (e) {
+      reject(deferred.promise, e);
+      return;
+    }
+    resolve(deferred.promise, ret);
+  });
+}
+
+function resolve(self, newValue) {
+  try {
+    // Promise Resolution Procedure: https://github.com/promises-aplus/promises-spec#the-promise-resolution-procedure
+    if (newValue === self)
+      throw new TypeError('A promise cannot be resolved with itself.');
+    if (
+      newValue &&
+      (typeof newValue === 'object' || typeof newValue === 'function')
+    ) {
+      var then = newValue.then;
+      if (newValue instanceof Promise) {
+        self._state = 3;
+        self._value = newValue;
+        finale(self);
+        return;
+      } else if (typeof then === 'function') {
+        doResolve(bind(then, newValue), self);
+        return;
+      }
+    }
+    self._state = 1;
+    self._value = newValue;
+    finale(self);
+  } catch (e) {
+    reject(self, e);
+  }
+}
+
+function reject(self, newValue) {
+  self._state = 2;
+  self._value = newValue;
+  finale(self);
+}
+
+function finale(self) {
+  if (self._state === 2 && self._deferreds.length === 0) {
+    Promise._immediateFn(function() {
+      if (!self._handled) {
+        Promise._unhandledRejectionFn(self._value);
+      }
+    });
+  }
+
+  for (var i = 0, len = self._deferreds.length; i < len; i++) {
+    handle(self, self._deferreds[i]);
+  }
+  self._deferreds = null;
+}
+
+/**
+ * @constructor
+ */
+function Handler(onFulfilled, onRejected, promise) {
+  this.onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : null;
+  this.onRejected = typeof onRejected === 'function' ? onRejected : null;
+  this.promise = promise;
+}
+
+/**
+ * Take a potentially misbehaving resolver function and make sure
+ * onFulfilled and onRejected are only called once.
+ *
+ * Makes no guarantees about asynchrony.
+ */
+function doResolve(fn, self) {
+  var done = false;
+  try {
+    fn(
+      function(value) {
+        if (done) return;
+        done = true;
+        resolve(self, value);
+      },
+      function(reason) {
+        if (done) return;
+        done = true;
+        reject(self, reason);
+      }
+    );
+  } catch (ex) {
+    if (done) return;
+    done = true;
+    reject(self, ex);
+  }
+}
+
+Promise.prototype['catch'] = function(onRejected) {
+  return this.then(null, onRejected);
+};
+
+Promise.prototype.then = function(onFulfilled, onRejected) {
+  // @ts-ignore
+  var prom = new this.constructor(noop);
+
+  handle(this, new Handler(onFulfilled, onRejected, prom));
+  return prom;
+};
+
+Promise.prototype['finally'] = finallyConstructor;
+
+Promise.all = function(arr) {
+  return new Promise(function(resolve, reject) {
+    if (!isArray(arr)) {
+      return reject(new TypeError('Promise.all accepts an array'));
+    }
+
+    var args = Array.prototype.slice.call(arr);
+    if (args.length === 0) return resolve([]);
+    var remaining = args.length;
+
+    function res(i, val) {
+      try {
+        if (val && (typeof val === 'object' || typeof val === 'function')) {
+          var then = val.then;
+          if (typeof then === 'function') {
+            then.call(
+              val,
+              function(val) {
+                res(i, val);
+              },
+              reject
+            );
+            return;
+          }
+        }
+        args[i] = val;
+        if (--remaining === 0) {
+          resolve(args);
+        }
+      } catch (ex) {
+        reject(ex);
+      }
+    }
+
+    for (var i = 0; i < args.length; i++) {
+      res(i, args[i]);
+    }
+  });
+};
+
+Promise.allSettled = allSettled;
+
+Promise.resolve = function(value) {
+  if (value && typeof value === 'object' && value.constructor === Promise) {
+    return value;
+  }
+
+  return new Promise(function(resolve) {
+    resolve(value);
+  });
+};
+
+Promise.reject = function(value) {
+  return new Promise(function(resolve, reject) {
+    reject(value);
+  });
+};
+
+Promise.race = function(arr) {
+  return new Promise(function(resolve, reject) {
+    if (!isArray(arr)) {
+      return reject(new TypeError('Promise.race accepts an array'));
+    }
+
+    for (var i = 0, len = arr.length; i < len; i++) {
+      Promise.resolve(arr[i]).then(resolve, reject);
+    }
+  });
+};
+
+// Use polyfill for setImmediate for performance gains
+Promise._immediateFn =
+  // @ts-ignore
+  (typeof setImmediate === 'function' &&
+    function(fn) {
+      // @ts-ignore
+      setImmediate(fn);
+    }) ||
+  function(fn) {
+    setTimeoutFunc(fn, 0);
+  };
+
+Promise._unhandledRejectionFn = function _unhandledRejectionFn(err) {
+  if (typeof console !== 'undefined' && console) {
+    console.warn('Possible Unhandled Promise Rejection:', err); // eslint-disable-line no-console
+  }
+};
+
+module.exports = Promise;
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@skpm/timers/timeout.js */ "./node_modules/@skpm/timers/timeout.js")["setTimeout"], __webpack_require__(/*! ./node_modules/@skpm/timers/immediate.js */ "./node_modules/@skpm/timers/immediate.js")["setImmediate"]))
+
+/***/ }),
+
+/***/ "./node_modules/sketch-module-web-view/lib/browser-api.js":
 /*!****************************************************************!*\
   !*** ./node_modules/sketch-module-web-view/lib/browser-api.js ***!
   \****************************************************************/
-/*! no static exports found */function(e,t){e.exports=function(e,t,n){function o(n){e.isVisible()&&(n?(NSApplication.sharedApplication().activateIgnoringOtherApps(!0),t.makeKeyAndOrderFront(null)):(t.orderBack(null),NSApp.mainWindow().makeKeyAndOrderFront(null)))}e._panel=t,e._webview=n,e._destroyed=!1,e.destroy=function(){return t.close()},e.close=function(){if(t.delegate().utils&&t.delegate().utils.parentWindow){var n=!0;return e.emit("close",{get defaultPrevented(){return!n},preventDefault:function(){n=!1}}),void(n&&t.delegate().utils.parentWindow.endSheet(t))}e.isClosable()&&t.performClose(null)},e.focus=o.bind(this,!0),e.blur=o.bind(this,!1),e.isFocused=function(){return t.isKeyWindow()},e.isDestroyed=function(){return e._destroyed},e.show=function(){return NSApp.activateIgnoringOtherApps(!0),t.delegate().utils&&t.delegate().utils.parentWindow?t.delegate().utils.parentWindow.beginSheet_completionHandler(t,__mocha__.createBlock_function("v16@?0q8",function(){e.emit("closed")})):t.makeKeyAndOrderFront(null)},e.showInactive=function(){return t.orderFrontRegardless()},e.hide=function(){return t.orderOut(null)},e.isVisible=function(){return t.isVisible()},e.isModal=function(){return!1},e.maximize=function(){e.isMaximized()||t.zoom(null)},e.unmaximize=function(){e.isMaximized()&&t.zoom(null)},e.isMaximized=function(){if(0!=(t.styleMask()&NSResizableWindowMask))return t.isZoomed();var e=NSScreen.mainScreen().visibleFrame(),n=t.frame();return e.origin.x==n.origin.x&&e.origin.y==n.origin.y&&e.size.width==n.size.width&&e.size.height==n.size.height},e.minimize=function(){return t.miniaturize(null)},e.restore=function(){return t.deminiaturize(null)},e.isMinimized=function(){return t.isMiniaturized()},e.setFullScreen=function(n){n!==e.isFullscreen()&&t.toggleFullScreen(null)},e.isFullscreen=function(){return t.styleMask()&NSFullScreenWindowMask},e.setAspectRatio=function(e){e>0?t.setAspectRatio(NSMakeSize(e,1)):t.setResizeIncrements(NSMakeSize(1,1))},e.setBounds=function(n,o){if(!n)return;if(e.isFullscreen())return;const r=Object.assign(e.getBounds(),n);var i=NSMakeRect(r.x,0,r.width,r.height),a=NSScreen.screens().firstObject();i.origin.y=NSHeight(a.frame())-r.y,t.setFrame_display_animate(i,!0,o)},e.getBounds=function(){const e=t.frame();var n=NSScreen.screens().firstObject().frame();return{x:e.origin.x,y:Math.round(NSHeight(n)-e.origin.y),width:e.size.width,height:e.size.height}},e.setContentBounds=function(t,n){e.setBounds(t,n)},e.getContentBounds=function(){return e.getBounds()},e.setSize=function(t,n,o){return e.setBounds({width:t,height:n},o)},e.getSize=function(){var t=e.getBounds();return[t.width,t.height]},e.setContentSize=function(t,n,o){return e.setContentBounds({width:t,height:n},o)},e.getContentSize=function(){var t=e.getContentBounds();return[t.width,t.height]},e.setMinimumSize=function(e,n){const o=CGSizeMake(e,n);t.setContentMinSize(o)},e.getMinimumSize=function(){const e=t.contentMinSize();return[e.width,e.height]},e.setMaximumSize=function(e,n){const o=CGSizeMake(e,n);t.setContentMaxSize(o)},e.getMaximumSize=function(){const e=t.contentMaxSize();return[e.width,e.height]},e.setResizable=function(t){return e._setStyleMask(t,NSResizableWindowMask)},e.isResizable=function(){return t.styleMask()&NSResizableWindowMask},e.setMovable=function(e){return t.setMovable(e)},e.isMovable=function(){return t.isMovable()},e.setMinimizable=function(t){return e._setStyleMask(t,NSMiniaturizableWindowMask)},e.isMinimizable=function(){return t.styleMask()&NSMiniaturizableWindowMask},e.setMaximizable=function(e){t.standardWindowButton(NSWindowZoomButton)&&t.standardWindowButton(NSWindowZoomButton).setEnabled(e)},e.isMaximizable=function(){return t.standardWindowButton(NSWindowZoomButton)&&t.standardWindowButton(NSWindowZoomButton).isEnabled()},e.setFullScreenable=function(t){e._setCollectionBehavior(t,NSWindowCollectionBehaviorFullScreenPrimary),e._setCollectionBehavior(!t,NSWindowCollectionBehaviorFullScreenAuxiliary)},e.isFullScreenable=function(){return t.collectionBehavior()&NSWindowCollectionBehaviorFullScreenPrimary},e.setClosable=function(t){e._setStyleMask(t,NSClosableWindowMask)},e.isClosable=function(){return t.styleMask()&NSClosableWindowMask},e.setAlwaysOnTop=function(e,n,o){var r=NSNormalWindowLevel,i=CGWindowLevelForKey(kCGMaximumWindowLevelKey),a=CGWindowLevelForKey(kCGMinimumWindowLevelKey);e&&(r="normal"===n?NSNormalWindowLevel:"torn-off-menu"===n?NSTornOffMenuWindowLevel:"modal-panel"===n?NSModalPanelWindowLevel:"main-menu"===n?NSMainMenuWindowLevel:"status"===n?NSStatusWindowLevel:"pop-up-menu"===n?NSPopUpMenuWindowLevel:"screen-saver"===n?NSScreenSaverWindowLevel:"dock"===n?NSDockWindowLevel:NSFloatingWindowLevel);var s=r+(o||0);if(!(s>=a&&s<=i))throw new Error("relativeLevel must be between "+a+" and "+i);t.setLevel(s)},e.isAlwaysOnTop=function(){return t.level()!==NSNormalWindowLevel},e.moveTop=function(){return t.orderFrontRegardless()},e.center=function(){t.center()},e.setPosition=function(t,n,o){return e.setBounds({x:t,y:n},o)},e.getPosition=function(){var t=e.getBounds();return[t.x,t.y]},e.setTitle=function(e){t.setTitle(e)},e.getTitle=function(){return String(t.title())};var r=0;e.flashFrame=function(e){e?r=NSApp.requestUserAttention(NSInformationalRequest):(NSApp.cancelUserAttentionRequest(r),r=0)},e.getNativeWindowHandle=function(){return t},e.getNativeWebViewHandle=function(){return n},e.loadURL=function(e){if(/^(?!https?|file).*\.html?$/.test(e)&&"undefined"!=typeof __command&&__command.pluginBundle()&&(e="file://"+__command.pluginBundle().urlForResourceNamed(e).path()),/^file:\/\/.*\.html?$/.test(e))return e=(e=NSString.alloc().initWithString(e)).stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet()),void n.loadFileURL_allowingReadAccessToURL(NSURL.URLWithString(e),NSURL.URLWithString("file:///"));const t=NSURL.URLWithString(e),o=NSURLRequest.requestWithURL(t);n.loadRequest(o)},e.reload=function(){n.reload()},e.setHasShadow=function(e){return t.setHasShadow(e)},e.hasShadow=function(){return t.hasShadow()},e.setOpacity=function(e){return t.setAlphaValue(e)},e.getOpacity=function(){return t.alphaValue()},e.setVisibleOnAllWorkspaces=function(t){return e._setCollectionBehavior(t,NSWindowCollectionBehaviorCanJoinAllSpaces)},e.isVisibleOnAllWorkspaces=function(){return t.collectionBehavior()&NSWindowCollectionBehaviorCanJoinAllSpaces},e.setIgnoreMouseEvents=function(e){return t.setIgnoresMouseEvents(e)},e.setContentProtection=function(e){t.setSharingType(e?NSWindowSharingNone:NSWindowSharingReadOnly)},e.setAutoHideCursor=function(e){t.setDisableAutoHideCursor(e)},e.setVibrancy=function(n){var o=e._vibrantView;if(!n){if(null==o)return;return o.removeFromSuperview(),void t.setVibrantView(null)}if(null==o){var r=t.contentView();o=NSVisualEffectView.alloc().initWithFrame(r.bounds()),e._vibrantView=o,o.setAutoresizingMask(NSViewWidthSizable|NSViewHeightSizable),o.setBlendingMode(NSVisualEffectBlendingModeBehindWindow),o.setState(NSVisualEffectStateActive),o.setFrame(r.bounds()),r.addSubview_positioned_relativeTo(o,NSWindowBelow,null)}var i=NSVisualEffectMaterialLight;"appearance-based"===n?i=NSVisualEffectMaterialAppearanceBased:"light"===n?i=NSVisualEffectMaterialLight:"dark"===n?i=NSVisualEffectMaterialDark:"titlebar"===n?i=NSVisualEffectMaterialTitlebar:"selection"===n?i=NSVisualEffectMaterialSelection:"menu"===n?i=NSVisualEffectMaterialMenu:"popover"===n?i=NSVisualEffectMaterialPopover:"sidebar"===n?i=NSVisualEffectMaterialSidebar:"medium-light"===n?i=NSVisualEffectMaterialMediumLight:"ultra-dark"===n&&(i=NSVisualEffectMaterialUltraDark),o.setMaterial(i)},e._setBackgroundColor=function(e){var o=function(e){if(!e||"#"!==e[0]){if(e&&"function"==typeof e.isKindOfClass&&e.isKindOfClass(NSColor))return e;throw new Error("Incorrect color formating. It should be an hex color: #RRGGBBAA")}var t,n=e.substr(1);if(3===n.length?n+="F":6===n.length&&(n+="FF"),4===n.length)for(var o=0;o<4;o+=1)t+=n[o],t+=n[o];else{if(8!==n.length)return NSColor.whiteColor();t=n}var r=parseInt(t.slice(0,2),16)/255,i=parseInt(t.slice(2,4),16)/255,a=parseInt(t.slice(4,6),16)/255,s=parseInt(t.slice(6,8),16)/255;return NSColor.colorWithSRGBRed_green_blue_alpha(r,i,a,s)}(e);n.setValue_forKey(!1,"drawsBackground"),t.backgroundColor=o},e._invalidate=function(){t.flushWindow(),t.contentView().setNeedsDisplay(!0)},e._setStyleMask=function(n,o){var r=e.isMaximizable();n?t.setStyleMask(t.styleMask()|o):t.setStyleMask(t.styleMask()&~o),e.setMaximizable(r)},e._setCollectionBehavior=function(n,o){var r=e.isMaximizable();n?t.setCollectionBehavior(t.collectionBehavior()|o):t.setCollectionBehavior(t.collectionBehavior()&~o),e.setMaximizable(r)},e._showWindowButton=function(e){var n=t.standardWindowButton(e);n.superview().addSubview_positioned_relative(n,NSWindowAbove,null)}}},"./node_modules/sketch-module-web-view/lib/constants.js":
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function parseHexColor(color) {
+  // Check the string for incorrect formatting.
+  if (!color || color[0] !== '#') {
+    if (
+      color &&
+      typeof color.isKindOfClass === 'function' &&
+      color.isKindOfClass(NSColor)
+    ) {
+      return color
+    }
+    throw new Error(
+      'Incorrect color formating. It should be an hex color: #RRGGBBAA'
+    )
+  }
+
+  // append FF if alpha channel is not specified.
+  var source = color.substr(1)
+  if (source.length === 3) {
+    source += 'F'
+  } else if (source.length === 6) {
+    source += 'FF'
+  }
+  // Convert the string from #FFF format to #FFFFFF format.
+  var hex
+  if (source.length === 4) {
+    for (var i = 0; i < 4; i += 1) {
+      hex += source[i]
+      hex += source[i]
+    }
+  } else if (source.length === 8) {
+    hex = source
+  } else {
+    return NSColor.whiteColor()
+  }
+
+  var r = parseInt(hex.slice(0, 2), 16) / 255
+  var g = parseInt(hex.slice(2, 4), 16) / 255
+  var b = parseInt(hex.slice(4, 6), 16) / 255
+  var a = parseInt(hex.slice(6, 8), 16) / 255
+
+  return NSColor.colorWithSRGBRed_green_blue_alpha(r, g, b, a)
+}
+
+module.exports = function(browserWindow, panel, webview) {
+  // keep reference to the subviews
+  browserWindow._panel = panel
+  browserWindow._webview = webview
+  browserWindow._destroyed = false
+
+  browserWindow.destroy = function() {
+    return panel.close()
+  }
+
+  browserWindow.close = function() {
+    if (panel.delegate().utils && panel.delegate().utils.parentWindow) {
+      var shouldClose = true
+      browserWindow.emit('close', {
+        get defaultPrevented() {
+          return !shouldClose
+        },
+        preventDefault: function() {
+          shouldClose = false
+        },
+      })
+      if (shouldClose) {
+        panel.delegate().utils.parentWindow.endSheet(panel)
+      }
+      return
+    }
+
+    if (!browserWindow.isClosable()) {
+      return
+    }
+
+    panel.performClose(null)
+  }
+
+  function focus(focused) {
+    if (!browserWindow.isVisible()) {
+      return
+    }
+    if (focused) {
+      NSApplication.sharedApplication().activateIgnoringOtherApps(true)
+      panel.makeKeyAndOrderFront(null)
+    } else {
+      panel.orderBack(null)
+      NSApp.mainWindow().makeKeyAndOrderFront(null)
+    }
+  }
+
+  browserWindow.focus = focus.bind(this, true)
+  browserWindow.blur = focus.bind(this, false)
+
+  browserWindow.isFocused = function() {
+    return panel.isKeyWindow()
+  }
+
+  browserWindow.isDestroyed = function() {
+    return browserWindow._destroyed
+  }
+
+  browserWindow.show = function() {
+    // This method is supposed to put focus on window, however if the app does not
+    // have focus then "makeKeyAndOrderFront" will only show the window.
+    NSApp.activateIgnoringOtherApps(true)
+
+    if (panel.delegate().utils && panel.delegate().utils.parentWindow) {
+      return panel.delegate().utils.parentWindow.beginSheet_completionHandler(
+        panel,
+        __mocha__.createBlock_function('v16@?0q8', function() {
+          browserWindow.emit('closed')
+        })
+      )
+    }
+
+    return panel.makeKeyAndOrderFront(null)
+  }
+
+  browserWindow.showInactive = function() {
+    return panel.orderFrontRegardless()
+  }
+
+  browserWindow.hide = function() {
+    return panel.orderOut(null)
+  }
+
+  browserWindow.isVisible = function() {
+    return panel.isVisible()
+  }
+
+  browserWindow.isModal = function() {
+    return false
+  }
+
+  browserWindow.maximize = function() {
+    if (!browserWindow.isMaximized()) {
+      panel.zoom(null)
+    }
+  }
+  browserWindow.unmaximize = function() {
+    if (browserWindow.isMaximized()) {
+      panel.zoom(null)
+    }
+  }
+
+  browserWindow.isMaximized = function() {
+    if ((panel.styleMask() & NSResizableWindowMask) !== 0) {
+      return panel.isZoomed()
+    }
+    var rectScreen = NSScreen.mainScreen().visibleFrame()
+    var rectWindow = panel.frame()
+    return (
+      rectScreen.origin.x == rectWindow.origin.x &&
+      rectScreen.origin.y == rectWindow.origin.y &&
+      rectScreen.size.width == rectWindow.size.width &&
+      rectScreen.size.height == rectWindow.size.height
+    )
+  }
+
+  browserWindow.minimize = function() {
+    return panel.miniaturize(null)
+  }
+
+  browserWindow.restore = function() {
+    return panel.deminiaturize(null)
+  }
+
+  browserWindow.isMinimized = function() {
+    return panel.isMiniaturized()
+  }
+
+  browserWindow.setFullScreen = function(fullscreen) {
+    if (fullscreen !== browserWindow.isFullscreen()) {
+      panel.toggleFullScreen(null)
+    }
+  }
+
+  browserWindow.isFullscreen = function() {
+    return panel.styleMask() & NSFullScreenWindowMask
+  }
+
+  browserWindow.setAspectRatio = function(aspectRatio /* , extraSize */) {
+    // Reset the behaviour to default if aspect_ratio is set to 0 or less.
+    if (aspectRatio > 0.0) {
+      panel.setAspectRatio(NSMakeSize(aspectRatio, 1.0))
+    } else {
+      panel.setResizeIncrements(NSMakeSize(1.0, 1.0))
+    }
+  }
+
+  browserWindow.setBounds = function(bounds, animate) {
+    if (!bounds) {
+      return
+    }
+
+    // Do nothing if in fullscreen mode.
+    if (browserWindow.isFullscreen()) {
+      return
+    }
+
+    const newBounds = Object.assign(browserWindow.getBounds(), bounds)
+
+    // TODO: Check size constraints since setFrame does not check it.
+    // var size = bounds.size
+    // size.SetToMax(GetMinimumSize());
+    // gfx::Size max_size = GetMaximumSize();
+    // if (!max_size.IsEmpty())
+    //   size.SetToMin(max_size);
+
+    var cocoaBounds = NSMakeRect(
+      newBounds.x,
+      0,
+      newBounds.width,
+      newBounds.height
+    )
+    // Flip Y coordinates based on the primary screen
+    var screen = NSScreen.screens().firstObject()
+    cocoaBounds.origin.y = NSHeight(screen.frame()) - newBounds.y
+
+    panel.setFrame_display_animate(cocoaBounds, true, animate)
+  }
+
+  browserWindow.getBounds = function() {
+    const cocoaBounds = panel.frame()
+    var mainScreenRect = NSScreen.screens()
+      .firstObject()
+      .frame()
+    return {
+      x: cocoaBounds.origin.x,
+      y: Math.round(NSHeight(mainScreenRect) - cocoaBounds.origin.y),
+      width: cocoaBounds.size.width,
+      height: cocoaBounds.size.height,
+    }
+  }
+
+  browserWindow.setContentBounds = function(bounds, animate) {
+    // TODO:
+    browserWindow.setBounds(bounds, animate)
+  }
+
+  browserWindow.getContentBounds = function() {
+    // TODO:
+    return browserWindow.getBounds()
+  }
+
+  browserWindow.setSize = function(width, height, animate) {
+    // TODO: handle resizing around center
+    return browserWindow.setBounds({ width: width, height: height }, animate)
+  }
+
+  browserWindow.getSize = function() {
+    var bounds = browserWindow.getBounds()
+    return [bounds.width, bounds.height]
+  }
+
+  browserWindow.setContentSize = function(width, height, animate) {
+    // TODO: handle resizing around center
+    return browserWindow.setContentBounds(
+      { width: width, height: height },
+      animate
+    )
+  }
+
+  browserWindow.getContentSize = function() {
+    var bounds = browserWindow.getContentBounds()
+    return [bounds.width, bounds.height]
+  }
+
+  browserWindow.setMinimumSize = function(width, height) {
+    const minSize = CGSizeMake(width, height)
+    panel.setContentMinSize(minSize)
+  }
+
+  browserWindow.getMinimumSize = function() {
+    const size = panel.contentMinSize()
+    return [size.width, size.height]
+  }
+
+  browserWindow.setMaximumSize = function(width, height) {
+    const maxSize = CGSizeMake(width, height)
+    panel.setContentMaxSize(maxSize)
+  }
+
+  browserWindow.getMaximumSize = function() {
+    const size = panel.contentMaxSize()
+    return [size.width, size.height]
+  }
+
+  browserWindow.setResizable = function(resizable) {
+    return browserWindow._setStyleMask(resizable, NSResizableWindowMask)
+  }
+
+  browserWindow.isResizable = function() {
+    return panel.styleMask() & NSResizableWindowMask
+  }
+
+  browserWindow.setMovable = function(movable) {
+    return panel.setMovable(movable)
+  }
+  browserWindow.isMovable = function() {
+    return panel.isMovable()
+  }
+
+  browserWindow.setMinimizable = function(minimizable) {
+    return browserWindow._setStyleMask(minimizable, NSMiniaturizableWindowMask)
+  }
+
+  browserWindow.isMinimizable = function() {
+    return panel.styleMask() & NSMiniaturizableWindowMask
+  }
+
+  browserWindow.setMaximizable = function(maximizable) {
+    if (panel.standardWindowButton(NSWindowZoomButton)) {
+      panel.standardWindowButton(NSWindowZoomButton).setEnabled(maximizable)
+    }
+  }
+
+  browserWindow.isMaximizable = function() {
+    return (
+      panel.standardWindowButton(NSWindowZoomButton) &&
+      panel.standardWindowButton(NSWindowZoomButton).isEnabled()
+    )
+  }
+
+  browserWindow.setFullScreenable = function(fullscreenable) {
+    browserWindow._setCollectionBehavior(
+      fullscreenable,
+      NSWindowCollectionBehaviorFullScreenPrimary
+    )
+    // On EL Capitan this flag is required to hide fullscreen button.
+    browserWindow._setCollectionBehavior(
+      !fullscreenable,
+      NSWindowCollectionBehaviorFullScreenAuxiliary
+    )
+  }
+
+  browserWindow.isFullScreenable = function() {
+    var collectionBehavior = panel.collectionBehavior()
+    return collectionBehavior & NSWindowCollectionBehaviorFullScreenPrimary
+  }
+
+  browserWindow.setClosable = function(closable) {
+    browserWindow._setStyleMask(closable, NSClosableWindowMask)
+  }
+
+  browserWindow.isClosable = function() {
+    return panel.styleMask() & NSClosableWindowMask
+  }
+
+  browserWindow.setAlwaysOnTop = function(top, level, relativeLevel) {
+    var windowLevel = NSNormalWindowLevel
+    var maxWindowLevel = CGWindowLevelForKey(kCGMaximumWindowLevelKey)
+    var minWindowLevel = CGWindowLevelForKey(kCGMinimumWindowLevelKey)
+
+    if (top) {
+      if (level === 'normal') {
+        windowLevel = NSNormalWindowLevel
+      } else if (level === 'torn-off-menu') {
+        windowLevel = NSTornOffMenuWindowLevel
+      } else if (level === 'modal-panel') {
+        windowLevel = NSModalPanelWindowLevel
+      } else if (level === 'main-menu') {
+        windowLevel = NSMainMenuWindowLevel
+      } else if (level === 'status') {
+        windowLevel = NSStatusWindowLevel
+      } else if (level === 'pop-up-menu') {
+        windowLevel = NSPopUpMenuWindowLevel
+      } else if (level === 'screen-saver') {
+        windowLevel = NSScreenSaverWindowLevel
+      } else if (level === 'dock') {
+        // Deprecated by macOS, but kept for backwards compatibility
+        windowLevel = NSDockWindowLevel
+      } else {
+        windowLevel = NSFloatingWindowLevel
+      }
+    }
+
+    var newLevel = windowLevel + (relativeLevel || 0)
+    if (newLevel >= minWindowLevel && newLevel <= maxWindowLevel) {
+      panel.setLevel(newLevel)
+    } else {
+      throw new Error(
+        'relativeLevel must be between ' +
+          minWindowLevel +
+          ' and ' +
+          maxWindowLevel
+      )
+    }
+  }
+
+  browserWindow.isAlwaysOnTop = function() {
+    return panel.level() !== NSNormalWindowLevel
+  }
+
+  browserWindow.moveTop = function() {
+    return panel.orderFrontRegardless()
+  }
+
+  browserWindow.center = function() {
+    panel.center()
+  }
+
+  browserWindow.setPosition = function(x, y, animate) {
+    return browserWindow.setBounds({ x: x, y: y }, animate)
+  }
+
+  browserWindow.getPosition = function() {
+    var bounds = browserWindow.getBounds()
+    return [bounds.x, bounds.y]
+  }
+
+  browserWindow.setTitle = function(title) {
+    panel.setTitle(title)
+  }
+
+  browserWindow.getTitle = function() {
+    return String(panel.title())
+  }
+
+  var attentionRequestId = 0
+  browserWindow.flashFrame = function(flash) {
+    if (flash) {
+      attentionRequestId = NSApp.requestUserAttention(NSInformationalRequest)
+    } else {
+      NSApp.cancelUserAttentionRequest(attentionRequestId)
+      attentionRequestId = 0
+    }
+  }
+
+  browserWindow.getNativeWindowHandle = function() {
+    return panel
+  }
+
+  browserWindow.getNativeWebViewHandle = function() {
+    return webview
+  }
+
+  browserWindow.loadURL = function(url) {
+    // When frameLocation is a file, prefix it with the Sketch Resources path
+    if (/^(?!https?|file).*\.html?$/.test(url)) {
+      if (typeof __command !== 'undefined' && __command.pluginBundle()) {
+        url =
+          'file://' +
+          __command
+            .pluginBundle()
+            .urlForResourceNamed(url)
+            .path()
+      }
+    }
+
+    if (/^file:\/\/.*\.html?$/.test(url)) {
+      // ensure URLs containing spaces are properly handled
+      url = NSString.alloc().initWithString(url)
+      url = url.stringByAddingPercentEncodingWithAllowedCharacters(
+        NSCharacterSet.URLQueryAllowedCharacterSet()
+      )
+      webview.loadFileURL_allowingReadAccessToURL(
+        NSURL.URLWithString(url),
+        NSURL.URLWithString('file:///')
+      )
+      return
+    }
+
+    const properURL = NSURL.URLWithString(url)
+    const urlRequest = NSURLRequest.requestWithURL(properURL)
+
+    webview.loadRequest(urlRequest)
+  }
+
+  browserWindow.reload = function() {
+    webview.reload()
+  }
+
+  browserWindow.setHasShadow = function(hasShadow) {
+    return panel.setHasShadow(hasShadow)
+  }
+
+  browserWindow.hasShadow = function() {
+    return panel.hasShadow()
+  }
+
+  browserWindow.setOpacity = function(opacity) {
+    return panel.setAlphaValue(opacity)
+  }
+
+  browserWindow.getOpacity = function() {
+    return panel.alphaValue()
+  }
+
+  browserWindow.setVisibleOnAllWorkspaces = function(visible) {
+    return browserWindow._setCollectionBehavior(
+      visible,
+      NSWindowCollectionBehaviorCanJoinAllSpaces
+    )
+  }
+
+  browserWindow.isVisibleOnAllWorkspaces = function() {
+    var collectionBehavior = panel.collectionBehavior()
+    return collectionBehavior & NSWindowCollectionBehaviorCanJoinAllSpaces
+  }
+
+  browserWindow.setIgnoreMouseEvents = function(ignore) {
+    return panel.setIgnoresMouseEvents(ignore)
+  }
+
+  browserWindow.setContentProtection = function(enable) {
+    panel.setSharingType(enable ? NSWindowSharingNone : NSWindowSharingReadOnly)
+  }
+
+  browserWindow.setAutoHideCursor = function(autoHide) {
+    panel.setDisableAutoHideCursor(autoHide)
+  }
+
+  browserWindow.setVibrancy = function(type) {
+    var effectView = browserWindow._vibrantView
+
+    if (!type) {
+      if (effectView == null) {
+        return
+      }
+
+      effectView.removeFromSuperview()
+      panel.setVibrantView(null)
+      return
+    }
+
+    if (effectView == null) {
+      var contentView = panel.contentView()
+      effectView = NSVisualEffectView.alloc().initWithFrame(
+        contentView.bounds()
+      )
+      browserWindow._vibrantView = effectView
+
+      effectView.setAutoresizingMask(NSViewWidthSizable | NSViewHeightSizable)
+      effectView.setBlendingMode(NSVisualEffectBlendingModeBehindWindow)
+      effectView.setState(NSVisualEffectStateActive)
+      effectView.setFrame(contentView.bounds())
+      contentView.addSubview_positioned_relativeTo(
+        effectView,
+        NSWindowBelow,
+        null
+      )
+    }
+
+    var vibrancyType = NSVisualEffectMaterialLight
+
+    if (type === 'appearance-based') {
+      vibrancyType = NSVisualEffectMaterialAppearanceBased
+    } else if (type === 'light') {
+      vibrancyType = NSVisualEffectMaterialLight
+    } else if (type === 'dark') {
+      vibrancyType = NSVisualEffectMaterialDark
+    } else if (type === 'titlebar') {
+      vibrancyType = NSVisualEffectMaterialTitlebar
+    } else if (type === 'selection') {
+      vibrancyType = NSVisualEffectMaterialSelection
+    } else if (type === 'menu') {
+      vibrancyType = NSVisualEffectMaterialMenu
+    } else if (type === 'popover') {
+      vibrancyType = NSVisualEffectMaterialPopover
+    } else if (type === 'sidebar') {
+      vibrancyType = NSVisualEffectMaterialSidebar
+    } else if (type === 'medium-light') {
+      vibrancyType = NSVisualEffectMaterialMediumLight
+    } else if (type === 'ultra-dark') {
+      vibrancyType = NSVisualEffectMaterialUltraDark
+    }
+
+    effectView.setMaterial(vibrancyType)
+  }
+
+  browserWindow._setBackgroundColor = function(colorName) {
+    var color = parseHexColor(colorName)
+    webview.setValue_forKey(false, 'drawsBackground')
+    panel.backgroundColor = color
+  }
+
+  browserWindow._invalidate = function() {
+    panel.flushWindow()
+    panel.contentView().setNeedsDisplay(true)
+  }
+
+  browserWindow._setStyleMask = function(on, flag) {
+    var wasMaximizable = browserWindow.isMaximizable()
+    if (on) {
+      panel.setStyleMask(panel.styleMask() | flag)
+    } else {
+      panel.setStyleMask(panel.styleMask() & ~flag)
+    }
+    // Change style mask will make the zoom button revert to default, probably
+    // a bug of Cocoa or macOS.
+    browserWindow.setMaximizable(wasMaximizable)
+  }
+
+  browserWindow._setCollectionBehavior = function(on, flag) {
+    var wasMaximizable = browserWindow.isMaximizable()
+    if (on) {
+      panel.setCollectionBehavior(panel.collectionBehavior() | flag)
+    } else {
+      panel.setCollectionBehavior(panel.collectionBehavior() & ~flag)
+    }
+    // Change collectionBehavior will make the zoom button revert to default,
+    // probably a bug of Cocoa or macOS.
+    browserWindow.setMaximizable(wasMaximizable)
+  }
+
+  browserWindow._showWindowButton = function(button) {
+    var view = panel.standardWindowButton(button)
+    view.superview().addSubview_positioned_relative(view, NSWindowAbove, null)
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sketch-module-web-view/lib/constants.js":
 /*!**************************************************************!*\
   !*** ./node_modules/sketch-module-web-view/lib/constants.js ***!
   \**************************************************************/
-/*! no static exports found */function(e,t){e.exports={JS_BRIDGE:"__skpm_sketchBridge",JS_BRIDGE_RESULT_SUCCESS:"__skpm_sketchBridge_success",JS_BRIDGE_RESULT_ERROR:"__skpm_sketchBridge_error",START_MOVING_WINDOW:"__skpm_startMovingWindow",EXECUTE_JAVASCRIPT:"__skpm_executeJS",EXECUTE_JAVASCRIPT_SUCCESS:"__skpm_executeJS_success_",EXECUTE_JAVASCRIPT_ERROR:"__skpm_executeJS_error_"}},"./node_modules/sketch-module-web-view/lib/dispatch-first-click.js":
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = {
+  JS_BRIDGE: '__skpm_sketchBridge',
+  JS_BRIDGE_RESULT_SUCCESS: '__skpm_sketchBridge_success',
+  JS_BRIDGE_RESULT_ERROR: '__skpm_sketchBridge_error',
+  START_MOVING_WINDOW: '__skpm_startMovingWindow',
+  EXECUTE_JAVASCRIPT: '__skpm_executeJS',
+  EXECUTE_JAVASCRIPT_SUCCESS: '__skpm_executeJS_success_',
+  EXECUTE_JAVASCRIPT_ERROR: '__skpm_executeJS_error_',
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sketch-module-web-view/lib/dispatch-first-click.js":
 /*!*************************************************************************!*\
   !*** ./node_modules/sketch-module-web-view/lib/dispatch-first-click.js ***!
   \*************************************************************************/
-/*! no static exports found */function(e,t){e.exports=function(e,t){var n=e.convertPoint_fromView(t.locationInWindow(),null);return"var el = document.elementFromPoint("+n.x+", "+n.y+'); if (el && el.tagName === "SELECT") {  var event = document.createEvent("MouseEvents");  event.initMouseEvent("mousedown", true, true, window);  el.dispatchEvent(event);} else if (el && ["text", "textarea", "date", "datetime-local", "email", "number", "month", "password", "search", "tel", "time", "url", "week" ].indexOf(el.type) >= 0 && el.focus) {el.focus();} else if (el) {el.dispatchEvent(new Event("click", {bubbles: true}))}'}},"./node_modules/sketch-module-web-view/lib/execute-javascript.js":
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var tagsToFocus =
+  '["text", "textarea", "date", "datetime-local", "email", "number", "month", "password", "search", "tel", "time", "url", "week" ]'
+
+module.exports = function(webView, event) {
+  var point = webView.convertPoint_fromView(event.locationInWindow(), null)
+  return (
+    'var el = document.elementFromPoint(' + // get the DOM element that match the event
+    point.x +
+    ', ' +
+    point.y +
+    '); ' +
+    'if (el && el.tagName === "SELECT") {' + // select needs special handling
+    '  var event = document.createEvent("MouseEvents");' +
+    '  event.initMouseEvent("mousedown", true, true, window);' +
+    '  el.dispatchEvent(event);' +
+    '} else if (el && ' + // some tags need to be focused instead of clicked
+    tagsToFocus +
+    '.indexOf(el.type) >= 0 && ' +
+    'el.focus' +
+    ') {' +
+    'el.focus();' + // so focus them
+    '} else if (el) {' +
+    'el.dispatchEvent(new Event("click", {bubbles: true}))' + // click the others
+    '}'
+  )
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sketch-module-web-view/lib/execute-javascript.js":
 /*!***********************************************************************!*\
   !*** ./node_modules/sketch-module-web-view/lib/execute-javascript.js ***!
   \***********************************************************************/
-/*! no static exports found */function(e,t,n){(function(t){var o=n(/*! ./constants */"./node_modules/sketch-module-web-view/lib/constants.js");e.exports=function(n,r){return function i(a,s,l){"function"==typeof s&&(l=s,s=!1);var u=coscript.createFiber();return n.navigationDelegate().state&&0==n.navigationDelegate().state.wasReady?new t(function(e,t){r.once("ready-to-show",function(){i(a,s,l).then(e).catch(t),u.cleanup()})}):new t(function(t,i){var s=Math.random();r.webContents.on(o.EXECUTE_JAVASCRIPT_SUCCESS+s,function(e){try{l&&l(null,e),t(e)}catch(e){i(e)}u.cleanup()}),r.webContents.on(o.EXECUTE_JAVASCRIPT_ERROR+s,function(e){try{l?(l(e),t()):i(e)}catch(e){i(e)}u.cleanup()}),n.evaluateJavaScript_completionHandler(e.exports.wrapScript(a,s),null)})}},e.exports.wrapScript=function(e,t){return"window."+o.EXECUTE_JAVASCRIPT+"("+t+", "+JSON.stringify(e)+")"},e.exports.injectScript=function(e){var t="window."+o.EXECUTE_JAVASCRIPT+' = function(id, script) {  try {    var res = eval(script);    if (res && typeof res.then === "function" && typeof res.catch === "function") {      res.then(function (res2) {        window.postMessage("'+o.EXECUTE_JAVASCRIPT_SUCCESS+'" + id, res2);      })      .catch(function (err) {        window.postMessage("'+o.EXECUTE_JAVASCRIPT_ERROR+'" + id, err);      })    } else {      window.postMessage("'+o.EXECUTE_JAVASCRIPT_SUCCESS+'" + id, res);    }  } catch (err) {    window.postMessage("'+o.EXECUTE_JAVASCRIPT_ERROR+'" + id, err);  }}',n=WKUserScript.alloc().initWithSource_injectionTime_forMainFrameOnly(t,0,!0);e.configuration().userContentController().addUserScript(n)}}).call(this,n(/*! ./node_modules/promise-polyfill/lib/index.js */"./node_modules/promise-polyfill/lib/index.js"))},"./node_modules/sketch-module-web-view/lib/fitSubview.js":
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(Promise) {var CONSTANTS = __webpack_require__(/*! ./constants */ "./node_modules/sketch-module-web-view/lib/constants.js")
+
+module.exports = function(webview, browserWindow) {
+  function executeJavaScript(script, userGesture, callback) {
+    if (typeof userGesture === 'function') {
+      callback = userGesture
+      userGesture = false
+    }
+    var fiber = coscript.createFiber()
+
+    // if the webview is not ready yet, defer the execution until it is
+    if (
+      webview.navigationDelegate().state &&
+      webview.navigationDelegate().state.wasReady == 0
+    ) {
+      return new Promise(function(resolve, reject) {
+        browserWindow.once('ready-to-show', function() {
+          executeJavaScript(script, userGesture, callback)
+            .then(resolve)
+            .catch(reject)
+          fiber.cleanup()
+        })
+      })
+    }
+
+    return new Promise(function(resolve, reject) {
+      var requestId = Math.random()
+
+      browserWindow.webContents.on(
+        CONSTANTS.EXECUTE_JAVASCRIPT_SUCCESS + requestId,
+        function(res) {
+          try {
+            if (callback) {
+              callback(null, res)
+            }
+            resolve(res)
+          } catch (err) {
+            reject(err)
+          }
+          fiber.cleanup()
+        }
+      )
+      browserWindow.webContents.on(
+        CONSTANTS.EXECUTE_JAVASCRIPT_ERROR + requestId,
+        function(err) {
+          try {
+            if (callback) {
+              callback(err)
+              resolve()
+            } else {
+              reject(err)
+            }
+          } catch (err2) {
+            reject(err2)
+          }
+          fiber.cleanup()
+        }
+      )
+
+      webview.evaluateJavaScript_completionHandler(
+        module.exports.wrapScript(script, requestId),
+        null
+      )
+    })
+  }
+
+  return executeJavaScript
+}
+
+module.exports.wrapScript = function(script, requestId) {
+  return (
+    'window.' +
+    CONSTANTS.EXECUTE_JAVASCRIPT +
+    '(' +
+    requestId +
+    ', ' +
+    JSON.stringify(script) +
+    ')'
+  )
+}
+
+module.exports.injectScript = function(webView) {
+  var source =
+    'window.' +
+    CONSTANTS.EXECUTE_JAVASCRIPT +
+    ' = function(id, script) {' +
+    '  try {' +
+    '    var res = eval(script);' +
+    '    if (res && typeof res.then === "function" && typeof res.catch === "function") {' +
+    '      res.then(function (res2) {' +
+    '        window.postMessage("' +
+    CONSTANTS.EXECUTE_JAVASCRIPT_SUCCESS +
+    '" + id, res2);' +
+    '      })' +
+    '      .catch(function (err) {' +
+    '        window.postMessage("' +
+    CONSTANTS.EXECUTE_JAVASCRIPT_ERROR +
+    '" + id, err);' +
+    '      })' +
+    '    } else {' +
+    '      window.postMessage("' +
+    CONSTANTS.EXECUTE_JAVASCRIPT_SUCCESS +
+    '" + id, res);' +
+    '    }' +
+    '  } catch (err) {' +
+    '    window.postMessage("' +
+    CONSTANTS.EXECUTE_JAVASCRIPT_ERROR +
+    '" + id, err);' +
+    '  }' +
+    '}'
+  var script = WKUserScript.alloc().initWithSource_injectionTime_forMainFrameOnly(
+    source,
+    0,
+    true
+  )
+  webView
+    .configuration()
+    .userContentController()
+    .addUserScript(script)
+}
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/promise-polyfill/lib/index.js */ "./node_modules/promise-polyfill/lib/index.js")))
+
+/***/ }),
+
+/***/ "./node_modules/sketch-module-web-view/lib/fitSubview.js":
 /*!***************************************************************!*\
   !*** ./node_modules/sketch-module-web-view/lib/fitSubview.js ***!
   \***************************************************************/
-/*! no static exports found */function(e,t){function n(e,t,n,o){n.addConstraint(NSLayoutConstraint.constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant(t,e,NSLayoutRelationEqual,n,e,1,o))}e.exports=function(e,t,o){o=o||[],e.setTranslatesAutoresizingMaskIntoConstraints(!1),n(NSLayoutAttributeLeft,e,t,o[0]||0),n(NSLayoutAttributeTop,e,t,o[1]||0),n(NSLayoutAttributeRight,e,t,o[2]||0),n(NSLayoutAttributeBottom,e,t,o[3]||0)}},"./node_modules/sketch-module-web-view/lib/index.js":
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function addEdgeConstraint(edge, subview, view, constant) {
+  view.addConstraint(
+    NSLayoutConstraint.constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant(
+      subview,
+      edge,
+      NSLayoutRelationEqual,
+      view,
+      edge,
+      1,
+      constant
+    )
+  )
+}
+module.exports = function fitSubviewToView(subview, view, constants) {
+  constants = constants || []
+  subview.setTranslatesAutoresizingMaskIntoConstraints(false)
+
+  addEdgeConstraint(NSLayoutAttributeLeft, subview, view, constants[0] || 0)
+  addEdgeConstraint(NSLayoutAttributeTop, subview, view, constants[1] || 0)
+  addEdgeConstraint(NSLayoutAttributeRight, subview, view, constants[2] || 0)
+  addEdgeConstraint(NSLayoutAttributeBottom, subview, view, constants[3] || 0)
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sketch-module-web-view/lib/index.js":
 /*!**********************************************************!*\
   !*** ./node_modules/sketch-module-web-view/lib/index.js ***!
   \**********************************************************/
-/*! no static exports found */function(e,t,n){var o=n(/*! events */"events"),r=n(/*! ./browser-api */"./node_modules/sketch-module-web-view/lib/browser-api.js"),i=n(/*! ./webview-api */"./node_modules/sketch-module-web-view/lib/webview-api.js"),a=n(/*! ./fitSubview */"./node_modules/sketch-module-web-view/lib/fitSubview.js"),s=n(/*! ./dispatch-first-click */"./node_modules/sketch-module-web-view/lib/dispatch-first-click.js"),l=n(/*! ./inject-client-messaging */"./node_modules/sketch-module-web-view/lib/inject-client-messaging.js"),u=n(/*! ./movable-area */"./node_modules/sketch-module-web-view/lib/movable-area.js"),c=n(/*! ./execute-javascript */"./node_modules/sketch-module-web-view/lib/execute-javascript.js"),d=n(/*! ./set-delegates */"./node_modules/sketch-module-web-view/lib/set-delegates.js");function f(e){var t=(e=e||{}).identifier||NSUUID.UUID().UUIDString(),n=NSThread.mainThread().threadDictionary(),h=f.fromId(t);if(h)return h;var m=new o;if(m.id=t,e.modal&&!e.parent)throw new Error("A modal needs to have a parent.");var p=coscript.createFiber(),g=e.width||800,S=e.height||600,v=NSScreen.screens().firstObject().frame(),b=NSMakeRect(void 0!==e.x?e.x:Math.round((NSWidth(v)-g)/2),void 0!==e.y?NSHeight(v)-e.y:Math.round((NSHeight(v)-S)/2),g,S);e.titleBarStyle&&"default"!==e.titleBarStyle&&(e.frame=!1);var w="textured"!==e.windowType,y=NSTitledWindowMask;!1!==e.minimizable&&(y|=NSMiniaturizableWindowMask),!1!==e.closable&&(y|=NSClosableWindowMask),!1!==e.resizable&&(y|=NSResizableWindowMask),w&&!e.transparent&&!1!==e.frame||(y|=NSTexturedBackgroundWindowMask);var _=NSPanel.alloc().initWithContentRect_styleMask_backing_defer(b,y,NSBackingStoreBuffered,!0),T=WKWebViewConfiguration.alloc().init(),C=WKWebView.alloc().initWithFrame_configuration(CGRectMake(0,0,e.width||800,e.height||600),T);if(l(C),C.setAutoresizingMask(NSViewWidthSizable|NSViewHeightSizable),r(m,_,C),i(m,_,C),d(m,_,C,e),"desktop"===e.windowType&&(_.setLevel(kCGDesktopWindowLevel-1),_.setCollectionBehavior(NSWindowCollectionBehaviorCanJoinAllSpaces|NSWindowCollectionBehaviorStationary|NSWindowCollectionBehaviorIgnoresCycle)),void 0===e.minWidth&&void 0===e.minHeight||m.setMinimumSize(e.minWidth||0,e.minHeight||0),void 0===e.maxWidth&&void 0===e.maxHeight||m.setMaximumSize(e.maxWidth||1e4,e.maxHeight||1e4),e.transparent||!1===e.frame){_.titlebarAppearsTransparent=!0,_.titleVisibility=NSWindowTitleHidden,_.setOpaque(0),_.isMovableByWindowBackground=!0;var N=NSToolbar.alloc().initWithIdentifier("titlebarStylingToolbar");N.setShowsBaselineSeparator(!1),_.setToolbar(N)}if("hiddenInset"===e.titleBarStyle){var k=NSToolbar.alloc().initWithIdentifier("titlebarStylingToolbar");k.setShowsBaselineSeparator(!1),_.setToolbar(k)}!1!==e.frame&&e.useContentSize||m.setSize(g,S),e.center&&m.center(),e.alwaysOnTop&&m.setAlwaysOnTop(!0),e.fullscreen&&m.setFullScreen(!0),m.setFullScreenable(!!e.fullscreenable);let E=e.title;!1===e.frame?E=void 0:void 0===E&&"undefined"!=typeof __command&&__command.pluginBundle()&&(E=__command.pluginBundle().name()),E&&m.setTitle(E);var R=e.backgroundColor;e.transparent&&(R=NSColor.clearColor()),!R&&!1===e.frame&&e.vibrancy&&(R=NSColor.clearColor()),m._setBackgroundColor(R||NSColor.windowBackgroundColor()),!1===e.hasShadow&&m.setHasShadow(!1),void 0!==e.opacity&&m.setOpacity(e.opacity),e.webPreferences=e.webPreferences||{},C.configuration().preferences().setValue_forKey(!1!==e.webPreferences.devTools,"developerExtrasEnabled"),C.configuration().preferences().setValue_forKey(!1!==e.webPreferences.javascript,"javaScriptEnabled"),C.configuration().preferences().setValue_forKey(!!e.webPreferences.plugins,"plugInsEnabled"),C.configuration().preferences().setValue_forKey(e.webPreferences.minimumFontSize||0,"minimumFontSize"),e.webPreferences.zoomFactor&&C.setMagnification(e.webPreferences.zoomFactor);var M=_.contentView();return!1!==e.frame?(C.setFrame(M.bounds()),M.addSubview(C)):(M.setAutoresizingMask(NSViewWidthSizable|NSViewHeightSizable),a(M,M.superview()),C.setFrame(M.bounds()),M.addSubview(C),_.standardWindowButton(NSWindowFullScreenButton)&&_.standardWindowButton(NSWindowFullScreenButton).setHidden(!0),e.titleBarStyle&&"default"!==e.titleBarStyle||(_.standardWindowButton(NSWindowZoomButton).setHidden(!0),_.standardWindowButton(NSWindowMiniaturizeButton).setHidden(!0),_.standardWindowButton(NSWindowCloseButton).setHidden(!0),_.standardWindowButton(NSWindowZoomButton).setEnabled(!1))),e.vibrancy&&m.setVibrancy(e.vibrancy),m.setMaximizable(!1!==e.maximizable),_.setHidesOnDeactivate(!1!==e.hidesOnDeactivate),e.remembersWindowFrame&&(_.setFrameAutosaveName(t),_.setFrameUsingName_force(_.frameAutosaveName(),!1)),e.acceptsFirstMouse&&m.on("focus",function(e){e.type()===NSEventTypeLeftMouseDown&&m.webContents.executeJavaScript(s(C,e)).catch(()=>{})}),c.injectScript(C),u.injectScript(C),u.setupHandler(m),!1!==e.show&&m.show(),m.on("closed",function(){m._destroyed=!0,n.removeObjectForKey(t);var e=n[t+".themeObserver"];e&&(NSApplication.sharedApplication().removeObserver_forKeyPath(e,"effectiveAppearance"),n.removeObjectForKey(t+".themeObserver")),p.cleanup()}),n[t]=_,p.onCleanup(function(){m._destroyed||m.destroy()}),m}f.fromId=function(e){var t=NSThread.mainThread().threadDictionary();if(t[e])return f.fromPanel(t[e],e)},f.fromPanel=function(e,t){var n=new o;if(n.id=t,!e||!e.contentView)throw new Error("needs to pass an NSPanel");for(var a=null,s=e.contentView().subviews(),l=0;l<s.length;l+=1)a||s[l].isKindOfClass(WKInspectorWKWebView)||!s[l].isKindOfClass(WKWebView)||(a=s[l]);if(!a)throw new Error("The panel needs to have a webview");return r(n,e,a),i(n,e,a),n},e.exports=f},"./node_modules/sketch-module-web-view/lib/inject-client-messaging.js":
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* let's try to match the API from Electron's Browser window
+(https://github.com/electron/electron/blob/master/docs/api/browser-window.md) */
+var EventEmitter = __webpack_require__(/*! events */ "events")
+var buildBrowserAPI = __webpack_require__(/*! ./browser-api */ "./node_modules/sketch-module-web-view/lib/browser-api.js")
+var buildWebAPI = __webpack_require__(/*! ./webview-api */ "./node_modules/sketch-module-web-view/lib/webview-api.js")
+var fitSubviewToView = __webpack_require__(/*! ./fitSubview */ "./node_modules/sketch-module-web-view/lib/fitSubview.js")
+var dispatchFirstClick = __webpack_require__(/*! ./dispatch-first-click */ "./node_modules/sketch-module-web-view/lib/dispatch-first-click.js")
+var injectClientMessaging = __webpack_require__(/*! ./inject-client-messaging */ "./node_modules/sketch-module-web-view/lib/inject-client-messaging.js")
+var movableArea = __webpack_require__(/*! ./movable-area */ "./node_modules/sketch-module-web-view/lib/movable-area.js")
+var executeJavaScript = __webpack_require__(/*! ./execute-javascript */ "./node_modules/sketch-module-web-view/lib/execute-javascript.js")
+var setDelegates = __webpack_require__(/*! ./set-delegates */ "./node_modules/sketch-module-web-view/lib/set-delegates.js")
+
+function BrowserWindow(options) {
+  options = options || {}
+
+  var identifier = options.identifier || NSUUID.UUID().UUIDString()
+  var threadDictionary = NSThread.mainThread().threadDictionary()
+
+  var existingBrowserWindow = BrowserWindow.fromId(identifier)
+
+  // if we already have a window opened, reuse it
+  if (existingBrowserWindow) {
+    return existingBrowserWindow
+  }
+
+  var browserWindow = new EventEmitter()
+  browserWindow.id = identifier
+
+  if (options.modal && !options.parent) {
+    throw new Error('A modal needs to have a parent.')
+  }
+
+  // Long-running script
+  var fiber = coscript.createFiber()
+
+  // Window size
+  var width = options.width || 800
+  var height = options.height || 600
+  var mainScreenRect = NSScreen.screens()
+    .firstObject()
+    .frame()
+  var cocoaBounds = NSMakeRect(
+    typeof options.x !== 'undefined'
+      ? options.x
+      : Math.round((NSWidth(mainScreenRect) - width) / 2),
+    typeof options.y !== 'undefined'
+      ? NSHeight(mainScreenRect) - options.y
+      : Math.round((NSHeight(mainScreenRect) - height) / 2),
+    width,
+    height
+  )
+
+  if (options.titleBarStyle && options.titleBarStyle !== 'default') {
+    options.frame = false
+  }
+
+  var useStandardWindow = options.windowType !== 'textured'
+  var styleMask = NSTitledWindowMask
+
+  // this is commented out because the toolbar doesn't appear otherwise :thinking-face:
+  // if (!useStandardWindow || options.frame === false) {
+  //   styleMask = NSFullSizeContentViewWindowMask
+  // }
+  if (options.minimizable !== false) {
+    styleMask |= NSMiniaturizableWindowMask
+  }
+  if (options.closable !== false) {
+    styleMask |= NSClosableWindowMask
+  }
+  if (options.resizable !== false) {
+    styleMask |= NSResizableWindowMask
+  }
+  if (!useStandardWindow || options.transparent || options.frame === false) {
+    styleMask |= NSTexturedBackgroundWindowMask
+  }
+
+  var panel = NSPanel.alloc().initWithContentRect_styleMask_backing_defer(
+    cocoaBounds,
+    styleMask,
+    NSBackingStoreBuffered,
+    true
+  )
+
+  var wkwebviewConfig = WKWebViewConfiguration.alloc().init()
+  var webView = WKWebView.alloc().initWithFrame_configuration(
+    CGRectMake(0, 0, options.width || 800, options.height || 600),
+    wkwebviewConfig
+  )
+  injectClientMessaging(webView)
+  webView.setAutoresizingMask(NSViewWidthSizable | NSViewHeightSizable)
+
+  buildBrowserAPI(browserWindow, panel, webView)
+  buildWebAPI(browserWindow, panel, webView)
+  setDelegates(browserWindow, panel, webView, options)
+
+  if (options.windowType === 'desktop') {
+    panel.setLevel(kCGDesktopWindowLevel - 1)
+    // panel.setCanBecomeKeyWindow(false)
+    panel.setCollectionBehavior(
+      NSWindowCollectionBehaviorCanJoinAllSpaces |
+        NSWindowCollectionBehaviorStationary |
+        NSWindowCollectionBehaviorIgnoresCycle
+    )
+  }
+
+  if (
+    typeof options.minWidth !== 'undefined' ||
+    typeof options.minHeight !== 'undefined'
+  ) {
+    browserWindow.setMinimumSize(options.minWidth || 0, options.minHeight || 0)
+  }
+
+  if (
+    typeof options.maxWidth !== 'undefined' ||
+    typeof options.maxHeight !== 'undefined'
+  ) {
+    browserWindow.setMaximumSize(
+      options.maxWidth || 10000,
+      options.maxHeight || 10000
+    )
+  }
+
+  // if (options.focusable === false) {
+  //   panel.setCanBecomeKeyWindow(false)
+  // }
+
+  if (options.transparent || options.frame === false) {
+    panel.titlebarAppearsTransparent = true
+    panel.titleVisibility = NSWindowTitleHidden
+    panel.setOpaque(0)
+    panel.isMovableByWindowBackground = true
+    var toolbar2 = NSToolbar.alloc().initWithIdentifier(
+      'titlebarStylingToolbar'
+    )
+    toolbar2.setShowsBaselineSeparator(false)
+    panel.setToolbar(toolbar2)
+  }
+
+  if (options.titleBarStyle === 'hiddenInset') {
+    var toolbar = NSToolbar.alloc().initWithIdentifier('titlebarStylingToolbar')
+    toolbar.setShowsBaselineSeparator(false)
+    panel.setToolbar(toolbar)
+  }
+
+  if (options.frame === false || !options.useContentSize) {
+    browserWindow.setSize(width, height)
+  }
+
+  if (options.center) {
+    browserWindow.center()
+  }
+
+  if (options.alwaysOnTop) {
+    browserWindow.setAlwaysOnTop(true)
+  }
+
+  if (options.fullscreen) {
+    browserWindow.setFullScreen(true)
+  }
+  browserWindow.setFullScreenable(!!options.fullscreenable)
+
+  let title = options.title
+  if (options.frame === false) {
+    title = undefined
+  } else if (
+    typeof title === 'undefined' &&
+    typeof __command !== 'undefined' &&
+    __command.pluginBundle()
+  ) {
+    title = __command.pluginBundle().name()
+  }
+
+  if (title) {
+    browserWindow.setTitle(title)
+  }
+
+  var backgroundColor = options.backgroundColor
+  if (options.transparent) {
+    backgroundColor = NSColor.clearColor()
+  }
+  if (!backgroundColor && options.frame === false && options.vibrancy) {
+    backgroundColor = NSColor.clearColor()
+  }
+
+  browserWindow._setBackgroundColor(
+    backgroundColor || NSColor.windowBackgroundColor()
+  )
+
+  if (options.hasShadow === false) {
+    browserWindow.setHasShadow(false)
+  }
+
+  if (typeof options.opacity !== 'undefined') {
+    browserWindow.setOpacity(options.opacity)
+  }
+
+  options.webPreferences = options.webPreferences || {}
+
+  webView
+    .configuration()
+    .preferences()
+    .setValue_forKey(
+      options.webPreferences.devTools !== false,
+      'developerExtrasEnabled'
+    )
+  webView
+    .configuration()
+    .preferences()
+    .setValue_forKey(
+      options.webPreferences.javascript !== false,
+      'javaScriptEnabled'
+    )
+  webView
+    .configuration()
+    .preferences()
+    .setValue_forKey(!!options.webPreferences.plugins, 'plugInsEnabled')
+  webView
+    .configuration()
+    .preferences()
+    .setValue_forKey(
+      options.webPreferences.minimumFontSize || 0,
+      'minimumFontSize'
+    )
+
+  if (options.webPreferences.zoomFactor) {
+    webView.setMagnification(options.webPreferences.zoomFactor)
+  }
+
+  var contentView = panel.contentView()
+
+  if (options.frame !== false) {
+    webView.setFrame(contentView.bounds())
+    contentView.addSubview(webView)
+  } else {
+    // In OSX 10.10, adding subviews to the root view for the NSView hierarchy
+    // produces warnings. To eliminate the warnings, we resize the contentView
+    // to fill the window, and add subviews to that.
+    // http://crbug.com/380412
+    contentView.setAutoresizingMask(NSViewWidthSizable | NSViewHeightSizable)
+    fitSubviewToView(contentView, contentView.superview())
+
+    webView.setFrame(contentView.bounds())
+    contentView.addSubview(webView)
+
+    // The fullscreen button should always be hidden for frameless window.
+    if (panel.standardWindowButton(NSWindowFullScreenButton)) {
+      panel.standardWindowButton(NSWindowFullScreenButton).setHidden(true)
+    }
+
+    if (!options.titleBarStyle || options.titleBarStyle === 'default') {
+      // Hide the window buttons.
+      panel.standardWindowButton(NSWindowZoomButton).setHidden(true)
+      panel.standardWindowButton(NSWindowMiniaturizeButton).setHidden(true)
+      panel.standardWindowButton(NSWindowCloseButton).setHidden(true)
+
+      // Some third-party macOS utilities check the zoom button's enabled state to
+      // determine whether to show custom UI on hover, so we disable it here to
+      // prevent them from doing so in a frameless app window.
+      panel.standardWindowButton(NSWindowZoomButton).setEnabled(false)
+    }
+  }
+
+  if (options.vibrancy) {
+    browserWindow.setVibrancy(options.vibrancy)
+  }
+
+  // Set maximizable state last to ensure zoom button does not get reset
+  // by calls to other APIs.
+  browserWindow.setMaximizable(options.maximizable !== false)
+
+  panel.setHidesOnDeactivate(options.hidesOnDeactivate !== false)
+
+  if (options.remembersWindowFrame) {
+    panel.setFrameAutosaveName(identifier)
+    panel.setFrameUsingName_force(panel.frameAutosaveName(), false)
+  }
+
+  if (options.acceptsFirstMouse) {
+    browserWindow.on('focus', function(event) {
+      if (event.type() === NSEventTypeLeftMouseDown) {
+        browserWindow.webContents
+          .executeJavaScript(dispatchFirstClick(webView, event))
+          .catch(() => {})
+      }
+    })
+  }
+
+  executeJavaScript.injectScript(webView)
+  movableArea.injectScript(webView)
+  movableArea.setupHandler(browserWindow)
+
+  if (options.show !== false) {
+    browserWindow.show()
+  }
+
+  browserWindow.on('closed', function() {
+    browserWindow._destroyed = true
+    threadDictionary.removeObjectForKey(identifier)
+    var observer = threadDictionary[identifier + '.themeObserver']
+    if (observer) {
+      NSApplication.sharedApplication().removeObserver_forKeyPath(
+        observer,
+        'effectiveAppearance'
+      )
+      threadDictionary.removeObjectForKey(identifier + '.themeObserver')
+    }
+    fiber.cleanup()
+  })
+
+  threadDictionary[identifier] = panel
+
+  fiber.onCleanup(function() {
+    if (!browserWindow._destroyed) {
+      browserWindow.destroy()
+    }
+  })
+
+  return browserWindow
+}
+
+BrowserWindow.fromId = function(identifier) {
+  var threadDictionary = NSThread.mainThread().threadDictionary()
+
+  if (threadDictionary[identifier]) {
+    return BrowserWindow.fromPanel(threadDictionary[identifier], identifier)
+  }
+
+  return undefined
+}
+
+BrowserWindow.fromPanel = function(panel, identifier) {
+  var browserWindow = new EventEmitter()
+  browserWindow.id = identifier
+
+  if (!panel || !panel.contentView) {
+    throw new Error('needs to pass an NSPanel')
+  }
+
+  var webView = null
+  var subviews = panel.contentView().subviews()
+  for (var i = 0; i < subviews.length; i += 1) {
+    if (
+      !webView &&
+      !subviews[i].isKindOfClass(WKInspectorWKWebView) &&
+      subviews[i].isKindOfClass(WKWebView)
+    ) {
+      webView = subviews[i]
+    }
+  }
+
+  if (!webView) {
+    throw new Error('The panel needs to have a webview')
+  }
+
+  buildBrowserAPI(browserWindow, panel, webView)
+  buildWebAPI(browserWindow, panel, webView)
+
+  return browserWindow
+}
+
+module.exports = BrowserWindow
+
+
+/***/ }),
+
+/***/ "./node_modules/sketch-module-web-view/lib/inject-client-messaging.js":
 /*!****************************************************************************!*\
   !*** ./node_modules/sketch-module-web-view/lib/inject-client-messaging.js ***!
   \****************************************************************************/
-/*! no static exports found */function(e,t,n){var o=n(/*! ./constants */"./node_modules/sketch-module-web-view/lib/constants.js");e.exports=function(e){var t='window.originalPostMessage = window.postMessage;window.postMessage = function(actionName) {  if (!actionName) {    throw new Error(\'missing action name\')  }  var id = String(Math.random()).replace(".", "");    var args = [].slice.call(arguments);    args.unshift(id);  return new Promise(function (resolve, reject) {    window["'+o.JS_BRIDGE_RESULT_SUCCESS+'" + id] = resolve;    window["'+o.JS_BRIDGE_RESULT_ERROR+'" + id] = reject;    window.webkit.messageHandlers.'+o.JS_BRIDGE+".postMessage(JSON.stringify(args));  });}",n=WKUserScript.alloc().initWithSource_injectionTime_forMainFrameOnly(t,0,!0);e.configuration().userContentController().addUserScript(n)}},"./node_modules/sketch-module-web-view/lib/movable-area.js":
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var CONSTANTS = __webpack_require__(/*! ./constants */ "./node_modules/sketch-module-web-view/lib/constants.js")
+
+module.exports = function(webView) {
+  var source =
+    'window.originalPostMessage = window.postMessage;' +
+    'window.postMessage = function(actionName) {' +
+    '  if (!actionName) {' +
+    "    throw new Error('missing action name')" +
+    '  }' +
+    '  var id = String(Math.random()).replace(".", "");' +
+    '    var args = [].slice.call(arguments);' +
+    '    args.unshift(id);' +
+    '  return new Promise(function (resolve, reject) {' +
+    '    window["' +
+    CONSTANTS.JS_BRIDGE_RESULT_SUCCESS +
+    '" + id] = resolve;' +
+    '    window["' +
+    CONSTANTS.JS_BRIDGE_RESULT_ERROR +
+    '" + id] = reject;' +
+    '    window.webkit.messageHandlers.' +
+    CONSTANTS.JS_BRIDGE +
+    '.postMessage(JSON.stringify(args));' +
+    '  });' +
+    '}'
+  var script = WKUserScript.alloc().initWithSource_injectionTime_forMainFrameOnly(
+    source,
+    0,
+    true
+  )
+  webView
+    .configuration()
+    .userContentController()
+    .addUserScript(script)
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sketch-module-web-view/lib/movable-area.js":
 /*!*****************************************************************!*\
   !*** ./node_modules/sketch-module-web-view/lib/movable-area.js ***!
   \*****************************************************************/
-/*! no static exports found */function(e,t,n){(function(t,o){var r=n(/*! ./constants */"./node_modules/sketch-module-web-view/lib/constants.js");e.exports.injectScript=function(e){var t='(function () {document.addEventListener(\'mousedown\', onMouseDown);function shouldDrag(target) {  if (!target || (target.dataset || {}).appRegion === "no-drag") { return false }  if ((target.dataset || {}).appRegion === "drag") { return true }  return shouldDrag(target.parentElement)};function onMouseDown(e) {  if (e.button !== 0 || !shouldDrag(e.target)) { return }  window.postMessage("'+r.START_MOVING_WINDOW+'");};})()',n=WKUserScript.alloc().initWithSource_injectionTime_forMainFrameOnly(t,0,!0);e.configuration().userContentController().addUserScript(n)},e.exports.setupHandler=function(e){var n=null,i=null,a=null;function s(){if(!i||1!==NSEvent.pressedMouseButtons())return t(a),n=null,void(i=null);var o=NSEvent.mouseLocation();e.setPosition(i.x+(o.x-n.x),i.y+(n.y-o.y),!1)}e.webContents.on(r.START_MOVING_WINDOW,function(){n=NSEvent.mouseLocation();var t=e.getPosition();i={x:t[0],y:t[1]},a=o(s,1e3/60)})}}).call(this,n(/*! ./node_modules/@skpm/timers/interval.js */"./node_modules/@skpm/timers/interval.js").clearInterval,n(/*! ./node_modules/@skpm/timers/interval.js */"./node_modules/@skpm/timers/interval.js").setInterval)},"./node_modules/sketch-module-web-view/lib/parseWebArguments.js":
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(clearInterval, setInterval) {var CONSTANTS = __webpack_require__(/*! ./constants */ "./node_modules/sketch-module-web-view/lib/constants.js")
+
+module.exports.injectScript = function(webView) {
+  var source =
+    '(function () {' +
+    "document.addEventListener('mousedown', onMouseDown);" +
+    '' +
+    'function shouldDrag(target) {' +
+    '  if (!target || (target.dataset || {}).appRegion === "no-drag") { return false }' +
+    '  if ((target.dataset || {}).appRegion === "drag") { return true }' +
+    '  return shouldDrag(target.parentElement)' +
+    '};' +
+    '' +
+    'function onMouseDown(e) {' +
+    '  if (e.button !== 0 || !shouldDrag(e.target)) { return }' +
+    '  window.postMessage("' +
+    CONSTANTS.START_MOVING_WINDOW +
+    '");' +
+    '};' +
+    '})()'
+  var script = WKUserScript.alloc().initWithSource_injectionTime_forMainFrameOnly(
+    source,
+    0,
+    true
+  )
+  webView
+    .configuration()
+    .userContentController()
+    .addUserScript(script)
+}
+
+module.exports.setupHandler = function(browserWindow) {
+  var initialMouseLocation = null
+  var initialWindowPosition = null
+  var interval = null
+
+  function moveWindow() {
+    // if the user released the button, stop moving the window
+    if (!initialWindowPosition || NSEvent.pressedMouseButtons() !== 1) {
+      clearInterval(interval)
+      initialMouseLocation = null
+      initialWindowPosition = null
+      return
+    }
+
+    var mouse = NSEvent.mouseLocation()
+    browserWindow.setPosition(
+      initialWindowPosition.x + (mouse.x - initialMouseLocation.x),
+      initialWindowPosition.y + (initialMouseLocation.y - mouse.y), // y is inverted
+      false
+    )
+  }
+
+  browserWindow.webContents.on(CONSTANTS.START_MOVING_WINDOW, function() {
+    initialMouseLocation = NSEvent.mouseLocation()
+    var position = browserWindow.getPosition()
+    initialWindowPosition = {
+      x: position[0],
+      y: position[1],
+    }
+
+    interval = setInterval(moveWindow, 1000 / 60) // 60 fps
+  })
+}
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@skpm/timers/interval.js */ "./node_modules/@skpm/timers/interval.js")["clearInterval"], __webpack_require__(/*! ./node_modules/@skpm/timers/interval.js */ "./node_modules/@skpm/timers/interval.js")["setInterval"]))
+
+/***/ }),
+
+/***/ "./node_modules/sketch-module-web-view/lib/parseWebArguments.js":
 /*!**********************************************************************!*\
   !*** ./node_modules/sketch-module-web-view/lib/parseWebArguments.js ***!
   \**********************************************************************/
-/*! no static exports found */function(e,t){e.exports=function(e){var t=null;try{t=JSON.parse(e)}catch(e){}return t&&t.constructor&&t.constructor===Array&&0!=t.length?t:null}},"./node_modules/sketch-module-web-view/lib/set-delegates.js":
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = function(webArguments) {
+  var args = null
+  try {
+    args = JSON.parse(webArguments)
+  } catch (e) {
+    // malformed arguments
+  }
+
+  if (
+    !args ||
+    !args.constructor ||
+    args.constructor !== Array ||
+    args.length == 0
+  ) {
+    return null
+  }
+
+  return args
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/sketch-module-web-view/lib/set-delegates.js":
 /*!******************************************************************!*\
   !*** ./node_modules/sketch-module-web-view/lib/set-delegates.js ***!
   \******************************************************************/
-/*! no static exports found */function(e,t,n){(function(t,o){var r,i,a,s,l=n(/*! mocha-js-delegate */"./node_modules/mocha-js-delegate/index.js"),u=n(/*! ./parseWebArguments */"./node_modules/sketch-module-web-view/lib/parseWebArguments.js"),c=n(/*! ./constants */"./node_modules/sketch-module-web-view/lib/constants.js");e.exports=function(e,n,d,f){s||(s=new l({utils:null,"observeValueForKeyPath:ofObject:change:context:":function(e,t,n){const o=n[NSKeyValueChangeNewKey],r="NSAppearanceNameDarkAqua"===String(o.bestMatchFromAppearancesWithNames(["NSAppearanceNameAqua","NSAppearanceNameDarkAqua"]));this.utils.executeJavaScript("document.body.classList.remove('__skpm-"+(r?"light":"dark")+"'); document.body.classList.add('__skpm-"+(r?"dark":"light")+"')")}})),r||(r=new l({utils:null,panel:null,"windowDidResize:":function(){this.utils.emit("resize")},"windowDidMiniaturize:":function(){this.utils.emit("minimize")},"windowDidDeminiaturize:":function(){this.utils.emit("restore")},"windowDidEnterFullScreen:":function(){this.utils.emit("enter-full-screen")},"windowDidExitFullScreen:":function(){this.utils.emit("leave-full-screen")},"windowDidMove:":function(){this.utils.emit("move"),this.utils.emit("moved")},"windowShouldClose:":function(){var e=1;return this.utils.emit("close",{get defaultPrevented(){return!e},preventDefault:function(){e=0}}),e},"windowWillClose:":function(){this.utils.emit("closed")},"windowDidBecomeKey:":function(){this.utils.emit("focus",this.panel.currentEvent())},"windowDidResignKey:":function(){this.utils.emit("blur")}})),i||(i=new l({state:{wasReady:0},utils:null,"webView:didCommitNavigation:":function(e){this.utils.emit("will-navigate",{},String(String(e.URL())))},"webView:didStartProvisionalNavigation:":function(){this.utils.emit("did-start-navigation"),this.utils.emit("did-start-loading")},"webView:didReceiveServerRedirectForProvisionalNavigation:":function(){this.utils.emit("did-get-redirect-request")},"webView:didFailProvisionalNavigation:withError:":function(e,t,n){this.utils.emit("did-fail-load",n)},"webView:didFinishNavigation:":function(){0==this.state.wasReady&&(this.state.wasReady=1,this.utils.emitBrowserEvent("ready-to-show")),this.utils.emit("did-navigate"),this.utils.emit("did-frame-navigate"),this.utils.emit("did-stop-loading"),this.utils.emit("did-finish-load"),this.utils.emit("did-frame-finish-load")},"webViewWebContentProcessDidTerminate:":function(){this.utils.emit("dom-ready")}})),a||(a=new l({utils:null,"userContentController:didReceiveScriptMessage:":function(e,t){var n=this.utils.parseWebArguments(String(t.body()));n&&n[0]&&"string"==typeof n[0]&&(n[0]=String(n[0]),this.utils.emit.apply(this,n))}}));var h=s.new({utils:{executeJavaScript(e){d.evaluateJavaScript_completionHandler(e,null)}}}),m=WKUserScript.alloc().initWithSource_injectionTime_forMainFrameOnly("document.addEventListener('DOMContentLoaded', function() { document.body.classList.add('__skpm-"+("undefined"!=typeof MSTheme&&MSTheme.sharedTheme().isDark()?"dark":"light")+"') }, false)",0,!0);d.configuration().userContentController().addUserScript(m),NSApplication.sharedApplication().addObserver_forKeyPath_options_context(h,"effectiveAppearance",NSKeyValueObservingOptionNew,null),NSThread.mainThread().threadDictionary()[e.id+".themeObserver"]=h;var p=i.new({utils:{setTitle:e.setTitle.bind(e),emitBrowserEvent(){try{e.emit.apply(e,arguments)}catch(e){if(void 0===t||!t.listenerCount||!t.listenerCount("uncaughtException"))throw console.error(e),e;t.emit("uncaughtException",e,"uncaughtException")}},emit(){try{e.webContents.emit.apply(e.webContents,arguments)}catch(e){if(void 0===t||!t.listenerCount||!t.listenerCount("uncaughtException"))throw console.error(e),e;t.emit("uncaughtException",e,"uncaughtException")}}},state:{wasReady:0}});d.setNavigationDelegate(p);var g=a.new({utils:{emit(t,n){if(n){for(var r=[],i=2;i<arguments.length;i+=1)r.push(arguments[i]);var a=e.webContents.listeners(n);o.all(a.map(function(e){return o.resolve().then(function(){return e.apply(e,r)})})).then(function(e){d.evaluateJavaScript_completionHandler(c.JS_BRIDGE_RESULT_SUCCESS+t+"("+JSON.stringify(e)+")",null)}).catch(function(e){d.evaluateJavaScript_completionHandler(c.JS_BRIDGE_RESULT_ERROR+t+"("+JSON.stringify(e)+")",null)})}else d.evaluateJavaScript_completionHandler(c.JS_BRIDGE_RESULT_SUCCESS+t+"()",null)},parseWebArguments:u}});d.configuration().userContentController().addScriptMessageHandler_name(g,c.JS_BRIDGE);var S,v={emit(){try{e.emit.apply(e,arguments)}catch(e){if(void 0===t||!t.listenerCount||!t.listenerCount("uncaughtException"))throw console.error(e),e;t.emit("uncaughtException",e,"uncaughtException")}}};f.modal&&((S="Document"===f.parent.type?f.parent.sketchObject:f.parent)&&"MSDocumentData"===String(S.class())&&(S=S.delegate()),v.parentWindow=S.windowForSheet());var b=r.new({utils:v,panel:n});n.setDelegate(b)}}).call(this,n(/*! ./../../process/browser.js */"./node_modules/process/browser.js"),n(/*! ./node_modules/promise-polyfill/lib/index.js */"./node_modules/promise-polyfill/lib/index.js"))},"./node_modules/sketch-module-web-view/lib/webview-api.js":
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(process, Promise) {var ObjCClass = __webpack_require__(/*! mocha-js-delegate */ "./node_modules/mocha-js-delegate/index.js")
+var parseWebArguments = __webpack_require__(/*! ./parseWebArguments */ "./node_modules/sketch-module-web-view/lib/parseWebArguments.js")
+var CONSTANTS = __webpack_require__(/*! ./constants */ "./node_modules/sketch-module-web-view/lib/constants.js")
+
+// We create one ObjC class for ourselves here
+var WindowDelegateClass
+var NavigationDelegateClass
+var WebScriptHandlerClass
+var ThemeObserverClass
+
+// TODO: events
+// - 'page-favicon-updated'
+// - 'new-window'
+// - 'did-navigate-in-page'
+// - 'will-prevent-unload'
+// - 'crashed'
+// - 'unresponsive'
+// - 'responsive'
+// - 'destroyed'
+// - 'before-input-event'
+// - 'certificate-error'
+// - 'found-in-page'
+// - 'media-started-playing'
+// - 'media-paused'
+// - 'did-change-theme-color'
+// - 'update-target-url'
+// - 'cursor-changed'
+// - 'context-menu'
+// - 'select-bluetooth-device'
+// - 'paint'
+// - 'console-message'
+
+module.exports = function(browserWindow, panel, webview, options) {
+  if (!ThemeObserverClass) {
+    ThemeObserverClass = new ObjCClass({
+      utils: null,
+
+      'observeValueForKeyPath:ofObject:change:context:': function(keyPath,object,change) {
+        const newAppearance = change[NSKeyValueChangeNewKey]
+        const isDark = String(newAppearance.bestMatchFromAppearancesWithNames(['NSAppearanceNameAqua', 'NSAppearanceNameDarkAqua'])) === 'NSAppearanceNameDarkAqua'
+
+        this.utils.executeJavaScript(
+          "document.body.classList.remove('__skpm-" +
+            (isDark ? 'light' : 'dark') +
+            "'); document.body.classList.add('__skpm-" +
+            (isDark ? 'dark' : 'light') +
+            "')"
+        )
+      },
+    })
+  }
+
+  if (!WindowDelegateClass) {
+    WindowDelegateClass = new ObjCClass({
+      utils: null,
+      panel: null,
+
+      'windowDidResize:': function() {
+        this.utils.emit('resize')
+      },
+
+      'windowDidMiniaturize:': function() {
+        this.utils.emit('minimize')
+      },
+
+      'windowDidDeminiaturize:': function() {
+        this.utils.emit('restore')
+      },
+
+      'windowDidEnterFullScreen:': function() {
+        this.utils.emit('enter-full-screen')
+      },
+
+      'windowDidExitFullScreen:': function() {
+        this.utils.emit('leave-full-screen')
+      },
+
+      'windowDidMove:': function() {
+        this.utils.emit('move')
+        this.utils.emit('moved')
+      },
+
+      'windowShouldClose:': function() {
+        var shouldClose = 1
+        this.utils.emit('close', {
+          get defaultPrevented() {
+            return !shouldClose
+          },
+          preventDefault: function() {
+            shouldClose = 0
+          },
+        })
+        return shouldClose
+      },
+
+      'windowWillClose:': function() {
+        this.utils.emit('closed')
+      },
+
+      'windowDidBecomeKey:': function() {
+        this.utils.emit('focus', this.panel.currentEvent())
+      },
+
+      'windowDidResignKey:': function() {
+        this.utils.emit('blur')
+      },
+    })
+  }
+
+  if (!NavigationDelegateClass) {
+    NavigationDelegateClass = new ObjCClass({
+      state: {
+        wasReady: 0,
+      },
+      utils: null,
+
+      // // Called when the web view begins to receive web content.
+      'webView:didCommitNavigation:': function(webView) {
+        this.utils.emit('will-navigate', {}, String(String(webView.URL())))
+      },
+
+      // // Called when web content begins to load in a web view.
+      'webView:didStartProvisionalNavigation:': function() {
+        this.utils.emit('did-start-navigation')
+        this.utils.emit('did-start-loading')
+      },
+
+      // Called when a web view receives a server redirect.
+      'webView:didReceiveServerRedirectForProvisionalNavigation:': function() {
+        this.utils.emit('did-get-redirect-request')
+      },
+
+      // // Called when the web view needs to respond to an authentication challenge.
+      // 'webView:didReceiveAuthenticationChallenge:completionHandler:': function(
+      //   webView,
+      //   challenge,
+      //   completionHandler
+      // ) {
+      //   function callback(username, password) {
+      //     completionHandler(
+      //       0,
+      //       NSURLCredential.credentialWithUser_password_persistence(
+      //         username,
+      //         password,
+      //         1
+      //       )
+      //     )
+      //   }
+      //   var protectionSpace = challenge.protectionSpace()
+      //   this.utils.emit(
+      //     'login',
+      //     {},
+      //     {
+      //       method: String(protectionSpace.authenticationMethod()),
+      //       url: 'not implemented', // TODO:
+      //       referrer: 'not implemented', // TODO:
+      //     },
+      //     {
+      //       isProxy: !!protectionSpace.isProxy(),
+      //       scheme: String(protectionSpace.protocol()),
+      //       host: String(protectionSpace.host()),
+      //       port: Number(protectionSpace.port()),
+      //       realm: String(protectionSpace.realm()),
+      //     },
+      //     callback
+      //   )
+      // },
+
+      // Called when an error occurs during navigation.
+      // 'webView:didFailNavigation:withError:': function(
+      //   webView,
+      //   navigation,
+      //   error
+      // ) {},
+
+      // Called when an error occurs while the web view is loading content.
+      'webView:didFailProvisionalNavigation:withError:': function(
+        webView,
+        navigation,
+        error
+      ) {
+        this.utils.emit('did-fail-load', error)
+      },
+
+      // Called when the navigation is complete.
+      'webView:didFinishNavigation:': function() {
+        if (this.state.wasReady == 0) {
+          this.state.wasReady = 1
+          this.utils.emitBrowserEvent('ready-to-show')
+        }
+        this.utils.emit('did-navigate')
+        this.utils.emit('did-frame-navigate')
+        this.utils.emit('did-stop-loading')
+        this.utils.emit('did-finish-load')
+        this.utils.emit('did-frame-finish-load')
+      },
+
+      // Called when the web view’s web content process is terminated.
+      'webViewWebContentProcessDidTerminate:': function() {
+        this.utils.emit('dom-ready')
+      },
+
+      // Decides whether to allow or cancel a navigation.
+      // webView:decidePolicyForNavigationAction:decisionHandler:
+
+      // Decides whether to allow or cancel a navigation after its response is known.
+      // webView:decidePolicyForNavigationResponse:decisionHandler:
+    })
+  }
+
+  if (!WebScriptHandlerClass) {
+    WebScriptHandlerClass = new ObjCClass({
+      utils: null,
+      'userContentController:didReceiveScriptMessage:': function(_, message) {
+        var args = this.utils.parseWebArguments(String(message.body()))
+        if (!args) {
+          return
+        }
+        if (!args[0] || typeof args[0] !== 'string') {
+          return
+        }
+        args[0] = String(args[0])
+
+        this.utils.emit.apply(this, args)
+      },
+    })
+  }
+
+  var themeObserver = ThemeObserverClass.new({
+    utils: {
+      executeJavaScript(script) {
+        webview.evaluateJavaScript_completionHandler(script, null)
+      },
+    },
+  })
+
+  var script = WKUserScript.alloc().initWithSource_injectionTime_forMainFrameOnly(
+    "document.addEventListener('DOMContentLoaded', function() { document.body.classList.add('__skpm-" +
+      (typeof MSTheme !== 'undefined' && MSTheme.sharedTheme().isDark()
+        ? 'dark'
+        : 'light') +
+      "') }, false)",
+    0,
+    true
+  )
+  webview
+    .configuration()
+    .userContentController()
+    .addUserScript(script)
+
+  NSApplication.sharedApplication().addObserver_forKeyPath_options_context(
+    themeObserver,
+    'effectiveAppearance',
+    NSKeyValueObservingOptionNew,
+    null
+  )
+
+  var threadDictionary = NSThread.mainThread().threadDictionary()
+  threadDictionary[browserWindow.id + '.themeObserver'] = themeObserver
+
+  var navigationDelegate = NavigationDelegateClass.new({
+    utils: {
+      setTitle: browserWindow.setTitle.bind(browserWindow),
+      emitBrowserEvent() {
+        try {
+          browserWindow.emit.apply(browserWindow, arguments)
+        } catch (err) {
+          if (
+            typeof process !== 'undefined' &&
+            process.listenerCount &&
+            process.listenerCount('uncaughtException')
+          ) {
+            process.emit('uncaughtException', err, 'uncaughtException')
+          } else {
+            console.error(err)
+            throw err
+          }
+        }
+      },
+      emit() {
+        try {
+          browserWindow.webContents.emit.apply(
+            browserWindow.webContents,
+            arguments
+          )
+        } catch (err) {
+          if (
+            typeof process !== 'undefined' &&
+            process.listenerCount &&
+            process.listenerCount('uncaughtException')
+          ) {
+            process.emit('uncaughtException', err, 'uncaughtException')
+          } else {
+            console.error(err)
+            throw err
+          }
+        }
+      },
+    },
+    state: {
+      wasReady: 0,
+    },
+  })
+
+  webview.setNavigationDelegate(navigationDelegate)
+
+  var webScriptHandler = WebScriptHandlerClass.new({
+    utils: {
+      emit(id, type) {
+        if (!type) {
+          webview.evaluateJavaScript_completionHandler(
+            CONSTANTS.JS_BRIDGE_RESULT_SUCCESS + id + '()',
+            null
+          )
+          return
+        }
+
+        var args = []
+        for (var i = 2; i < arguments.length; i += 1) args.push(arguments[i])
+
+        var listeners = browserWindow.webContents.listeners(type)
+
+        Promise.all(
+          listeners.map(function(l) {
+            return Promise.resolve().then(function() {
+              return l.apply(l, args)
+            })
+          })
+        )
+          .then(function(res) {
+            webview.evaluateJavaScript_completionHandler(
+              CONSTANTS.JS_BRIDGE_RESULT_SUCCESS +
+                id +
+                '(' +
+                JSON.stringify(res) +
+                ')',
+              null
+            )
+          })
+          .catch(function(err) {
+            webview.evaluateJavaScript_completionHandler(
+              CONSTANTS.JS_BRIDGE_RESULT_ERROR +
+                id +
+                '(' +
+                JSON.stringify(err) +
+                ')',
+              null
+            )
+          })
+      },
+      parseWebArguments: parseWebArguments,
+    },
+  })
+
+  webview
+    .configuration()
+    .userContentController()
+    .addScriptMessageHandler_name(webScriptHandler, CONSTANTS.JS_BRIDGE)
+
+  var utils = {
+    emit() {
+      try {
+        browserWindow.emit.apply(browserWindow, arguments)
+      } catch (err) {
+        if (
+          typeof process !== 'undefined' &&
+          process.listenerCount &&
+          process.listenerCount('uncaughtException')
+        ) {
+          process.emit('uncaughtException', err, 'uncaughtException')
+        } else {
+          console.error(err)
+          throw err
+        }
+      }
+    },
+  }
+  if (options.modal) {
+    // find the window of the document
+    var msdocument
+    if (options.parent.type === 'Document') {
+      msdocument = options.parent.sketchObject
+    } else {
+      msdocument = options.parent
+    }
+    if (msdocument && String(msdocument.class()) === 'MSDocumentData') {
+      // we only have an MSDocumentData instead of a MSDocument
+      // let's try to get back to the MSDocument
+      msdocument = msdocument.delegate()
+    }
+    utils.parentWindow = msdocument.windowForSheet()
+  }
+
+  var windowDelegate = WindowDelegateClass.new({
+    utils: utils,
+    panel: panel,
+  })
+
+  panel.setDelegate(windowDelegate)
+}
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../process/browser.js */ "./node_modules/process/browser.js"), __webpack_require__(/*! ./node_modules/promise-polyfill/lib/index.js */ "./node_modules/promise-polyfill/lib/index.js")))
+
+/***/ }),
+
+/***/ "./node_modules/sketch-module-web-view/lib/webview-api.js":
 /*!****************************************************************!*\
   !*** ./node_modules/sketch-module-web-view/lib/webview-api.js ***!
   \****************************************************************/
-/*! no static exports found */function(e,t,n){var o=n(/*! events */"events"),r=n(/*! ./execute-javascript */"./node_modules/sketch-module-web-view/lib/execute-javascript.js");e.exports=function(e,t,n){var i=new o;i.loadURL=e.loadURL,i.loadFile=function(){console.warn("Not implemented yet, please open a PR on https://github.com/skpm/sketch-module-web-view :)")},i.downloadURL=function(){console.warn("Not implemented yet, please open a PR on https://github.com/skpm/sketch-module-web-view :)")},i.getURL=function(){return String(n.URL())},i.getTitle=function(){return String(n.title())},i.isDestroyed=function(){console.warn("Not implemented yet, please open a PR on https://github.com/skpm/sketch-module-web-view :)")},i.focus=e.focus,i.isFocused=e.isFocused,i.isLoading=function(){return!!n.loading()},i.isLoadingMainFrame=function(){return!!n.loading()},i.isWaitingForResponse=function(){return!n.loading()},i.stop=function(){n.stopLoading()},i.reload=function(){n.reload()},i.reloadIgnoringCache=function(){n.reloadFromOrigin()},i.canGoBack=function(){return!!n.canGoBack()},i.canGoForward=function(){return!!n.canGoForward()},i.canGoToOffset=function(e){return!!n.backForwardList().itemAtIndex(e)},i.clearHistory=function(){console.warn("Not implemented yet, please open a PR on https://github.com/skpm/sketch-module-web-view :)")},i.goBack=function(){n.goBack()},i.goForward=function(){n.goForward()},i.goToIndex=function(e){var t=n.backForwardList(),o=t.backList(),r=o.count();if(r>e)n.loadRequest(NSURLRequest.requestWithURL(o[e]));else{var i=t.forwardList();if(!(i.count()>e-r))throw new Error("Cannot go to index "+e);n.loadRequest(NSURLRequest.requestWithURL(i[e-r]))}},i.goToOffset=function(e){if(!i.canGoToOffset(e))throw new Error("Cannot go to offset "+e);n.loadRequest(NSURLRequest.requestWithURL(n.backForwardList().itemAtIndex(e)))},i.isCrashed=function(){console.warn("Not implemented yet, please open a PR on https://github.com/skpm/sketch-module-web-view :)")},i.setUserAgent=function(){console.warn("Not implemented yet, please open a PR on https://github.com/skpm/sketch-module-web-view :)")},i.getUserAgent=function(){const e=n.customUserAgent();return e?String(e):void 0},i.insertCSS=function(e){var t="var style = document.createElement('style'); style.innerHTML = "+e.replace(/"/,'\\"')+"; document.head.appendChild(style);",o=WKUserScript.alloc().initWithSource_injectionTime_forMainFrameOnly(t,0,!0);n.configuration().userContentController().addUserScript(o)},i.insertJS=function(e){var t=WKUserScript.alloc().initWithSource_injectionTime_forMainFrameOnly(e,0,!0);n.configuration().userContentController().addUserScript(t)},i.executeJavaScript=r(n,e),i.setIgnoreMenuShortcuts=function(){console.warn("Not implemented yet, please open a PR on https://github.com/skpm/sketch-module-web-view :)")},i.setAudioMuted=function(){console.warn("Not implemented yet, please open a PR on https://github.com/skpm/sketch-module-web-view :)")},i.isAudioMuted=function(){console.warn("Not implemented yet, please open a PR on https://github.com/skpm/sketch-module-web-view :)")},i.setZoomFactor=function(e){n.setMagnification_centeredAtPoint(e,CGPointMake(0,0))},i.getZoomFactor=function(e){e(Number(n.magnification()))},i.setZoomLevel=function(e){i.setZoomFactor(Math.pow(1.2,e))},i.getZoomLevel=function(e){e(Math.log(Number(n.magnification()))/Math.log(1.2))},i.setVisualZoomLevelLimits=function(){console.warn("Not implemented yet, please open a PR on https://github.com/skpm/sketch-module-web-view :)")},i.setLayoutZoomLevelLimits=function(){console.warn("Not implemented yet, please open a PR on https://github.com/skpm/sketch-module-web-view :)")},i.send=function(){const e="window.postMessage({isSketchMessage: true,origin: '"+String(__command.identifier())+"',args: "+JSON.stringify([].slice.call(arguments))+'}, "*")';n.evaluateJavaScript_completionHandler(e,null)},i.getNativeWebview=function(){return n},e.webContents=i}},"./src/sketch/utilities/common.js":
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var EventEmitter = __webpack_require__(/*! events */ "events")
+var executeJavaScript = __webpack_require__(/*! ./execute-javascript */ "./node_modules/sketch-module-web-view/lib/execute-javascript.js")
+
+// let's try to match https://github.com/electron/electron/blob/master/docs/api/web-contents.md
+module.exports = function buildAPI(browserWindow, panel, webview) {
+  var webContents = new EventEmitter()
+
+  webContents.loadURL = browserWindow.loadURL
+
+  webContents.loadFile = function(/* filePath */) {
+    // TODO:
+    console.warn(
+      'Not implemented yet, please open a PR on https://github.com/skpm/sketch-module-web-view :)'
+    )
+  }
+
+  webContents.downloadURL = function(/* filePath */) {
+    // TODO:
+    console.warn(
+      'Not implemented yet, please open a PR on https://github.com/skpm/sketch-module-web-view :)'
+    )
+  }
+
+  webContents.getURL = function() {
+    return String(webview.URL())
+  }
+
+  webContents.getTitle = function() {
+    return String(webview.title())
+  }
+
+  webContents.isDestroyed = function() {
+    // TODO:
+    console.warn(
+      'Not implemented yet, please open a PR on https://github.com/skpm/sketch-module-web-view :)'
+    )
+  }
+
+  webContents.focus = browserWindow.focus
+  webContents.isFocused = browserWindow.isFocused
+
+  webContents.isLoading = function() {
+    return !!webview.loading()
+  }
+
+  webContents.isLoadingMainFrame = function() {
+    // TODO:
+    return !!webview.loading()
+  }
+
+  webContents.isWaitingForResponse = function() {
+    return !webview.loading()
+  }
+
+  webContents.stop = function() {
+    webview.stopLoading()
+  }
+  webContents.reload = function() {
+    webview.reload()
+  }
+  webContents.reloadIgnoringCache = function() {
+    webview.reloadFromOrigin()
+  }
+  webContents.canGoBack = function() {
+    return !!webview.canGoBack()
+  }
+  webContents.canGoForward = function() {
+    return !!webview.canGoForward()
+  }
+  webContents.canGoToOffset = function(offset) {
+    return !!webview.backForwardList().itemAtIndex(offset)
+  }
+  webContents.clearHistory = function() {
+    // TODO:
+    console.warn(
+      'Not implemented yet, please open a PR on https://github.com/skpm/sketch-module-web-view :)'
+    )
+  }
+  webContents.goBack = function() {
+    webview.goBack()
+  }
+  webContents.goForward = function() {
+    webview.goForward()
+  }
+  webContents.goToIndex = function(index) {
+    var backForwardList = webview.backForwardList()
+    var backList = backForwardList.backList()
+    var backListLength = backList.count()
+    if (backListLength > index) {
+      webview.loadRequest(NSURLRequest.requestWithURL(backList[index]))
+      return
+    }
+    var forwardList = backForwardList.forwardList()
+    if (forwardList.count() > index - backListLength) {
+      webview.loadRequest(
+        NSURLRequest.requestWithURL(forwardList[index - backListLength])
+      )
+      return
+    }
+    throw new Error('Cannot go to index ' + index)
+  }
+  webContents.goToOffset = function(offset) {
+    if (!webContents.canGoToOffset(offset)) {
+      throw new Error('Cannot go to offset ' + offset)
+    }
+    webview.loadRequest(
+      NSURLRequest.requestWithURL(webview.backForwardList().itemAtIndex(offset))
+    )
+  }
+  webContents.isCrashed = function() {
+    // TODO:
+    console.warn(
+      'Not implemented yet, please open a PR on https://github.com/skpm/sketch-module-web-view :)'
+    )
+  }
+  webContents.setUserAgent = function(/* userAgent */) {
+    // TODO:
+    console.warn(
+      'Not implemented yet, please open a PR on https://github.com/skpm/sketch-module-web-view :)'
+    )
+  }
+  webContents.getUserAgent = function() {
+    const userAgent = webview.customUserAgent()
+    return userAgent ? String(userAgent) : undefined
+  }
+  webContents.insertCSS = function(css) {
+    var source =
+      "var style = document.createElement('style'); style.innerHTML = " +
+      css.replace(/"/, '\\"') +
+      '; document.head.appendChild(style);'
+    var script = WKUserScript.alloc().initWithSource_injectionTime_forMainFrameOnly(
+      source,
+      0,
+      true
+    )
+    webview
+      .configuration()
+      .userContentController()
+      .addUserScript(script)
+  }
+  webContents.insertJS = function(source) {
+    var script = WKUserScript.alloc().initWithSource_injectionTime_forMainFrameOnly(
+      source,
+      0,
+      true
+    )
+    webview
+      .configuration()
+      .userContentController()
+      .addUserScript(script)
+  }
+  webContents.executeJavaScript = executeJavaScript(webview, browserWindow)
+  webContents.setIgnoreMenuShortcuts = function() {
+    // TODO:??
+    console.warn(
+      'Not implemented yet, please open a PR on https://github.com/skpm/sketch-module-web-view :)'
+    )
+  }
+  webContents.setAudioMuted = function(/* muted */) {
+    // TODO:??
+    console.warn(
+      'Not implemented yet, please open a PR on https://github.com/skpm/sketch-module-web-view :)'
+    )
+  }
+  webContents.isAudioMuted = function() {
+    // TODO:??
+    console.warn(
+      'Not implemented yet, please open a PR on https://github.com/skpm/sketch-module-web-view :)'
+    )
+  }
+  webContents.setZoomFactor = function(factor) {
+    webview.setMagnification_centeredAtPoint(factor, CGPointMake(0, 0))
+  }
+  webContents.getZoomFactor = function(callback) {
+    callback(Number(webview.magnification()))
+  }
+  webContents.setZoomLevel = function(level) {
+    // eslint-disable-next-line no-restricted-properties
+    webContents.setZoomFactor(Math.pow(1.2, level))
+  }
+  webContents.getZoomLevel = function(callback) {
+    // eslint-disable-next-line no-restricted-properties
+    callback(Math.log(Number(webview.magnification())) / Math.log(1.2))
+  }
+  webContents.setVisualZoomLevelLimits = function(/* minimumLevel, maximumLevel */) {
+    // TODO:??
+    console.warn(
+      'Not implemented yet, please open a PR on https://github.com/skpm/sketch-module-web-view :)'
+    )
+  }
+  webContents.setLayoutZoomLevelLimits = function(/* minimumLevel, maximumLevel */) {
+    // TODO:??
+    console.warn(
+      'Not implemented yet, please open a PR on https://github.com/skpm/sketch-module-web-view :)'
+    )
+  }
+
+  // TODO:
+  // webContents.undo = function() {
+  //   webview.undoManager().undo()
+  // }
+  // webContents.redo = function() {
+  //   webview.undoManager().redo()
+  // }
+  // webContents.cut = webview.cut
+  // webContents.copy = webview.copy
+  // webContents.paste = webview.paste
+  // webContents.pasteAndMatchStyle = webview.pasteAsRichText
+  // webContents.delete = webview.delete
+  // webContents.replace = webview.replaceSelectionWithText
+
+  webContents.send = function() {
+    const script =
+      'window.postMessage({' +
+      'isSketchMessage: true,' +
+      "origin: '" +
+      String(__command.identifier()) +
+      "'," +
+      'args: ' +
+      JSON.stringify([].slice.call(arguments)) +
+      '}, "*")'
+    webview.evaluateJavaScript_completionHandler(script, null)
+  }
+
+  webContents.getNativeWebview = function() {
+    return webview
+  }
+
+  browserWindow.webContents = webContents
+}
+
+
+/***/ }),
+
+/***/ "./src/sketch/utilities/common.js":
 /*!****************************************!*\
   !*** ./src/sketch/utilities/common.js ***!
   \****************************************/
-/*! exports provided: openURL, saveSetting, saveAllSettings, loadSetting, loadAllSettings, showToast, loadMixpanelDistinctId */function(e,t,n){"use strict";n.r(t),n.d(t,"openURL",function(){return l}),n.d(t,"saveSetting",function(){return u}),n.d(t,"saveAllSettings",function(){return c}),n.d(t,"loadSetting",function(){return d}),n.d(t,"loadAllSettings",function(){return f}),n.d(t,"showToast",function(){return h}),n.d(t,"loadMixpanelDistinctId",function(){return m});var o=n(/*! sketch/settings */"sketch/settings"),r=n.n(o),i=n(/*! sketch/ui */"sketch/ui"),a=n.n(i),s=n(/*! ./constants */"./src/sketch/utilities/constants.js"),l=function(e){var t=NSURL.URLWithString(e);NSWorkspace.sharedWorkspace().openURL(t)},u=function(e,t){r.a.setSettingForKey("com.stark.".concat(e),t)},c=function(e){u(s.SETTINGS_LICENSE,e.licenseKey),u(s.SETTINGS_STATUS,"valid"),u(s.SETTINGS_EMAIL,e.email),u(s.SETTINGS_FREQUENCY,e.frequency),u(s.SETTINGS_VERIFICATION,(new Date).getMonth())},d=function(e){return r.a.settingForKey("com.stark.".concat(e))},f=function(){return{licenseKey:d(s.SETTINGS_LICENSE),status:d(s.SETTINGS_STATUS),email:d(s.SETTINGS_EMAIL),frequency:d(s.SETTINGS_FREQUENCY),verificationDate:d(s.SETTINGS_VERIFICATION),contrastFailMessageShown:void 0===d(s.SETTINGS_CONTRASTFAILMESSAGESHOWN)||""===d(s.SETTINGS_CONTRASTFAILMESSAGESHOWN)||d(s.SETTINGS_CONTRASTFAILMESSAGESHOWN),suggestionsTriesLeft:void 0===d(s.SETTINGS_CONTRASTSUGGESTIONSTRIESLEFT)||""===d(s.SETTINGS_CONTRASTSUGGESTIONSTRIESLEFT)?4:d(s.SETTINGS_CONTRASTSUGGESTIONSTRIESLEFT)}},h=function(e){a.a.message(e)},m=function(){var e=d(s.SETTINGS_MIXPANELID);return e||(e=((new Date).getUTCMilliseconds().toString()+(new Date).getTime().toString()).toString(),u(s.SETTINGS_MIXPANELID,e)),e}},"./src/sketch/utilities/constants.js":
+/*! exports provided: openURL, saveSetting, saveAllSettings, loadSetting, loadAllSettings, showToast */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openURL", function() { return openURL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveSetting", function() { return saveSetting; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveAllSettings", function() { return saveAllSettings; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loadSetting", function() { return loadSetting; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loadAllSettings", function() { return loadAllSettings; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "showToast", function() { return showToast; });
+/* harmony import */ var sketch_settings__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sketch/settings */ "sketch/settings");
+/* harmony import */ var sketch_settings__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sketch_settings__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var sketch_ui__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sketch/ui */ "sketch/ui");
+/* harmony import */ var sketch_ui__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sketch_ui__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./src/sketch/utilities/constants.js");
+
+
+
+/* 
+Opens a URL from Sketch
+*/
+
+var openURL = function openURL(url) {
+  var nsurl = NSURL.URLWithString(url);
+  NSWorkspace.sharedWorkspace().openURL(nsurl);
+};
+/* 
+Saves a setting in Sketch to the provided key
+*/
+
+
+var saveSetting = function saveSetting(key, value) {
+  sketch_settings__WEBPACK_IMPORTED_MODULE_0___default.a.setSettingForKey("com.stark.".concat(key), value);
+};
+/*
+Saves all settings in Sketch
+*/
+
+
+var saveAllSettings = function saveAllSettings(subscriptionObject) {
+  saveSetting(_constants__WEBPACK_IMPORTED_MODULE_2__["SETTINGS_EMAIL"], subscriptionObject.email);
+  saveSetting(_constants__WEBPACK_IMPORTED_MODULE_2__["SETTINGS_LICENSE"], subscriptionObject.keygenLicenseKey);
+  saveSetting(_constants__WEBPACK_IMPORTED_MODULE_2__["SETTINGS_MIXPANELID"], subscriptionObject.mp_id);
+  saveSetting(_constants__WEBPACK_IMPORTED_MODULE_2__["SETTINGS_STATUS"], 'valid');
+  saveSetting(_constants__WEBPACK_IMPORTED_MODULE_2__["SETTINGS_PLAN"], subscriptionObject.plan);
+  saveSetting(_constants__WEBPACK_IMPORTED_MODULE_2__["SETTINGS_TEAMUSER"], subscriptionObject.teamUser);
+  saveSetting(_constants__WEBPACK_IMPORTED_MODULE_2__["SETTINGS_VERIFICATION"], new Date().getMonth());
+};
+/* 
+Loads a setting in Sketch with the provided key
+*/
+
+
+var loadSetting = function loadSetting(key) {
+  return sketch_settings__WEBPACK_IMPORTED_MODULE_0___default.a.settingForKey("com.stark.".concat(key));
+};
+/*
+Loads all settings in Sketch
+*/
+
+
+var loadAllSettings = function loadAllSettings() {
+  return {
+    email: loadSetting(_constants__WEBPACK_IMPORTED_MODULE_2__["SETTINGS_EMAIL"]),
+    keygenLicenseKey: loadSetting(_constants__WEBPACK_IMPORTED_MODULE_2__["SETTINGS_LICENSE"]),
+    mp_id: loadSetting(_constants__WEBPACK_IMPORTED_MODULE_2__["SETTINGS_MIXPANELID"]),
+    status: loadSetting(_constants__WEBPACK_IMPORTED_MODULE_2__["SETTINGS_STATUS"]),
+    plan: loadSetting(_constants__WEBPACK_IMPORTED_MODULE_2__["SETTINGS_PLAN"]) === undefined || loadSetting(_constants__WEBPACK_IMPORTED_MODULE_2__["SETTINGS_PLAN"]) === '' ? 'FREE_TIER' : loadSetting(_constants__WEBPACK_IMPORTED_MODULE_2__["SETTINGS_PLAN"]),
+    teamUser: loadSetting(_constants__WEBPACK_IMPORTED_MODULE_2__["SETTINGS_TEAMUSER"]),
+    verification: loadSetting(_constants__WEBPACK_IMPORTED_MODULE_2__["SETTINGS_VERIFICATION"]),
+    contrastFailMessageShown: loadSetting(_constants__WEBPACK_IMPORTED_MODULE_2__["SETTINGS_CONTRASTFAILMESSAGESHOWN"]) === undefined || loadSetting(_constants__WEBPACK_IMPORTED_MODULE_2__["SETTINGS_CONTRASTFAILMESSAGESHOWN"]) === '' ? true : loadSetting(_constants__WEBPACK_IMPORTED_MODULE_2__["SETTINGS_CONTRASTFAILMESSAGESHOWN"]),
+    suggestionsTriesLeft: loadSetting(_constants__WEBPACK_IMPORTED_MODULE_2__["SETTINGS_CONTRASTSUGGESTIONSTRIESLEFT"]) === undefined || loadSetting(_constants__WEBPACK_IMPORTED_MODULE_2__["SETTINGS_CONTRASTSUGGESTIONSTRIESLEFT"]) === '' ? 4 : loadSetting(_constants__WEBPACK_IMPORTED_MODULE_2__["SETTINGS_CONTRASTSUGGESTIONSTRIESLEFT"])
+  };
+};
+/*
+Shows a message at the bottom of the Sketch window
+*/
+
+
+var showToast = function showToast(message) {
+  sketch_ui__WEBPACK_IMPORTED_MODULE_1___default.a.message(message);
+};
+
+
+
+/***/ }),
+
+/***/ "./src/sketch/utilities/constants.js":
 /*!*******************************************!*\
   !*** ./src/sketch/utilities/constants.js ***!
   \*******************************************/
-/*! exports provided: SETTINGS_LICENSE, SETTINGS_STATUS, SETTINGS_EMAIL, SETTINGS_FREQUENCY, SETTINGS_VERIFICATION, SETTINGS_MIXPANELID, SETTINGS_CONTRASTFAILMESSAGESHOWN, SETTINGS_CONTRASTSUGGESTIONSTRIESLEFT, URL_PRICING, URL_SUPPORT */function(e,t,n){"use strict";n.r(t),n.d(t,"SETTINGS_LICENSE",function(){return o}),n.d(t,"SETTINGS_STATUS",function(){return r}),n.d(t,"SETTINGS_EMAIL",function(){return i}),n.d(t,"SETTINGS_FREQUENCY",function(){return a}),n.d(t,"SETTINGS_VERIFICATION",function(){return s}),n.d(t,"SETTINGS_MIXPANELID",function(){return l}),n.d(t,"SETTINGS_CONTRASTFAILMESSAGESHOWN",function(){return u}),n.d(t,"SETTINGS_CONTRASTSUGGESTIONSTRIESLEFT",function(){return c}),n.d(t,"URL_PRICING",function(){return d}),n.d(t,"URL_SUPPORT",function(){return f});var o="license-key",r="subscription-status",i="email",a="frequency",s="verification",l="mixpanel-unique-id",u="contrast-fail-message-shown",c="suggestions-tries-left",d="https://getstark.co/pricing",f="https://getstark.co/support"},"./src/sketch/utilities/contrast-check.js":
+/*! exports provided: SETTINGS_LICENSE, SETTINGS_STATUS, SETTINGS_EMAIL, SETTINGS_PLAN, SETTINGS_VERIFICATION, SETTINGS_TEAMUSER, SETTINGS_MIXPANELID, SETTINGS_CONTRASTFAILMESSAGESHOWN, SETTINGS_CONTRASTSUGGESTIONSTRIESLEFT, URL_PRICING, URL_SUPPORT, URL_SIGNUP, URL_MYACCOUNT */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SETTINGS_LICENSE", function() { return SETTINGS_LICENSE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SETTINGS_STATUS", function() { return SETTINGS_STATUS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SETTINGS_EMAIL", function() { return SETTINGS_EMAIL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SETTINGS_PLAN", function() { return SETTINGS_PLAN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SETTINGS_VERIFICATION", function() { return SETTINGS_VERIFICATION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SETTINGS_TEAMUSER", function() { return SETTINGS_TEAMUSER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SETTINGS_MIXPANELID", function() { return SETTINGS_MIXPANELID; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SETTINGS_CONTRASTFAILMESSAGESHOWN", function() { return SETTINGS_CONTRASTFAILMESSAGESHOWN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SETTINGS_CONTRASTSUGGESTIONSTRIESLEFT", function() { return SETTINGS_CONTRASTSUGGESTIONSTRIESLEFT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "URL_PRICING", function() { return URL_PRICING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "URL_SUPPORT", function() { return URL_SUPPORT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "URL_SIGNUP", function() { return URL_SIGNUP; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "URL_MYACCOUNT", function() { return URL_MYACCOUNT; });
+var SETTINGS_LICENSE = 'keygenLicenseKey';
+var SETTINGS_STATUS = 'subscription-status';
+var SETTINGS_EMAIL = 'email';
+var SETTINGS_PLAN = 'plan';
+var SETTINGS_VERIFICATION = 'verification';
+var SETTINGS_TEAMUSER = 'teamUser';
+var SETTINGS_MIXPANELID = 'mp_id';
+var SETTINGS_CONTRASTFAILMESSAGESHOWN = 'contrast-fail-message-shown';
+var SETTINGS_CONTRASTSUGGESTIONSTRIESLEFT = 'suggestions-tries-left';
+var URL_PRICING = 'https://getstark.co/pricing';
+var URL_SUPPORT = 'https://getstark.co/support';
+var URL_SIGNUP = 'https://account.getstark.co/sign-up';
+var URL_MYACCOUNT = 'https://account.getstark.co';
+
+
+/***/ }),
+
+/***/ "./src/sketch/utilities/contrast-check.js":
 /*!************************************************!*\
   !*** ./src/sketch/utilities/contrast-check.js ***!
   \************************************************/
-/*! exports provided: getLayers, getChildLayers, applyColorToLayer */function(e,t,n){"use strict";n.r(t),n.d(t,"getLayers",function(){return m}),n.d(t,"getChildLayers",function(){return l}),n.d(t,"applyColorToLayer",function(){return p});var o=n(/*! @stark-contrast/color-utilities */"./node_modules/@stark-contrast/color-utilities/lib/index.js"),r=n(/*! sketch/dom */"sketch/dom").Style,i=function(e){return"Group"===e.type||"SymbolInstance"===e.type||"SymbolMaster"===e.type||"Artboard"===e.type},a=function(e){return"SymbolInstance"===e.type},s=function(e){var t=[];return e.forEach(function(e){(function(e){return"Artboard"===e.type||"Shape"===e.type||"ShapePath"===e.type||"Image"===e.type||"Text"===e.type})(e)&&("Artboard"===e.type?t.push(e.background.color):"Shape"===e.type||"ShapePath"===e.type||"Image"===e.type?e.style.fills.forEach(function(e){e.fillType===r.FillType.Color&&t.push(e)}):"Text"===e.type&&t.push(e.sketchObject.textColor()))}),t},l=function(e,t){var n=[];return function e(o){if(i(o)&&!a(o))o.layers.forEach(function(t){i(t)?e(t):n.push(t)});else if(a(o)&&t){var r=o.detach({recursively:!0});e(r)}else a(o)&&(r=o.master,e(r))}(e),n},u=function(e){if("Artboard"===e.type)return Object(o.ConvertHexToRgba)(e.background.color);if("Shape"===e.type||"ShapePath"===e.type||"Image"===e.type){var t=Object(o.ConvertHexToRgba)(e.style.fills[0].color);return e.style.opacity<1&&t.a<1?{errorMessage:"Either the fill or layer opacity needs to be at full opacity."}:(t.a=e.style.opacity<1?e.style.opacity:t.a,t)}if("Text"===e.type){var n=e.sketchObject.textColor();return{r:255*n.red(),g:255*n.green(),b:255*n.blue(),a:n.alpha()}}},c=function(e){var t=[],n=l(e);if(t=t.concat(n),n.length<2){t.push(e);var o=function(e){var t=[];return function e(n){if(n.parent&&function(e){return"Artboard"===e.type?!!e.background.color:"Shape"===e.type||"ShapePath"===e.type||"Image"===e.type?!!e.style.fills:"Text"===e.type}(n.parent))t.push(n.parent);else{if("Page"===n.parent.type)return;e(n.parent)}}(e),t}(e);t=t.concat(o)}var r=f(t);if("valid"!==r)return{errorMessage:r};var i=s(t),a=h(i);return"valid"!==a?{errorMessage:a}:{firstColor:t[1],secondColor:t[0]}},d=function(e){var t=[];i(e[0])?t=t.concat(l(e[0])):t.push(e[0]),i(e[1])?t=t.concat(l(e[1])):t.push(e[1]);var n=f(t);if("valid"!==n)return{errorMessage:n};var o=s(t),r=h(o);return"valid"!==r?{errorMessage:r}:{firstColor:t[1],secondColor:t[0]}},f=function(e){return 1===e.length?"Please select an additional layer to check against.":e.length>2?"Too many layers to check against. Try directly selecting two layers.":"valid"},h=function(e){return e.length<2?"You can only check against colors, not mixed fills, gradients or bitmaps.":e.length>2?"Make sure your layers don't have more than one fill applied.":"valid"},m=function(e){var t=function(e){var t={};switch(e.length){case 0:t.errorMessage="Please select at least one layer to run the contrast checker.";break;case 1:t=c(e[0]);break;case 2:t=d(e);break;default:t.errorMessage="You can only run the contrast checker against two layers."}return t}(e);if(t.errorMessage)return{errorMessage:t.errorMessage};var n=function(e){var t=e.secondColor,n=e.firstColor;return"Text"!==e.firstColor.type&&"Text"!==e.secondColor.type||(t="Text"===e.secondColor.type?e.firstColor:e.secondColor,n="Text"===e.secondColor.type?e.secondColor:e.firstColor),{bgLayer:t,fgLayer:n}}(t),r=u(n.bgLayer);if(r.errorMessage)return{errorMessage:r.errorMessage};var i=u(n.fgLayer);if(i.errorMessage)return{errorMessage:i.errorMessage};var a=r,s=i,l=function(e,t){return e.a<1&&t.a<1?{errorMessage:"At least one layer needs to be at full opacity."}:e.a<1?{errorMessage:"Only the foreground (top) layer can be less than 100% opacity."}:void 0}(r,i);if(null===l||void 0===l?void 0:l.errorMessage)return l;r.a<1&&(a=Object(o.MixColors)(i,r)),i.a<1&&(s=Object(o.MixColors)(r,i));var f="Text"===t.firstColor.type||"Text"===t.secondColor.type;return{backgroundLayer:n.bgLayer,originalBgColor:r,normalizedBgColor:a,foregroundLayer:n.fgLayer,originalFgColor:i,normalizedFgColor:s,hasText:f}},p=function(e,t){if("Text"===t.type){var n=MSImmutableColor.colorWithSVGString_(e),o=MSColor.alloc().initWithImmutableObject_(n);t.sketchObject.setTextColor(o)}else"Artboard"===t.type?(t.background.enabled=!0,t.background.color=e):t.style.fills=[{color:e,fillType:r.FillType.Color}]}},"./src/sketch/utilities/index.js":
+/*! exports provided: getLayers, getChildLayers, applyColorToLayer */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getLayers", function() { return getLayers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getChildLayers", function() { return getChildLayers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "applyColorToLayer", function() { return applyColorToLayer; });
+/* harmony import */ var _stark_contrast_color_utilities__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @stark-contrast/color-utilities */ "./node_modules/@stark-contrast/color-utilities/lib/index.js");
+/* harmony import */ var _stark_contrast_color_utilities__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_stark_contrast_color_utilities__WEBPACK_IMPORTED_MODULE_0__);
+var Style = __webpack_require__(/*! sketch/dom */ "sketch/dom").Style;
+
+ // layer: The layer to check if it's a group
+// RETURNS: bool - whether the provided layer is a group
+
+var isLayerGroup = function isLayerGroup(layer) {
+  return layer.type === 'Group' || layer.type === 'SymbolInstance' || layer.type === 'SymbolMaster' || layer.type === 'Artboard';
+}; // layer: The layer to check if it's a group
+// RETURNS: bool - whether the provided layer is a group
+
+
+var isSymbolInstance = function isSymbolInstance(layer) {
+  return layer.type === 'SymbolInstance';
+}; // layer: The layer to check if a fill can be applied to it
+// RETURNS: bool - whether the provided layer can have a fill
+
+
+var isFillableLayer = function isFillableLayer(layer) {
+  return layer.type === 'Artboard' || layer.type === 'Shape' || layer.type === 'ShapePath' || layer.type === 'Image' || layer.type === 'Text';
+}; // layer: the layer to validate of whether or not it's a color
+// RETURNS: bool - whether it's a valid color fill
+
+
+var isColorFill = function isColorFill(layer) {
+  if (layer.type === 'Artboard') {
+    return layer.background.color ? true : false;
+  } else if (layer.type === 'Shape' || layer.type === 'ShapePath' || layer.type === 'Image') {
+    return layer.style.fills ? true : false;
+  } else if (layer.type === 'Text') {
+    return true;
+  } else {
+    return false;
+  }
+}; // layers: The selected layers to get fills from
+// RETURNS: all of the fills in the provided layers that are SOLID
+
+
+var getFills = function getFills(layers) {
+  var fills = [];
+  layers.forEach(function (layer) {
+    if (isFillableLayer(layer)) {
+      if (layer.type === 'Artboard') {
+        fills.push(layer.background.color);
+      } else if (layer.type === 'Shape' || layer.type === 'ShapePath' || layer.type === 'Image') {
+        layer.style.fills.forEach(function (fill) {
+          if (fill.fillType === Style.FillType.Color) {
+            fills.push(fill);
+          }
+        });
+      } else if (layer.type === 'Text') {
+        fills.push(layer.sketchObject.textColor());
+      }
+    }
+  });
+  return fills;
+}; // selectedLayer: The layer the user has selected
+// RETURNS: array - all child layers in the selected layer
+
+
+var getChildLayers = function getChildLayers(selectedLayer, detachSymbolInstances) {
+  var childLayers = [];
+
+  var recurFunc = function recurFunc(layer) {
+    if (isLayerGroup(layer) && !isSymbolInstance(layer)) {
+      layer.layers.forEach(function (childLayer) {
+        if (isLayerGroup(childLayer)) {
+          recurFunc(childLayer);
+        } else {
+          childLayers.push(childLayer);
+        }
+      });
+    } else if (isSymbolInstance(layer) && detachSymbolInstances) {
+      var group = layer.detach({
+        recursively: true
+      });
+      recurFunc(group);
+    } else if (isSymbolInstance(layer)) {
+      var group = layer.master;
+      recurFunc(group);
+    }
+  };
+
+  recurFunc(selectedLayer);
+  return childLayers;
+}; // selectedLayer: The layer the user has selected
+// RETURNS: array - the first parent layer to have a fill
+
+
+var getParentLayer = function getParentLayer(selectedLayer) {
+  var parentLayers = [];
+
+  var recurFunc = function recurFunc(layer) {
+    if (layer.parent && isColorFill(layer.parent)) {
+      parentLayers.push(layer.parent);
+    } else if (layer.parent.type === 'Page') {
+      return;
+    } else {
+      recurFunc(layer.parent);
+    }
+  };
+
+  recurFunc(selectedLayer);
+  return parentLayers;
+}; // layer: The layer that has a fill to normalize
+// RETURNS: object - contains rgba in a 0-255 format
+
+
+var convertColorToCssFormat = function convertColorToCssFormat(layer) {
+  if (layer.type === 'Artboard') {
+    var color = Object(_stark_contrast_color_utilities__WEBPACK_IMPORTED_MODULE_0__["ConvertHexToRgba"])(layer.background.color);
+    return color;
+  } else if (layer.type === 'Shape' || layer.type === 'ShapePath' || layer.type === 'Image') {
+    var _color = Object(_stark_contrast_color_utilities__WEBPACK_IMPORTED_MODULE_0__["ConvertHexToRgba"])(layer.style.fills[0].color);
+
+    if (layer.style.opacity < 1 && _color.a < 1) {
+      return {
+        errorMessage: 'Either the fill or layer opacity needs to be at full opacity.'
+      };
+    }
+
+    _color.a = layer.style.opacity < 1 ? layer.style.opacity : _color.a;
+    return _color;
+  } else if (layer.type === 'Text') {
+    var _color2 = layer.sketchObject.textColor();
+
+    return {
+      r: _color2.red() * 255,
+      g: _color2.green() * 255,
+      b: _color2.blue() * 255,
+      a: _color2.alpha()
+    };
+  }
+};
+
+var validateSelection = function validateSelection(selection) {
+  var selectionObj = {};
+
+  switch (selection.length) {
+    case 0:
+      {
+        selectionObj.errorMessage = 'Please select at least one layer to run the contrast checker.';
+        break;
+      }
+
+    case 1:
+      {
+        selectionObj = validateSingleLayerSelection(selection[0]);
+        break;
+      }
+
+    case 2:
+      {
+        selectionObj = validateDoubleLayerSelection(selection);
+        break;
+      }
+
+    default:
+      {
+        selectionObj.errorMessage = 'You can only run the contrast checker against two layers.';
+      }
+  }
+
+  return selectionObj;
+}; // selectedLayer: the layer the user has selected
+// RETURNS: either two layers to contrast check or an error
+
+
+var validateSingleLayerSelection = function validateSingleLayerSelection(selectedLayer) {
+  var layers = [];
+  var childLayers = getChildLayers(selectedLayer);
+  layers = layers.concat(childLayers);
+
+  if (childLayers.length < 2) {
+    layers.push(selectedLayer);
+    var parentLayers = getParentLayer(selectedLayer);
+    layers = layers.concat(parentLayers);
+  }
+
+  var validatedLayerAmount = validateLayerAmount(layers);
+
+  if (validatedLayerAmount !== 'valid') {
+    return {
+      errorMessage: validatedLayerAmount
+    };
+  }
+
+  var fills = getFills(layers);
+  var validatedFillAmount = validateFillAmount(fills);
+
+  if (validatedFillAmount !== 'valid') {
+    return {
+      errorMessage: validatedFillAmount
+    };
+  }
+
+  return {
+    firstColor: layers[1],
+    secondColor: layers[0]
+  };
+}; // selection: should just be two layers the user has selected
+// RETURNS: either two layers to contrast check or an error
+
+
+var validateDoubleLayerSelection = function validateDoubleLayerSelection(selection) {
+  var layers = [];
+
+  if (isLayerGroup(selection[0])) {
+    layers = layers.concat(getChildLayers(selection[0]));
+  } else {
+    layers.push(selection[0]);
+  }
+
+  if (isLayerGroup(selection[1])) {
+    layers = layers.concat(getChildLayers(selection[1]));
+  } else {
+    layers.push(selection[1]);
+  }
+
+  var validatedLayerAmount = validateLayerAmount(layers);
+
+  if (validatedLayerAmount !== 'valid') {
+    return {
+      errorMessage: validatedLayerAmount
+    };
+  }
+
+  var fills = getFills(layers);
+  var validatedFillAmount = validateFillAmount(fills);
+
+  if (validatedFillAmount !== 'valid') {
+    return {
+      errorMessage: validatedFillAmount
+    };
+  }
+
+  return {
+    firstColor: layers[1],
+    secondColor: layers[0]
+  };
+}; // void: Checks the number of layers and errors out accordingly
+
+
+var validateLayerAmount = function validateLayerAmount(layers) {
+  if (layers.length === 1) {
+    return 'Please select an additional layer to check against.';
+  } else if (layers.length > 2) {
+    return 'Too many layers to check against. Try directly selecting two layers.';
+  }
+
+  return 'valid';
+}; // void: Checks the number of fills and errors out accordingly
+
+
+var validateFillAmount = function validateFillAmount(fills) {
+  if (fills.length < 2) {
+    return 'You can only check against colors, not mixed fills, gradients or bitmaps.';
+  } else if (fills.length > 2) {
+    return "Make sure your layers don't have more than one fill applied.";
+  }
+
+  return 'valid';
+}; // selection: user's current selection
+// RETURNS: either a boolean for validity or an error object
+
+
+var validateSelectionOpacity = function validateSelectionOpacity(normalizedBgColor, normalizedFgColor) {
+  if (normalizedBgColor.a < 1 && normalizedFgColor.a < 1) {
+    return {
+      errorMessage: 'At least one layer needs to be at full opacity.'
+    };
+  }
+
+  if (normalizedBgColor.a < 1) {
+    return {
+      errorMessage: 'Only the foreground (top) layer can be less than 100% opacity.'
+    };
+  }
+}; // selection: user's current selection
+// RETURNS: a reordered layer list
+
+
+var reorderSelection = function reorderSelection(selection) {
+  var bgLayer = selection.secondColor;
+  var fgLayer = selection.firstColor;
+
+  if (selection.firstColor.type === 'Text' || selection.secondColor.type === 'Text') {
+    bgLayer = selection.secondColor.type === 'Text' ? selection.firstColor : selection.secondColor;
+    fgLayer = selection.secondColor.type === 'Text' ? selection.secondColor : selection.firstColor;
+  }
+
+  return {
+    bgLayer: bgLayer,
+    fgLayer: fgLayer
+  };
+}; // selection: user's current selection
+// RETURNS: object containing all of the necessary layer info
+
+
+var getLayers = function getLayers(selection) {
+  var validatedSelection = validateSelection(selection);
+
+  if (validatedSelection.errorMessage) {
+    return {
+      errorMessage: validatedSelection.errorMessage
+    };
+  }
+
+  var reorderedSelection = reorderSelection(validatedSelection);
+  var originalBgColor = convertColorToCssFormat(reorderedSelection.bgLayer);
+
+  if (originalBgColor.errorMessage) {
+    return {
+      errorMessage: originalBgColor.errorMessage
+    };
+  }
+
+  var originalFgColor = convertColorToCssFormat(reorderedSelection.fgLayer);
+
+  if (originalFgColor.errorMessage) {
+    return {
+      errorMessage: originalFgColor.errorMessage
+    };
+  }
+
+  var normalizedBgColor = originalBgColor;
+  var normalizedFgColor = originalFgColor;
+  var opacityValidation = validateSelectionOpacity(originalBgColor, originalFgColor);
+
+  if (opacityValidation === null || opacityValidation === void 0 ? void 0 : opacityValidation.errorMessage) {
+    return opacityValidation;
+  }
+
+  if (originalBgColor.a < 1) {
+    normalizedBgColor = Object(_stark_contrast_color_utilities__WEBPACK_IMPORTED_MODULE_0__["MixColors"])(originalFgColor, originalBgColor);
+  }
+
+  if (originalFgColor.a < 1) {
+    normalizedFgColor = Object(_stark_contrast_color_utilities__WEBPACK_IMPORTED_MODULE_0__["MixColors"])(originalBgColor, originalFgColor);
+  }
+
+  var hasText = validatedSelection.firstColor.type === 'Text' || validatedSelection.secondColor.type === 'Text';
+  return {
+    backgroundLayer: reorderedSelection.bgLayer,
+    originalBgColor: originalBgColor,
+    normalizedBgColor: normalizedBgColor,
+    foregroundLayer: reorderedSelection.fgLayer,
+    originalFgColor: originalFgColor,
+    normalizedFgColor: normalizedFgColor,
+    hasText: hasText
+  };
+}; // color: the color to apply
+// layer: the layer to apply the color to
+// RETURNS: void
+
+
+var applyColorToLayer = function applyColorToLayer(color, layer) {
+  if (layer.type === 'Text') {
+    var immutableColor = MSImmutableColor.colorWithSVGString_(color);
+    var textColor = MSColor.alloc().initWithImmutableObject_(immutableColor);
+    layer.sketchObject.setTextColor(textColor);
+  } else if (layer.type === 'Artboard') {
+    layer.background.enabled = true;
+    layer.background.color = color;
+  } else {
+    layer.style.fills = [{
+      color: color,
+      fillType: Style.FillType.Color
+    }];
+  }
+};
+
+
+
+/***/ }),
+
+/***/ "./src/sketch/utilities/index.js":
 /*!***************************************!*\
   !*** ./src/sketch/utilities/index.js ***!
   \***************************************/
-/*! exports provided: openURL, saveSetting, saveAllSettings, loadSetting, loadAllSettings, showToast, loadMixpanelDistinctId, generateSimulatedArtboards, getArtboardNames, getSelectedArtboard, exportArtboard, getArtboardSize, getLayers, applyColorToLayer, SETTINGS_LICENSE, SETTINGS_STATUS, SETTINGS_EMAIL, SETTINGS_FREQUENCY, SETTINGS_VERIFICATION, SETTINGS_MIXPANELID, SETTINGS_CONTRASTFAILMESSAGESHOWN, SETTINGS_CONTRASTSUGGESTIONSTRIESLEFT, URL_PRICING, URL_SUPPORT */function(e,t,n){"use strict";n.r(t);var o=n(/*! ./common */"./src/sketch/utilities/common.js");n.d(t,"openURL",function(){return o.openURL}),n.d(t,"saveSetting",function(){return o.saveSetting}),n.d(t,"saveAllSettings",function(){return o.saveAllSettings}),n.d(t,"loadSetting",function(){return o.loadSetting}),n.d(t,"loadAllSettings",function(){return o.loadAllSettings}),n.d(t,"showToast",function(){return o.showToast}),n.d(t,"loadMixpanelDistinctId",function(){return o.loadMixpanelDistinctId});var r=n(/*! ./vision-simulator */"./src/sketch/utilities/vision-simulator.js");n.d(t,"generateSimulatedArtboards",function(){return r.generateSimulatedArtboards}),n.d(t,"getArtboardNames",function(){return r.getArtboardNames}),n.d(t,"getSelectedArtboard",function(){return r.getSelectedArtboard}),n.d(t,"exportArtboard",function(){return r.exportArtboard}),n.d(t,"getArtboardSize",function(){return r.getArtboardSize});var i=n(/*! ./contrast-check */"./src/sketch/utilities/contrast-check.js");n.d(t,"getLayers",function(){return i.getLayers}),n.d(t,"applyColorToLayer",function(){return i.applyColorToLayer});var a=n(/*! ./constants */"./src/sketch/utilities/constants.js");n.d(t,"SETTINGS_LICENSE",function(){return a.SETTINGS_LICENSE}),n.d(t,"SETTINGS_STATUS",function(){return a.SETTINGS_STATUS}),n.d(t,"SETTINGS_EMAIL",function(){return a.SETTINGS_EMAIL}),n.d(t,"SETTINGS_FREQUENCY",function(){return a.SETTINGS_FREQUENCY}),n.d(t,"SETTINGS_VERIFICATION",function(){return a.SETTINGS_VERIFICATION}),n.d(t,"SETTINGS_MIXPANELID",function(){return a.SETTINGS_MIXPANELID}),n.d(t,"SETTINGS_CONTRASTFAILMESSAGESHOWN",function(){return a.SETTINGS_CONTRASTFAILMESSAGESHOWN}),n.d(t,"SETTINGS_CONTRASTSUGGESTIONSTRIESLEFT",function(){return a.SETTINGS_CONTRASTSUGGESTIONSTRIESLEFT}),n.d(t,"URL_PRICING",function(){return a.URL_PRICING}),n.d(t,"URL_SUPPORT",function(){return a.URL_SUPPORT})},"./src/sketch/utilities/vision-simulator.js":
+/*! exports provided: openURL, saveSetting, saveAllSettings, loadSetting, loadAllSettings, showToast, generateSimulatedArtboards, getArtboardNames, getSelectedArtboard, exportArtboard, getArtboardSize, getLayers, applyColorToLayer, SETTINGS_LICENSE, SETTINGS_STATUS, SETTINGS_EMAIL, SETTINGS_PLAN, SETTINGS_VERIFICATION, SETTINGS_TEAMUSER, SETTINGS_MIXPANELID, SETTINGS_CONTRASTFAILMESSAGESHOWN, SETTINGS_CONTRASTSUGGESTIONSTRIESLEFT, URL_PRICING, URL_SUPPORT, URL_SIGNUP, URL_MYACCOUNT */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./common */ "./src/sketch/utilities/common.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "openURL", function() { return _common__WEBPACK_IMPORTED_MODULE_0__["openURL"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "saveSetting", function() { return _common__WEBPACK_IMPORTED_MODULE_0__["saveSetting"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "saveAllSettings", function() { return _common__WEBPACK_IMPORTED_MODULE_0__["saveAllSettings"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "loadSetting", function() { return _common__WEBPACK_IMPORTED_MODULE_0__["loadSetting"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "loadAllSettings", function() { return _common__WEBPACK_IMPORTED_MODULE_0__["loadAllSettings"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "showToast", function() { return _common__WEBPACK_IMPORTED_MODULE_0__["showToast"]; });
+
+/* harmony import */ var _vision_simulator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./vision-simulator */ "./src/sketch/utilities/vision-simulator.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "generateSimulatedArtboards", function() { return _vision_simulator__WEBPACK_IMPORTED_MODULE_1__["generateSimulatedArtboards"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getArtboardNames", function() { return _vision_simulator__WEBPACK_IMPORTED_MODULE_1__["getArtboardNames"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getSelectedArtboard", function() { return _vision_simulator__WEBPACK_IMPORTED_MODULE_1__["getSelectedArtboard"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "exportArtboard", function() { return _vision_simulator__WEBPACK_IMPORTED_MODULE_1__["exportArtboard"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getArtboardSize", function() { return _vision_simulator__WEBPACK_IMPORTED_MODULE_1__["getArtboardSize"]; });
+
+/* harmony import */ var _contrast_check__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./contrast-check */ "./src/sketch/utilities/contrast-check.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getLayers", function() { return _contrast_check__WEBPACK_IMPORTED_MODULE_2__["getLayers"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "applyColorToLayer", function() { return _contrast_check__WEBPACK_IMPORTED_MODULE_2__["applyColorToLayer"]; });
+
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constants */ "./src/sketch/utilities/constants.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SETTINGS_LICENSE", function() { return _constants__WEBPACK_IMPORTED_MODULE_3__["SETTINGS_LICENSE"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SETTINGS_STATUS", function() { return _constants__WEBPACK_IMPORTED_MODULE_3__["SETTINGS_STATUS"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SETTINGS_EMAIL", function() { return _constants__WEBPACK_IMPORTED_MODULE_3__["SETTINGS_EMAIL"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SETTINGS_PLAN", function() { return _constants__WEBPACK_IMPORTED_MODULE_3__["SETTINGS_PLAN"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SETTINGS_VERIFICATION", function() { return _constants__WEBPACK_IMPORTED_MODULE_3__["SETTINGS_VERIFICATION"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SETTINGS_TEAMUSER", function() { return _constants__WEBPACK_IMPORTED_MODULE_3__["SETTINGS_TEAMUSER"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SETTINGS_MIXPANELID", function() { return _constants__WEBPACK_IMPORTED_MODULE_3__["SETTINGS_MIXPANELID"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SETTINGS_CONTRASTFAILMESSAGESHOWN", function() { return _constants__WEBPACK_IMPORTED_MODULE_3__["SETTINGS_CONTRASTFAILMESSAGESHOWN"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SETTINGS_CONTRASTSUGGESTIONSTRIESLEFT", function() { return _constants__WEBPACK_IMPORTED_MODULE_3__["SETTINGS_CONTRASTSUGGESTIONSTRIESLEFT"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "URL_PRICING", function() { return _constants__WEBPACK_IMPORTED_MODULE_3__["URL_PRICING"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "URL_SUPPORT", function() { return _constants__WEBPACK_IMPORTED_MODULE_3__["URL_SUPPORT"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "URL_SIGNUP", function() { return _constants__WEBPACK_IMPORTED_MODULE_3__["URL_SIGNUP"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "URL_MYACCOUNT", function() { return _constants__WEBPACK_IMPORTED_MODULE_3__["URL_MYACCOUNT"]; });
+
+
+
+
+
+
+
+/***/ }),
+
+/***/ "./src/sketch/utilities/vision-simulator.js":
 /*!**************************************************!*\
   !*** ./src/sketch/utilities/vision-simulator.js ***!
   \**************************************************/
-/*! exports provided: generateSimulatedArtboards, getArtboardNames, getSelectedArtboard, exportArtboard, getArtboardSize */function(e,t,n){"use strict";n.r(t),n.d(t,"generateSimulatedArtboards",function(){return d}),n.d(t,"getArtboardNames",function(){return f}),n.d(t,"getSelectedArtboard",function(){return h}),n.d(t,"exportArtboard",function(){return m}),n.d(t,"getArtboardSize",function(){return p});var o=n(/*! sketch */"sketch"),r=n.n(o),i=n(/*! @stark-contrast/color-utilities */"./node_modules/@stark-contrast/color-utilities/lib/index.js"),a=n(/*! ./contrast-check */"./src/sketch/utilities/contrast-check.js"),s=n(/*! ./common */"./src/sketch/utilities/common.js"),l=n(/*! sketch/dom */"sketch/dom").Style,u=function(e,t){var n=Object(i.ConvertHexToRgba)(e);return Object(i.ConvertRgbaToRgbaString)(Object(i.SimulateColorblindness)(n,t))},c=function(e,t){e.forEach(function(e){if(e.fillType===l.FillType.Color){var n=u(e.color,t);e.color=n}else e.fillType===l.FillType.Gradient&&e.gradient.stops.forEach(function(e){var n=u(e.color,t);e.color=n})})},d=function(e,t){var n=e.name,o=e.frame.x,l=[];t.forEach(function(t){var r=Object(i.GetColorblindMatrixArray)(t),s=e.duplicate();s.name="".concat(n," - ").concat(t);var d=o+s.frame.width+100;if(s.frame.x=d,o=d,s.background&&s.background.color){var f=u(s.background.color,r);Object(a.applyColorToLayer)(f,s)}l.push(s),Object(a.getChildLayers)(s,!0).forEach(function(e){if(("Shape"===e.type||"ShapePath"===e.type||"Image"===e.type||"Text"===e.type)&&(c(e.style.fills,r),c(e.style.borders,r),"Text"===e.type)){var t=e.sketchObject.textColor(),n={r:255*t.red(),g:255*t.green(),b:255*t.blue(),a:t.alpha()},o=Object(i.ConvertRgbaStringToRgba)(u(Object(i.ConvertRgbaToHex)(n),r));Object(a.applyColorToLayer)(Object(i.ConvertRgbaToHex)(o,!0,!0),e)}})}),r.a.getSelectedDocument().centerOnLayer(l[0]),Object(s.showToast)("".concat(t.length," Simulated artboard").concat(t.length>1?"s":""," generated."))},f=function(e){var t=e.selectedPage,n=h(e),o=[],r=/'/g;return t.layers.forEach(function(e){("Artboard"===e.type||"SymbolMaster"===e.type)&&o.push({id:e.id,name:e.name.replace(r,"’"),isSelected:n==e.id})}),o.reverse()},h=function(e){var t;return e.selectedLayers.layers.forEach(function(e){t=e.sketchObject.parentArtboard()}),t&&(t=t.objectID()),t},m=function(e){return r.a.export(e,{scales:"2",formats:"png",output:!1}).toString("base64")},p=function(e){return{width:2*e.frame.width,height:2*e.frame.height}}},"./src/sketch/vision-simulator.js":
+/*! exports provided: generateSimulatedArtboards, getArtboardNames, getSelectedArtboard, exportArtboard, getArtboardSize */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateSimulatedArtboards", function() { return generateSimulatedArtboards; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getArtboardNames", function() { return getArtboardNames; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSelectedArtboard", function() { return getSelectedArtboard; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "exportArtboard", function() { return exportArtboard; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getArtboardSize", function() { return getArtboardSize; });
+/* harmony import */ var sketch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sketch */ "sketch");
+/* harmony import */ var sketch__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sketch__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _stark_contrast_color_utilities__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @stark-contrast/color-utilities */ "./node_modules/@stark-contrast/color-utilities/lib/index.js");
+/* harmony import */ var _stark_contrast_color_utilities__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_stark_contrast_color_utilities__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _contrast_check__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./contrast-check */ "./src/sketch/utilities/contrast-check.js");
+/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./common */ "./src/sketch/utilities/common.js");
+
+
+var Style = __webpack_require__(/*! sketch/dom */ "sketch/dom").Style;
+
+
+
+
+/*
+Takes the color, converts it as necessary, and simulates the colorblindness
+Returns an rgba string
+*/
+
+var getColorblindSimulatedColor = function getColorblindSimulatedColor(color, colorblindMatrix) {
+  var convertedColor = Object(_stark_contrast_color_utilities__WEBPACK_IMPORTED_MODULE_1__["ConvertHexToRgba"])(color);
+  return Object(_stark_contrast_color_utilities__WEBPACK_IMPORTED_MODULE_1__["ConvertRgbaToRgbaString"])(Object(_stark_contrast_color_utilities__WEBPACK_IMPORTED_MODULE_1__["SimulateColorblindness"])(convertedColor, colorblindMatrix));
+};
+/*
+Iterates over fills or borders and simulates colorblind
+*/
+
+
+var iterateStyles = function iterateStyles(styles, colorblindMatrix) {
+  styles.forEach(function (fillOrBorder) {
+    if (fillOrBorder.fillType === Style.FillType.Color) {
+      var newRgba = getColorblindSimulatedColor(fillOrBorder.color, colorblindMatrix);
+      fillOrBorder.color = newRgba;
+    } else if (fillOrBorder.fillType === Style.FillType.Gradient) {
+      fillOrBorder.gradient.stops.forEach(function (stop) {
+        var newRgba = getColorblindSimulatedColor(stop.color, colorblindMatrix);
+        stop.color = newRgba;
+      });
+    }
+  });
+};
+/*
+Generates artboards with the selected colorblind types
+*/
+
+
+var generateSimulatedArtboards = function generateSimulatedArtboards(artboardToGenerate, colorblindTypes) {
+  var artboardName = artboardToGenerate.name;
+  var lastPosition = artboardToGenerate.frame.x;
+  var artboardsToGroup = [];
+  colorblindTypes.forEach(function (type) {
+    var colorblindMatrix = Object(_stark_contrast_color_utilities__WEBPACK_IMPORTED_MODULE_1__["GetColorblindMatrixArray"])(type);
+    var newArtboard = artboardToGenerate.duplicate();
+    newArtboard.name = "".concat(artboardName, " - ").concat(type);
+    var startPos = lastPosition + newArtboard.frame.width + 100;
+    newArtboard.frame.x = startPos;
+    lastPosition = startPos;
+
+    if (newArtboard.background && newArtboard.background.color) {
+      var newRgba = getColorblindSimulatedColor(newArtboard.background.color, colorblindMatrix);
+      Object(_contrast_check__WEBPACK_IMPORTED_MODULE_2__["applyColorToLayer"])(newRgba, newArtboard);
+    }
+
+    artboardsToGroup.push(newArtboard);
+    var childLayers = Object(_contrast_check__WEBPACK_IMPORTED_MODULE_2__["getChildLayers"])(newArtboard, true);
+    childLayers.forEach(function (layer) {
+      if (layer.type === 'Shape' || layer.type === 'ShapePath' || layer.type === 'Image' || layer.type === 'Text') {
+        iterateStyles(layer.style.fills, colorblindMatrix);
+        iterateStyles(layer.style.borders, colorblindMatrix);
+
+        if (layer.type === 'Text') {
+          var textColor = layer.sketchObject.textColor();
+          var color = {
+            r: textColor.red() * 255,
+            g: textColor.green() * 255,
+            b: textColor.blue() * 255,
+            a: textColor.alpha()
+          };
+
+          var _newRgba = Object(_stark_contrast_color_utilities__WEBPACK_IMPORTED_MODULE_1__["ConvertRgbaStringToRgba"])(getColorblindSimulatedColor(Object(_stark_contrast_color_utilities__WEBPACK_IMPORTED_MODULE_1__["ConvertRgbaToHex"])(color), colorblindMatrix));
+
+          Object(_contrast_check__WEBPACK_IMPORTED_MODULE_2__["applyColorToLayer"])(Object(_stark_contrast_color_utilities__WEBPACK_IMPORTED_MODULE_1__["ConvertRgbaToHex"])(_newRgba, true, true), layer);
+        }
+      }
+    });
+  });
+  var doc = sketch__WEBPACK_IMPORTED_MODULE_0___default.a.getSelectedDocument();
+  doc.centerOnLayer(artboardsToGroup[0]);
+  Object(_common__WEBPACK_IMPORTED_MODULE_3__["showToast"])("".concat(colorblindTypes.length, " Simulated artboard").concat(colorblindTypes.length > 1 ? 's' : '', " generated."));
+};
+/*
+Returns an array of all the artboards on the current page
+*/
+
+
+var getArtboardNames = function getArtboardNames(document) {
+  var page = document.selectedPage;
+  var selectedArtboard = getSelectedArtboard(document);
+  var artboardNames = [];
+  var regex = /'/g;
+  page.layers.forEach(function (layer) {
+    (layer.type === 'Artboard' || layer.type === 'SymbolMaster') && artboardNames.push({
+      id: layer.id,
+      name: layer.name.replace(regex, '’'),
+      isSelected: selectedArtboard == layer.id
+    });
+  });
+  return artboardNames.reverse();
+};
+/*
+Return the currently selected artboard
+*/
+
+
+var getSelectedArtboard = function getSelectedArtboard(document) {
+  var selection = document.selectedLayers.layers;
+  var selectedArtboard;
+  selection.forEach(function (layer) {
+    selectedArtboard = layer.sketchObject.parentArtboard();
+  });
+
+  if (selectedArtboard) {
+    selectedArtboard = selectedArtboard.objectID();
+  }
+
+  return selectedArtboard;
+};
+/*
+Export the selected artboard at 2x
+*/
+
+
+var exportArtboard = function exportArtboard(artboard) {
+  var exportOptions = {
+    scales: '2',
+    formats: 'png',
+    output: false
+  };
+  return sketch__WEBPACK_IMPORTED_MODULE_0___default.a.export(artboard, exportOptions).toString('base64');
+};
+/*
+Return the artboard's height and width
+*/
+
+
+var getArtboardSize = function getArtboardSize(artboard) {
+  return {
+    width: artboard.frame.width * 2,
+    height: artboard.frame.height * 2
+  };
+};
+
+
+
+/***/ }),
+
+/***/ "./src/sketch/vision-simulator.js":
 /*!****************************************!*\
   !*** ./src/sketch/vision-simulator.js ***!
   \****************************************/
-/*! exports provided: default */function(e,t,n){"use strict";n.r(t);var o=n(/*! sketch */"sketch"),r=n.n(o),i=n(/*! sketch-module-web-view */"./node_modules/sketch-module-web-view/lib/index.js"),a=n.n(i),s=n(/*! ./utilities */"./src/sketch/utilities/index.js");t.default=function(){var e=s.loadAllSettings(),t=r.a.getSelectedDocument(),o=s.getArtboardNames(t),i=s.getSelectedArtboard(t);if(o.length<=0)s.showToast("You need at least one artboard to run the vision simulator.");else if(!i&&t.selectedLayers.layers.length>0)s.showToast("The vision simulator can only be run on artboards.");else{var l=new a.a({identifier:"stark.simulation",frame:!1,height:597,width:610,resizable:!1,alwaysOnTop:!0,title:"simulation",backgroundColor:"#FFF",show:!1}),u=l.webContents,c={artboardNames:o,subscription:e};l.once("ready-to-show",function(){l.show()}),u.on("did-finish-load",function(){u.executeJavaScript("prepareFirstLoad('Simulation', '".concat(JSON.stringify(c),"')")).catch(console.error)}),u.on("simulationDialogMounted",function(){var e=i||o[0].id,n=t.getLayerWithID(e),r=s.exportArtboard(n);c.sizeData=s.getArtboardSize(n),u.executeJavaScript("prepareFirstLoad('Simulation', '".concat(JSON.stringify(c),"', '").concat(r,"')")).catch(console.error)}),u.on("artboardChanged",function(e){var n=JSON.parse(e),o=t.getLayerWithID(n.artboardToSim),r=s.exportArtboard(o);c.sizeData=s.getArtboardSize(o),u.executeJavaScript("prepareFirstLoad('Simulation', '".concat(JSON.stringify(c),"', '").concat(r,"')")).catch(console.error)}),u.on("tabChange",function(e){"simulation"===JSON.parse(e).tabName?l.setSize(610,597,!1):l.setSize(400,597,!1)}),u.on("purchaseButtonClicked",function(){s.openURL(s.URL_PRICING)}),u.on("generate",function(e){var t=JSON.parse(e),n=r.a.getSelectedDocument().getLayerWithID(t.artboardToGenerate);s.generateSimulatedArtboards(n,t.selectedColorblindTypes)}),u.on("cancelButtonClicked",function(){l.close()}),l.loadURL(n(/*! ../web/ui.html */"./src/web/ui.html"))}}},"./src/web/ui.html":
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var sketch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sketch */ "sketch");
+/* harmony import */ var sketch__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sketch__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var sketch_module_web_view__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sketch-module-web-view */ "./node_modules/sketch-module-web-view/lib/index.js");
+/* harmony import */ var sketch_module_web_view__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sketch_module_web_view__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _utilities__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utilities */ "./src/sketch/utilities/index.js");
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  var settingsObject = _utilities__WEBPACK_IMPORTED_MODULE_2__["loadAllSettings"]();
+  var doc = sketch__WEBPACK_IMPORTED_MODULE_0___default.a.getSelectedDocument();
+  var artboardNames = _utilities__WEBPACK_IMPORTED_MODULE_2__["getArtboardNames"](doc);
+  var selectedArtboard = _utilities__WEBPACK_IMPORTED_MODULE_2__["getSelectedArtboard"](doc);
+
+  if (artboardNames.length <= 0) {
+    _utilities__WEBPACK_IMPORTED_MODULE_2__["showToast"]('You need at least one artboard to run the vision simulator.');
+    return;
+  }
+
+  if (!selectedArtboard && doc.selectedLayers.layers.length > 0) {
+    _utilities__WEBPACK_IMPORTED_MODULE_2__["showToast"]('The vision simulator can only be run on artboards.');
+    return;
+  }
+
+  var options = {
+    identifier: 'stark.simulation',
+    frame: false,
+    height: 568,
+    width: 610,
+    resizable: false,
+    alwaysOnTop: true,
+    title: 'simulation',
+    backgroundColor: '#FFF',
+    show: false
+  };
+  var browserWindow = new sketch_module_web_view__WEBPACK_IMPORTED_MODULE_1___default.a(options);
+  var webContents = browserWindow.webContents;
+  var visionSimulatorObject = {
+    artboardNames: artboardNames,
+    subscription: settingsObject
+  };
+  browserWindow.once('ready-to-show', function () {
+    browserWindow.show();
+  });
+  webContents.on('did-finish-load', function () {
+    webContents.executeJavaScript("prepareFirstLoad('Simulation', '".concat(JSON.stringify(visionSimulatorObject), "')")).catch(console.error);
+  });
+  webContents.on('simulationDialogMounted', function () {
+    var artboardToSim = selectedArtboard ? selectedArtboard : artboardNames[0].id;
+    var layer = doc.getLayerWithID(artboardToSim);
+    var exportedArtboard = _utilities__WEBPACK_IMPORTED_MODULE_2__["exportArtboard"](layer);
+    visionSimulatorObject.sizeData = _utilities__WEBPACK_IMPORTED_MODULE_2__["getArtboardSize"](layer);
+    webContents.executeJavaScript("prepareFirstLoad('Simulation', '".concat(JSON.stringify(visionSimulatorObject), "', '").concat(exportedArtboard, "')")).catch(console.error);
+  });
+  webContents.on('artboardChanged', function (artboardChangedObject) {
+    var artboardObject = JSON.parse(artboardChangedObject);
+    var layer = doc.getLayerWithID(artboardObject.artboardToSim);
+    var exportedArtboard = _utilities__WEBPACK_IMPORTED_MODULE_2__["exportArtboard"](layer);
+    visionSimulatorObject.sizeData = _utilities__WEBPACK_IMPORTED_MODULE_2__["getArtboardSize"](layer);
+    webContents.executeJavaScript("prepareFirstLoad('Simulation', '".concat(JSON.stringify(visionSimulatorObject), "', '").concat(exportedArtboard, "')")).catch(console.error);
+  });
+  webContents.on('tabChange', function (tabChangedObject) {
+    var tabObject = JSON.parse(tabChangedObject);
+
+    if (tabObject.tabName === 'simulation') {
+      browserWindow.setSize(610, 568, false);
+    } else {
+      browserWindow.setSize(400, 568, false);
+    }
+  });
+  webContents.on('purchaseButtonClicked', function () {
+    _utilities__WEBPACK_IMPORTED_MODULE_2__["openURL"](_utilities__WEBPACK_IMPORTED_MODULE_2__["URL_PRICING"]);
+  });
+  webContents.on('generate', function (generateClickObject) {
+    var generateObject = JSON.parse(generateClickObject);
+    var artboard = sketch__WEBPACK_IMPORTED_MODULE_0___default.a.getSelectedDocument().getLayerWithID(generateObject.artboardToGenerate);
+    _utilities__WEBPACK_IMPORTED_MODULE_2__["generateSimulatedArtboards"](artboard, generateObject.selectedColorblindTypes);
+  });
+  webContents.on('cancelButtonClicked', function () {
+    browserWindow.close();
+  });
+  browserWindow.loadURL(__webpack_require__(/*! ../web/ui.html */ "./src/web/ui.html"));
+});
+
+/***/ }),
+
+/***/ "./src/web/ui.html":
 /*!*************************!*\
   !*** ./src/web/ui.html ***!
   \*************************/
-/*! no static exports found */function(e,t){e.exports="file://"+context.plugin.urlForResourceNamed("_webpack_resources/382e82375e9410380a7dc4f1a8818864.html").path()},events:
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "file://" + context.plugin.urlForResourceNamed("_webpack_resources/382e82375e9410380a7dc4f1a8818864.html").path();
+
+/***/ }),
+
+/***/ "events":
 /*!*************************!*\
   !*** external "events" ***!
   \*************************/
-/*! no static exports found */function(e,t){e.exports=require("events")},sketch:
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("events");
+
+/***/ }),
+
+/***/ "sketch":
 /*!*************************!*\
   !*** external "sketch" ***!
   \*************************/
-/*! no static exports found */function(e,t){e.exports=require("sketch")},"sketch/dom":
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("sketch");
+
+/***/ }),
+
+/***/ "sketch/dom":
 /*!*****************************!*\
   !*** external "sketch/dom" ***!
   \*****************************/
-/*! no static exports found */function(e,t){e.exports=require("sketch/dom")},"sketch/settings":
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("sketch/dom");
+
+/***/ }),
+
+/***/ "sketch/settings":
 /*!**********************************!*\
   !*** external "sketch/settings" ***!
   \**********************************/
-/*! no static exports found */function(e,t){e.exports=require("sketch/settings")},"sketch/ui":
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("sketch/settings");
+
+/***/ }),
+
+/***/ "sketch/ui":
 /*!****************************!*\
   !*** external "sketch/ui" ***!
   \****************************/
-/*! no static exports found */function(e,t){e.exports=require("sketch/ui")}});"default"===key&&"function"==typeof exports?exports(context):exports[key](context)}that.onRun=__skpm_run.bind(this,"default");
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("sketch/ui");
+
+/***/ })
+
+/******/ });
+  if (key === 'default' && typeof exports === 'function') {
+    exports(context);
+  } else {
+    exports[key](context);
+  }
+}
+that['onRun'] = __skpm_run.bind(this, 'default')
+
+//# sourceMappingURL=vision-simulator.js.map
