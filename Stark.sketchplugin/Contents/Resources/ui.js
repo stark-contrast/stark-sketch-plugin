@@ -33992,6 +33992,7 @@ var Dialog = /** @class */ (function (_super) {
         };
         _this.state = {
             isSubscriptionValid: _this.props.subscription &&
+                _this.props.subscription.plan &&
                 _this.props.subscription.plan.startsWith('PRO'),
         };
         return _this;
@@ -34257,6 +34258,7 @@ var Dialog = /** @class */ (function (_super) {
         };
         _this.state = {
             isSubscriptionValid: _this.props.subscription &&
+                _this.props.subscription.plan &&
                 _this.props.subscription.plan.startsWith('PRO'),
         };
         return _this;
@@ -34493,7 +34495,7 @@ exports.__esModule = true;
 exports.URL_SUPPORT = exports.URL_PRICING = exports.VERSION_NUMBER = exports.PLATFORM = void 0;
 var PLATFORM = 'Sketch';
 exports.PLATFORM = PLATFORM;
-var VERSION_NUMBER = '2.25';
+var VERSION_NUMBER = '2.26';
 exports.VERSION_NUMBER = VERSION_NUMBER;
 var URL_PRICING = 'https://getstark.co/pricing';
 exports.URL_PRICING = URL_PRICING;
