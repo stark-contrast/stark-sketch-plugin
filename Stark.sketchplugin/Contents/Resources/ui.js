@@ -2147,7 +2147,7 @@ var RegistrationDialog = function (_a) {
     var _b = react_1.useState(''), identityValue = _b[0], setIdentityValue = _b[1];
     var _c = react_1.useState(''), passwordValue = _c[0], setPasswordValue = _c[1];
     var _d = react_1.useState('initial'), loginStatus = _d[0], setLoginStatus = _d[1];
-    var _e = react_1.useState('Free'), plan = _e[0], setPlan = _e[1];
+    var _e = react_1.useState(''), plan = _e[0], setPlan = _e[1];
     var _f = react_1.useState(''), accountEmail = _f[0], setAccountEmail = _f[1];
     var _g = react_1.useState(''), statusText = _g[0], setStatusText = _g[1];
     var _h = react_1.useState({
@@ -2368,7 +2368,7 @@ var RegistrationDialog = function (_a) {
         setAlert({ isVisible: false });
     };
     react_1.useEffect(function () {
-        if (subscriptionObj && subscriptionObj.email) {
+        if (subscriptionObj && subscriptionObj.plan && subscriptionObj.email) {
             setLoginStatus('logged in');
             setAccountEmail(subscriptionObj.email);
             if (subscriptionObj.teamUser &&
@@ -34377,7 +34377,9 @@ function _extends() {
 
  // Disable the context menu to have a more native feel
 
-if (false) {}
+document.addEventListener('contextmenu', function (e) {
+  return e.preventDefault();
+});
 
 window.prepareFirstLoad = function (uiType, uiObject, imageBuffer) {
   var props = JSON.parse(uiObject);
@@ -34495,7 +34497,7 @@ exports.__esModule = true;
 exports.URL_SUPPORT = exports.URL_PRICING = exports.VERSION_NUMBER = exports.PLATFORM = void 0;
 var PLATFORM = 'Sketch';
 exports.PLATFORM = PLATFORM;
-var VERSION_NUMBER = '2.26';
+var VERSION_NUMBER = '2.27';
 exports.VERSION_NUMBER = VERSION_NUMBER;
 var URL_PRICING = 'https://getstark.co/pricing';
 exports.URL_PRICING = URL_PRICING;

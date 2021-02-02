@@ -3988,7 +3988,7 @@ __webpack_require__.r(__webpack_exports__);
   var options = {
     identifier: 'stark.registration',
     frame: false,
-    height: 657,
+    height: 645,
     width: 400,
     resizable: false,
     alwaysOnTop: true,
