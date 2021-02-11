@@ -6,6 +6,18 @@
     <description>Design products that are accessible, ethical, and inclusive with a contrast checker, colorblind simulator and more.</description>
     <language>en</language>
     <item>
+      <title>Version 2.31</title>
+      <description>
+        <![CDATA[
+          <ul>
+            <li>Live contrast checking - leave the Stark window open while you select other layers to check.</li>
+          </ul>
+        ]]>
+      </description>
+      <pubDate>Thu, 11 Feb 2021 8:00:00 +0000</pubDate>
+      <enclosure url="https://github.com/stark-contrast/stark-sketch-plugin/archive/v2.31.zip" sparkle:version="2.31" type="application/octet-stream" />
+    </item>
+    <item>
       <title>Version 2.30</title>
       <description>
         <![CDATA[

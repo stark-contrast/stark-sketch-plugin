@@ -13,7 +13,8 @@
       "name": "Check Contrast",
       "identifier": "contrast",
       "shortcut": "cmd shift p",
-      "script": "contrast.js"
+      "script": "contrast.js",
+      "handler": "checkContrast"
     },
     {
       "name": "Registration",
@@ -29,6 +30,16 @@
       "name": "Refresh Subscription",
       "identifier": "refresh",
       "script": "refresh.js"
+    },
+    {
+      "name": "Selection Changed",
+      "identifier": "selection-changed",
+      "script": "contrast.js",
+      "handlers": {
+        "actions": {
+          "SelectionChanged.finish": "onSelectionChanged"
+        }
+      }
     }
   ],
   "menu": {
@@ -51,7 +62,7 @@
     ]
   },
   "identifier": "com.mfouquet.sketch.stark",
-  "version": "2.30",
+  "version": "2.31",
   "description": "Ensure your design is accessible and high contrast for every type of color blindness.",
   "author": "Stark Lab, Inc.",
   "authorEmail": "michael@getstark.co",
