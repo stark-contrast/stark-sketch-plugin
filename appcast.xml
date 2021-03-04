@@ -6,6 +6,18 @@
     <description>Design products that are accessible, ethical, and inclusive with a contrast checker, colorblind simulator and more.</description>
     <language>en</language>
     <item>
+      <title>Version 2.32</title>
+      <description>
+        <![CDATA[
+          <ul>
+            <li>Focus Order - establish the sequences and items in which a user accesses elements on your product.</li>
+          </ul>
+        ]]>
+      </description>
+      <pubDate>Thu, 4 Mar 2021 8:00:00 +0000</pubDate>
+      <enclosure url="https://github.com/stark-contrast/stark-sketch-plugin/archive/v2.32.zip" sparkle:version="2.32" type="application/octet-stream" />
+    </item>
+    <item>
       <title>Version 2.31</title>
       <description>
         <![CDATA[

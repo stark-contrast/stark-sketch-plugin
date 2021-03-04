@@ -2,7 +2,7 @@
 
 **Rather than go through this readme, check out the [website](http://www.getstark.co/). It's much better.**
 
-Easily check your designs against the 8 different types of colorblindness. In addition, run a pair of colors against [WCAG 2.0](https://www.w3.org/TR/WCAG20/) standards.
+Design products that are accessible, ethical, and inclusive with a contrast checker, colorblind simulator and more.
 
 ## Installation
 
