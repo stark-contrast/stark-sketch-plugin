@@ -17,6 +17,13 @@
       "handler": "checkContrast"
     },
     {
+      "name": "Focus Order",
+      "identifier": "focus",
+      "shortcut": "cmd shift i",
+      "script": "focus-order.js",
+      "handler": "focusOrder"
+    },
+    {
       "name": "Registration",
       "identifier": "registration",
       "script": "registration.js"
@@ -47,6 +54,7 @@
     "items": [
       "simulator",
       "contrast",
+      "focus",
       "-",
       "registration",
       "-",
@@ -62,7 +70,7 @@
     ]
   },
   "identifier": "com.mfouquet.sketch.stark",
-  "version": "2.31",
+  "version": "2.32",
   "description": "Ensure your design is accessible and high contrast for every type of color blindness.",
   "author": "Stark Lab, Inc.",
   "authorEmail": "michael@getstark.co",
