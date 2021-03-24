@@ -6,6 +6,21 @@
     <description>Design products that are accessible, ethical, and inclusive with a contrast checker, colorblind simulator and more.</description>
     <language>en</language>
     <item>
+      <title>Version 2.33</title>
+      <description>
+        <![CDATA[
+          <ul>
+            <li>Ability to reorder sequences in Focus Order.</li>
+            <li>The focus item list will now scroll to the bottom when you add an item.</li>
+            <li>Fixed issue with sequences not working if you removed all focus items from them.</li>
+            <li>Added error message when trying to add a focus item to a sequence that is not on the same artboard.</li>
+          </ul>
+        ]]>
+      </description>
+      <pubDate>Wed, 24 Mar 2021 8:00:00 +0000</pubDate>
+      <enclosure url="https://github.com/stark-contrast/stark-sketch-plugin/archive/v2.33.zip" sparkle:version="2.33" type="application/octet-stream" />
+    </item>
+    <item>
       <title>Version 2.32</title>
       <description>
         <![CDATA[
