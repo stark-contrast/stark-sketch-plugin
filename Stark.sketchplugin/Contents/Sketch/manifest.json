@@ -34,11 +34,6 @@
       "script": "gethelp.js"
     },
     {
-      "name": "Refresh Subscription",
-      "identifier": "refresh",
-      "script": "refresh.js"
-    },
-    {
       "name": "Selection Changed",
       "identifier": "selection-changed",
       "script": "contrast.js",
@@ -58,19 +53,11 @@
       "-",
       "registration",
       "-",
-      "support",
-      {
-        "title": "Support",
-        "items": [
-          "gethelp",
-          "-",
-          "refresh"
-        ]
-      }
+      "gethelp"
     ]
   },
   "identifier": "com.mfouquet.sketch.stark",
-  "version": "2.33",
+  "version": "2.34",
   "description": "Ensure your design is accessible and high contrast for every type of color blindness.",
   "author": "Stark Lab, Inc.",
   "authorEmail": "michael@getstark.co",
