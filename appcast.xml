@@ -6,6 +6,21 @@
     <description>Design products that are accessible, ethical, and inclusive with a contrast checker, colorblind simulator and more.</description>
     <language>en</language>
     <item>
+      <title>Version 2.34</title>
+      <description>
+        <![CDATA[
+          <ul>
+            <li>Add support for allowing Vision Generator feature to be tried three times for Free users.</li>
+            <li>Added the Blurred Vision simulation to the Vision Generator feature.</li>
+            <li>Removes Refresh Subscription option.</li>
+            <li>Cleaned up some visual issues with tooltips.</li>
+          </ul>
+        ]]>
+      </description>
+      <pubDate>Mon, 14 Jun 2021 8:00:00 +0000</pubDate>
+      <enclosure url="https://github.com/stark-contrast/stark-sketch-plugin/archive/v2.34.zip" sparkle:version="2.34" type="application/octet-stream" />
+    </item>
+    <item>
       <title>Version 2.33</title>
       <description>
         <![CDATA[
