@@ -24,7 +24,7 @@
       "handler": "focusOrder"
     },
     {
-      "name": "Log in to Stark",
+      "name": "Stark Account",
       "identifier": "registration",
       "script": "registration.js"
     },
@@ -57,7 +57,7 @@
     ]
   },
   "identifier": "com.mfouquet.sketch.stark",
-  "version": "2.38",
+  "version": "2.39",
   "description": "Ensure your design is accessible and high contrast for every type of color blindness.",
   "author": "Stark Lab, Inc.",
   "authorEmail": "michael@getstark.co",
