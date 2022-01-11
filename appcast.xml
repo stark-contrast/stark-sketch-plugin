@@ -6,6 +6,18 @@
     <description>Design products that are accessible, ethical, and inclusive with a contrast checker, colorblind simulator and more.</description>
     <language>en</language>
     <item>
+      <title>Version 2.40</title>
+      <description>
+        <![CDATA[
+          <ul>
+            <li>Adds the Landmarks feature which allows you to annotate your design file with HTML5 landmark elements.</li>
+          </ul>
+        ]]>
+      </description>
+      <pubDate>Tue, 11 Jan 2022 8:00:00 +0000</pubDate>
+      <enclosure url="https://github.com/stark-contrast/stark-sketch-plugin/archive/v2.40.zip" sparkle:version="2.40" type="application/octet-stream" />
+    </item>
+    <item>
       <title>Version 2.39</title>
       <description>
         <![CDATA[

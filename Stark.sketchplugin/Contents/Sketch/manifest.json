@@ -24,6 +24,13 @@
       "handler": "focusOrder"
     },
     {
+      "name": "Landmarks",
+      "identifier": "landmarks",
+      "shortcut": "cmd shift l",
+      "script": "landmarks.js",
+      "handler": "landmarks"
+    },
+    {
       "name": "Stark Account",
       "identifier": "registration",
       "script": "registration.js"
@@ -50,6 +57,7 @@
       "simulator",
       "contrast",
       "focus",
+      "landmarks",
       "-",
       "registration",
       "-",
@@ -57,7 +65,7 @@
     ]
   },
   "identifier": "com.mfouquet.sketch.stark",
-  "version": "2.39",
+  "version": "2.40",
   "description": "Ensure your design is accessible and high contrast for every type of color blindness.",
   "author": "Stark Lab, Inc.",
   "authorEmail": "michael@getstark.co",
