@@ -6,6 +6,18 @@
     <description>Design products that are accessible, ethical, and inclusive with a contrast checker, colorblind simulator and more.</description>
     <language>en</language>
     <item>
+      <title>Version 2.46</title>
+      <description>
+        <![CDATA[
+          <ul>
+            <li>Various bug fixes and improvements</li>
+          </ul>
+        ]]>
+      </description>
+      <pubDate>Thu, 09 Jun 2022 9:00:00 +0000</pubDate>
+      <enclosure url="https://github.com/stark-contrast/stark-sketch-plugin/archive/v2.46.zip" sparkle:version="2.46" type="application/octet-stream" />
+    </item>
+    <item>
       <title>Version 2.45</title>
       <description>
         <![CDATA[
