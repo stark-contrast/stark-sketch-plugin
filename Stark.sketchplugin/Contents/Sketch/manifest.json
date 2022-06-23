@@ -4,46 +4,14 @@
   "icon": "images/icon.png",
   "commands": [
     {
-      "name": "Vision Simulator",
-      "identifier": "simulator",
-      "shortcut": "cmd shift u",
-      "script": "vision-simulator.js"
-    },
-    {
-      "name": "Check Contrast",
-      "identifier": "contrast",
-      "shortcut": "cmd shift p",
-      "script": "contrast.js",
-      "handler": "checkContrast"
-    },
-    {
-      "name": "Focus Order",
-      "identifier": "focus",
-      "shortcut": "cmd shift i",
-      "script": "focus-order.js",
-      "handler": "focusOrder"
-    },
-    {
-      "name": "Landmarks",
-      "identifier": "landmarks",
-      "shortcut": "cmd shift l",
-      "script": "landmarks.js",
-      "handler": "landmarks"
-    },
-    {
-      "name": "Stark Account",
-      "identifier": "registration",
-      "script": "registration.js"
-    },
-    {
-      "name": "Get Help with Stark",
-      "identifier": "gethelp",
-      "script": "gethelp.js"
+      "name": "Stark",
+      "identifier": "main",
+      "script": "main.js"
     },
     {
       "name": "Selection Changed",
       "identifier": "selection-changed",
-      "script": "contrast.js",
+      "script": "main.js",
       "handlers": {
         "actions": {
           "SelectionChanged.finish": "onSelectionChanged"
@@ -53,19 +21,13 @@
   ],
   "menu": {
     "title": "Stark",
+    "isRoot": true,
     "items": [
-      "simulator",
-      "contrast",
-      "focus",
-      "landmarks",
-      "-",
-      "registration",
-      "-",
-      "gethelp"
+      "main"
     ]
   },
   "identifier": "com.mfouquet.sketch.stark",
-  "version": "2.46",
+  "version": "3.0",
   "description": "Ensure your design is accessible and high contrast for every type of color blindness.",
   "author": "Stark Lab, Inc.",
   "authorEmail": "michael@getstark.co",
