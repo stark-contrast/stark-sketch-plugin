@@ -1,11 +1,14 @@
 {
-  "compatibleVersion": 3,
+  "appcast": "https://raw.githubusercontent.com/stark-contrast/stark-sketch-plugin/main/appcast.xml",
+  "author": "Stark Lab, Inc.",
+  "authorEmail": "hello@getstark.co",
   "bundleVersion": 1,
-  "icon": "images/icon.png",
+  "compatibleVersion": 3,
   "commands": [
     {
       "name": "Stark",
       "identifier": "main",
+      "shortcut": "cmd shift 8",
       "script": "main.js"
     },
     {
@@ -19,6 +22,10 @@
       }
     }
   ],
+  "description": "Ensure your design is accessible and high contrast for every type of color blindness.",
+  "homepage": "https://getstark.co/",
+  "icon": "images/icon.png",
+  "identifier": "com.mfouquet.sketch.stark",
   "menu": {
     "title": "Stark",
     "isRoot": true,
@@ -26,12 +33,9 @@
       "main"
     ]
   },
-  "identifier": "com.mfouquet.sketch.stark",
-  "version": "3.2",
-  "description": "Ensure your design is accessible and high contrast for every type of color blindness.",
-  "author": "Stark Lab, Inc.",
-  "authorEmail": "michael@getstark.co",
-  "appcast": "https://raw.githubusercontent.com/stark-contrast/stark-sketch-plugin/main/appcast.xml",
   "name": "Stark",
+  "scope": "documnet",
+  "suppliesData": false,
+  "version": "3.2.1",
   "disableCocoaScriptPreprocessor": true
 }
