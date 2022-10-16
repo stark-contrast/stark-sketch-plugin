@@ -6,6 +6,18 @@
     <description>Design products that are accessible, ethical, and inclusive with a contrast checker, colorblind simulator and more.</description>
     <language>en</language>
     <item>
+      <title>Version 3.5.0</title>
+      <description>
+        <![CDATA[
+          <ul>
+            <li>Adds new color formats (LAB, LCH, and P3) to the Contrast swatches.</li>
+          </ul>
+        ]]>
+      </description>
+      <pubDate>Mon, 17 Oct 2022 9:00:00 +0000</pubDate>
+      <enclosure url="https://github.com/stark-contrast/stark-sketch-plugin/archive/v3.5.0.zip" sparkle:version="3.5.0" type="application/octet-stream" />
+    </item>
+    <item>
       <title>Version 3.4.0</title>
       <description>
         <![CDATA[
