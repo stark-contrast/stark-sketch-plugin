@@ -9,12 +9,12 @@
       "name": "Stark",
       "identifier": "main",
       "shortcut": "cmd shift 8",
-      "script": "main.js"
+      "script": "main.ts"
     },
     {
       "name": "Selection Changed",
       "identifier": "selection-changed",
-      "script": "main.js",
+      "script": "main.ts",
       "handlers": {
         "actions": {
           "SelectionChanged.finish": "onSelectionChanged"
@@ -34,8 +34,8 @@
     ]
   },
   "name": "Stark",
-  "scope": "documnet",
+  "scope": "document",
   "suppliesData": false,
-  "version": "3.6.2",
+  "version": "3.7.0",
   "disableCocoaScriptPreprocessor": true
 }
