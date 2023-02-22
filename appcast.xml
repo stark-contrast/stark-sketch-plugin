@@ -6,6 +6,19 @@
     <description>Design products that are accessible, ethical, and inclusive with a contrast checker, colorblind simulator and more.</description>
     <language>en</language>
     <item>
+      <title>Version 3.8.0</title>
+      <description>
+        <![CDATA[
+          <ul>
+            <li>Add new vision simulators for ghosting, yellowing, and loss of contrast.</li>
+            <li>Various bug fixes and improvements.</li>
+          </ul>
+        ]]>
+      </description>
+      <pubDate>Wed, 22 Feb 2023 10:00:00 +0000</pubDate>
+      <enclosure url="https://github.com/stark-contrast/stark-sketch-plugin/archive/v3.8.0.zip" sparkle:version="3.8.0" type="application/octet-stream" />
+    </item>
+    <item>
       <title>Version 3.7.1</title>
       <description>
         <![CDATA[
