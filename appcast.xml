@@ -6,6 +6,18 @@
     <description>Design products that are accessible, ethical, and inclusive with a contrast checker, colorblind simulator and more.</description>
     <language>en</language>
     <item>
+      <title>Version 3.9.3</title>
+      <description>
+        <![CDATA[
+          <ul>
+            <li>Fixes an issue with the color swatch menus sometimes overlapping incorrectly.</li>
+          </ul>
+        ]]>
+      </description>
+      <pubDate>Wed, 8 Mar 2023 8:00:00 +0000</pubDate>
+      <enclosure url="https://github.com/stark-contrast/stark-sketch-plugin/archive/v3.9.3.zip" sparkle:version="3.9.3" type="application/octet-stream" />
+    </item>
+    <item>
       <title>Version 3.9.2</title>
       <description>
         <![CDATA[
