@@ -6,6 +6,19 @@
     <description>Design products that are accessible, ethical, and inclusive with a contrast checker, colorblind simulator and more.</description>
     <language>en</language>
     <item>
+      <title>Version 3.10.0</title>
+      <description>
+        <![CDATA[
+          <ul>
+            <li>Adds contextual highlighting when typing in bad alt text.</li>
+            <li>Improves the flow for Focus Order by immediately showing the Focus Items if you only have one sequence.</li>
+          </ul>
+        ]]>
+      </description>
+      <pubDate>Thu, 16 Mar 2023 8:00:00 +0000</pubDate>
+      <enclosure url="https://github.com/stark-contrast/stark-sketch-plugin/archive/v3.10.0.zip" sparkle:version="3.10.0" type="application/octet-stream" />
+    </item>
+    <item>
       <title>Version 3.9.3</title>
       <description>
         <![CDATA[
