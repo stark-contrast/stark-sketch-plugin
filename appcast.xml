@@ -3,8 +3,20 @@
   <channel>
     <title>Stark</title>
     <link>https://raw.githubusercontent.com/stark-contrast/stark-sketch-plugin/master/appcast.xml</link>
-    <description>Design products that are accessible, ethical, and inclusive with a contrast checker, colorblind simulator and more.</description>
+    <description>Design products that are accessible, ethical, and inclusive with a contrast checker, vision simulator and more.</description>
     <language>en</language>
+    <item>
+      <title>Version 3.15.0</title>
+      <description>
+        <![CDATA[
+          <ul>
+            <li>Updates Touch Targets UI to include AA targets.</li>
+          </ul>
+        ]]>
+      </description>
+      <pubDate>Tue, 8 Aug 2023 8:00:00 +0000</pubDate>
+      <enclosure url="https://github.com/stark-contrast/stark-sketch-plugin/archive/v3.15.0.zip" sparkle:version="3.15.0" type="application/octet-stream" />
+    </item>
     <item>
       <title>Version 3.14.0</title>
       <description>
