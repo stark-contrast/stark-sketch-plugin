@@ -6,6 +6,19 @@
     <description>Design products that are accessible, ethical, and inclusive with a contrast checker, vision simulator and more.</description>
     <language>en</language>
     <item>
+      <title>Version 3.16.0</title>
+      <description>
+        <![CDATA[
+          <ul>
+            <li>Add ability to filter issues in Sidekick.</li>
+            <li>Various performance and UI improvements.</li>
+          </ul>
+        ]]>
+      </description>
+      <pubDate>Mon, 14 Aug 2023 8:00:00 +0000</pubDate>
+      <enclosure url="https://github.com/stark-contrast/stark-sketch-plugin/archive/v3.16.0.zip" sparkle:version="3.16.0" type="application/octet-stream" />
+    </item>
+    <item>
       <title>Version 3.15.0</title>
       <description>
         <![CDATA[
