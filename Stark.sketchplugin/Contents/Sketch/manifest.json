@@ -36,6 +36,6 @@
   "name": "Stark",
   "scope": "document",
   "suppliesData": false,
-  "version": "3.21.2",
+  "version": "3.21.3",
   "disableCocoaScriptPreprocessor": true
 }

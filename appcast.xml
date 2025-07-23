@@ -4,7 +4,19 @@
     <title>Stark</title>
     <link>https://raw.githubusercontent.com/stark-contrast/stark-sketch-plugin/master/appcast.xml</link>
     <description>Design products that are accessible, ethical, and inclusive with a contrast checker, vision simulator and more.</description>
-    <language>en</language>
+  <language>en</language>
+    <item>
+      <title>Version 3.21.3</title>
+      <description>
+        <![CDATA[
+          <ul>
+            <li>Various bug fixes and improvements.</li>
+          </ul>
+        ]]>
+      </description>
+      <pubDate>Wed, 23 Jul 2025 9:00:00 +0000</pubDate>
+      <enclosure url="https://github.com/stark-contrast/stark-sketch-plugin/archive/v3.21.3.zip" sparkle:version="3.21.3" type="application/octet-stream" />
+    </item>
     <item>
       <title>Version 3.21.2</title>
       <description>
